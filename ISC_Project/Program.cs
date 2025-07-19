@@ -60,6 +60,15 @@ namespace ISC_Project
             builder.Services.AddScoped<IThreadPostService, ThreadPostService>();
             builder.Services.AddScoped<ILiveChatMessageService, LiveChatMessageService>();
             builder.Services.AddScoped<ILiveSessionService, LiveSessionService>();
+            builder.Services.AddScoped<ICampusService, CampusService>();
+            builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
+
+            builder.Services.AddScoped<ISyllabusTopicService, SyllabusTopicService>();
+            builder.Services.AddScoped<ISystemSettingService, SystemSettingService>();
+            builder.Services.AddScoped<ITotalCoursesTakenService, TotalCoursesTakenService>();
+            builder.Services.AddScoped<ITrainingLevelService, TrainingLevelService>();
+            builder.Services.AddScoped<IUpcomingClassService, UpcomingClassService>();
+            builder.Services.AddScoped<IWorkHistoryService, WorkHistoryService>();
 
             builder.Services.AddScoped<INotificationService, NotificationService>();
 
