@@ -1,0 +1,272 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISC Project - Hệ thống quản lý học tập</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 90%;
+            text-align: center;
+            color: white;
+        }
+
+        .header {
+            margin-bottom: 60px;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 24px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .description {
+            font-size: 16px;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            display: block;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .card-description {
+            font-size: 16px;
+            opacity: 0.9;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .card-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .card:hover .card-button {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: scale(1.05);
+        }
+
+        .swagger-card {
+            background: linear-gradient(135deg, rgba(73, 155, 234, 0.2), rgba(32, 107, 196, 0.2));
+        }
+
+        .chat-card {
+            background: linear-gradient(135deg, rgba(126, 213, 111, 0.2), rgba(40, 180, 133, 0.2));
+        }
+
+        .footer {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            opacity: 0.7;
+        }
+
+        .version-info {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .copyright {
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 36px;
+            }
+
+            .subtitle {
+                font-size: 20px;
+            }
+
+            .cards-container {
+                gap: 30px;
+                margin-top: 40px;
+            }
+
+            .card {
+                padding: 30px 20px;
+            }
+
+            .card-icon {
+                font-size: 48px;
+            }
+
+            .card-title {
+                font-size: 20px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .card:nth-child(1) {
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .card:nth-child(2) {
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .footer {
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo">🎓 ISC Project</div>
+        <div class="subtitle">Hệ thống Quản lý Học tập Thông minh</div>
+        <div class="description">
+            Chào mừng bạn đến với ISC Project - Nền tảng học tập hiện đại với công nghệ AI tiên tiến.
+            Hãy chọn chức năng mà bạn muốn sử dụng bên dưới.
+        </div>
+    </div>
+
+    <div class="cards-container">
+        <a href="/swagger" class="card swagger-card">
+            <div class="card-icon">📚</div>
+            <div class="card-title">API Documentation</div>
+            <div class="card-description">
+                Khám phá và test các API endpoints của hệ thống.
+                Swagger UI cung cấp giao diện trực quan để tương tác với các API.
+            </div>
+            <div class="card-button">Mở Swagger UI</div>
+        </a>
+
+        <a href="http://localhost:3000" class="card chat-card" target="_blank">
+            <div class="card-icon">🤖</div>
+            <div class="card-title">Chat AI Assistant</div>
+            <div class="card-description">
+                Trò chuyện với AI Assistant thông minh.
+                Nhận hỗ trợ học tập và giải đáp thắc mắc 24/7.
+            </div>
+            <div class="card-button">Bắt đầu Chat</div>
+        </a>
+    </div>
+
+    <div class="footer">
+        <div class="version-info">
+            📊 Version 1.0.0 | .NET 6.0 | PostgreSQL
+        </div>
+        <div class="copyright">
+            © 2025 ISC Project. Được phát triển bởi team ISC - BE2 - K2Y25.
+        </div>
+    </div>
+</div>
+
+<script>
+    // Thêm hiệu ứng hover cho cards
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('mouseenter', function () {
+            this.style.transform = 'translateY(-10px) scale(1.02)';
+        });
+
+        card.addEventListener('mouseleave', function () {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+
+    // Kiểm tra kết nối API
+    fetch('/api/ChatAI/test-connection')
+        .then(response => response.json())
+        .then(data => {
+            const chatCard = document.querySelector('.chat-card');
+            if (data.connected) {
+                chatCard.querySelector('.card-description').innerHTML +=
+                    '<br><span style="color: #2ecc71; font-weight: bold;">🟢 AI Service đang hoạt động</span>';
+            } else {
+                chatCard.querySelector('.card-description').innerHTML +=
+                    '<br><span style="color: #e74c3c; font-weight: bold;">🔴 AI Service không khả dụng</span>';
+            }
+        })
+        .catch(error => {
+            console.log('Không thể kiểm tra trạng thái AI service');
+        });
+</script>
+</body>
+</html>

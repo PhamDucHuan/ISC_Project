@@ -71,15 +71,30 @@ namespace ISC_Project
             builder.Services.AddScoped<IWorkHistoryService, WorkHistoryService>();
 
             builder.Services.AddScoped<INotificationService, NotificationService>();
+            builder.Services.AddScoped<IChatAIService, ChatAIService>();
+            
+            // Thêm HttpClient cho ChatAI service
+            builder.Services.AddHttpClient();
+
+            // Cấu hình CORS cho phép frontend kết nối
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                });
+            });
 
 
-            // 1. Cấu hình DbContext để sử dụng PostgreSQL
+            // 1. Setup DbContext to use PostgresSQL
             var connectionJwtString = builder.Configuration.GetConnectionString("DefaultConnection");
 
             builder.Services.AddDbContext<ISC_ProjectDbContext>(options =>
                 options.UseNpgsql(connectionJwtString));
 
-            //2.Cấu hình JWT Authentication(giữ nguyên như cũ)
+            //2. Setup JWT Authentication
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -98,19 +113,18 @@ namespace ISC_Project
                     {
                         OnChallenge = context =>
                         {
-                            // Ghi đè lên phản hồi mặc định
-                            context.HandleResponse(); // Bỏ qua xử lý mặc định
-
-                            // Trả về mã lỗi 401
+                            context.HandleResponse();
+                            
                             context.Response.StatusCode = 401;
                             context.Response.ContentType = "application/json";
 
-                            // Tạo thông báo lỗi tùy chỉnh
+                            
                             var result = JsonSerializer.Serialize(new { message = "Vui lòng đăng nhập để thực hiện chức năng này." });
                             return context.Response.WriteAsync(result);
                         }
                     };
                 });
+            
             //Thêm hỗ trợ cho Newtonsoft.Json để xử lý Enum dưới dạng string và các vòng lặp tham chiếu
             builder.Services.AddControllers().AddNewtonsoftJson(options =>
             {
@@ -165,6 +179,13 @@ namespace ISC_Project
             }
 
             app.UseHttpsRedirection();
+            
+            // Sử dụng CORS
+            app.UseCors("AllowAll");
+            
+            // Serve static files
+            app.UseStaticFiles();
+            
             app.UseStatusCodePages(async context =>
             {
                 // Nếu mã lỗi là 403 Forbidden
@@ -176,6 +197,13 @@ namespace ISC_Project
             });
             app.UseAuthentication();
             app.UseAuthorization();
+            
+            // Thêm routing cho trang chủ
+            app.MapGet("/", async context =>
+            {
+                context.Response.Redirect("/home.html");
+            });
+            
             app.MapControllers();
             app.Run();
         }
