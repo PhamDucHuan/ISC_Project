@@ -10,12 +10,12 @@ namespace ISC_Project.Controllers
     [Route("api/[controller]")]
     public class ChatAIController : ControllerBase
     {
-        private readonly IChatAIService _chatAIService;
+        private readonly IChatAIService _chatAiService;
         private readonly ILogger<ChatAIController> _logger;
 
-        public ChatAIController(IChatAIService chatAIService, ILogger<ChatAIController> logger)
+        public ChatAIController(IChatAIService chatAiService, ILogger<ChatAIController> logger)
         {
-            _chatAIService = chatAIService;
+            _chatAiService = chatAiService;
             _logger = logger;
         }
 
@@ -33,7 +33,7 @@ namespace ISC_Project.Controllers
 
                 request.UserId = userId;
                 
-                var response = await _chatAIService.GetAIResponseAsync(request);
+                var response = await _chatAiService.GetAIResponseAsync(request);
                 
                 if (response.IsSuccess)
                 {
@@ -46,8 +46,8 @@ namespace ISC_Project.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Lỗi khi xử lý tin nhắn chat");
-                return StatusCode(500, new { message = "Đã xảy ra lỗi khi xử lý yêu cầu" });
+                _logger.LogError(ex, "Error processing chat request");
+                return StatusCode(500, new { message = "There are an error when sent chat" });
             }
         }
 
@@ -63,7 +63,7 @@ namespace ISC_Project.Controllers
                     return Unauthorized(new { message = "Không thể xác định người dùng" });
                 }
 
-                var history = await _chatAIService.GetChatHistoryAsync(userId);
+                var history = await _chatAiService.GetChatHistoryAsync(userId);
                 return Ok(history);
             }
             catch (Exception ex)
@@ -84,7 +84,7 @@ namespace ISC_Project.Controllers
                     UserId = 1
                 };
 
-                var response = await _chatAIService.GetAIResponseAsync(testRequest);
+                var response = await _chatAiService.GetAIResponseAsync(testRequest);
                 
                 return Ok(new 
                 { 
@@ -99,6 +99,50 @@ namespace ISC_Project.Controllers
                     connected = false, 
                     message = $"Không thể kết nối: {ex.Message}" 
                 });
+            }
+        }
+
+        [HttpGet("conversations")]
+        [Authorize]
+        public async Task<IActionResult> GetConversations()
+        {
+            try
+            {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int userId))
+                {
+                    return Unauthorized(new { message = "Không thể xác định người dùng" });
+                }
+
+                var history = await _chatAiService.GetChatHistoryAsync(userId);
+                return Ok(history);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi khi lấy danh sách cuộc trò chuyện");
+                return StatusCode(500, new { message = "Đã xảy ra lỗi khi lấy danh sách cuộc trò chuyện" });
+            }
+        }
+
+        [HttpDelete("conversation/{conversationId}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteConversation(string conversationId)
+        {
+            try
+            {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int userId))
+                {
+                    return Unauthorized(new { message = "Không thể xác định người dùng" });
+                }
+
+                await _chatAiService.DeleteConversationAsync(userId, conversationId);
+                return Ok(new { message = "Đã xóa cuộc trò chuyện thành công" });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi khi xóa cuộc trò chuyện");
+                return StatusCode(500, new { message = "Đã xảy ra lỗi khi xóa cuộc trò chuyện" });
             }
         }
     }

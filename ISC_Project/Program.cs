@@ -198,14 +198,14 @@ namespace ISC_Project
             app.UseAuthentication();
             app.UseAuthorization();
             
-            // Thêm routing cho trang chủ
+            // Add routing for the root path to redirect to home.html
             app.MapGet("/", context =>
             {
                 context.Response.Redirect("/home.html");
                 return Task.CompletedTask;
             });
             
-            // Đơn giản hóa reverse proxy cho chat
+            // simple reverse proxy for chat
             app.MapGet("/chat", async context =>
             {
                 try

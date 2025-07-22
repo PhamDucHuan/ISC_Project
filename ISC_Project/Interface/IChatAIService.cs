@@ -7,5 +7,6 @@ namespace ISC_Project.Interface
         Task<ChatResponseDto> GetAIResponseAsync(ChatRequestDto request);
         Task<List<ChatHistoryDto>> GetChatHistoryAsync(int userId);
         Task SaveChatMessageAsync(ChatMessageDto message);
+        Task DeleteConversationAsync(int userId, string conversationId);
     }
 }

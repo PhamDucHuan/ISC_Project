@@ -1,5 +1,8 @@
 ﻿using ISC_Project.DTOs.ChatAI;
 using ISC_Project.Interface;
+using ISC_Project.Data;
+using ISC_Project.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Text;
 using System.Text.Json;
 
@@ -9,12 +12,15 @@ namespace ISC_Project.Services
     {
         private readonly HttpClient _httpClient;
         private readonly ILogger<ChatAIService> _logger;
+        private readonly ISC_ProjectDbContext _context;
         private readonly string _aiServiceUrl;
 
-        public ChatAIService(HttpClient httpClient, ILogger<ChatAIService> logger, IConfiguration configuration)
+        public ChatAIService(HttpClient httpClient, ILogger<ChatAIService> logger, 
+            ISC_ProjectDbContext context, IConfiguration configuration)
         {
             _httpClient = httpClient;
             _logger = logger;
+            _context = context;
             _aiServiceUrl = configuration["ChatAI:ServiceUrl"] ?? "http://localhost:3000";
         }
 
@@ -22,10 +28,23 @@ namespace ISC_Project.Services
         {
             try
             {
+                // Tạo hoặc lấy conversation
+                var conversation = await GetOrCreateConversationAsync(request.UserId, request.ConversationId);
+                
+                // Lưu tin nhắn của user
+                await SaveChatMessageAsync(new ChatMessageDto
+                {
+                    Message = request.Message,
+                    ConversationId = conversation.ConversationId,
+                    IsFromUser = true,
+                    UserId = request.UserId,
+                    Timestamp = DateTime.Now
+                });
+
                 var jsonContent = JsonSerializer.Serialize(new
                 {
                     message = request.Message,
-                    conversationId = request.ConversationId
+                    conversationId = conversation.ConversationId
                 });
 
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
@@ -35,12 +54,27 @@ namespace ISC_Project.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
-                    var aiResponse = JsonSerializer.Deserialize<dynamic>(responseContent);
+                    var jsonDocument = JsonDocument.Parse(responseContent);
+                    var aiMessage = jsonDocument.RootElement.GetProperty("message").GetString() ?? "Không có phản hồi từ AI";
+                    
+                    // Lưu phản hồi của AI
+                    await SaveChatMessageAsync(new ChatMessageDto
+                    {
+                        Message = aiMessage,
+                        ConversationId = conversation.ConversationId,
+                        IsFromUser = false,
+                        UserId = request.UserId,
+                        Timestamp = DateTime.Now
+                    });
+
+                    // Cập nhật thời gian tin nhắn cuối
+                    conversation.LastMessageTime = DateTime.Now;
+                    await _context.SaveChangesAsync();
                     
                     return new ChatResponseDto
                     {
-                        Message = aiResponse?.GetProperty("message").GetString() ?? "Không có phản hồi từ AI",
-                        ConversationId = request.ConversationId ?? Guid.NewGuid().ToString(),
+                        Message = aiMessage,
+                        ConversationId = conversation.ConversationId,
                         Timestamp = DateTime.UtcNow,
                         IsSuccess = true
                     };
@@ -50,7 +84,7 @@ namespace ISC_Project.Services
                     return new ChatResponseDto
                     {
                         Message = "",
-                        ConversationId = request.ConversationId ?? "",
+                        ConversationId = conversation.ConversationId,
                         Timestamp = DateTime.UtcNow,
                         IsSuccess = false,
                         ErrorMessage = "Không thể kết nối đến dịch vụ AI"
@@ -73,14 +107,118 @@ namespace ISC_Project.Services
 
         public async Task<List<ChatHistoryDto>> GetChatHistoryAsync(int userId)
         {
-            // Tạm thời trả về danh sách rỗng, có thể implement database sau
-            return new List<ChatHistoryDto>();
+            try
+            {
+                var conversations = await _context.ChatConversations
+                    .Where(c => c.UserId == userId)
+                    .Include(c => c.Messages)
+                    .OrderByDescending(c => c.LastMessageTime)
+                    .ToListAsync();
+
+                var chatHistories = conversations.Select(c => new ChatHistoryDto
+                {
+                    ConversationId = c.ConversationId,
+                    ConversationTitle = c.ConversationTitle,
+                    LastMessageTime = c.LastMessageTime,
+                    Messages = c.Messages.Select(m => new ChatMessageDto
+                    {
+                        Id = m.Id,
+                        Message = m.Message,
+                        ConversationId = c.ConversationId,
+                        IsFromUser = m.IsFromUser,
+                        UserId = userId,
+                        Timestamp = m.Timestamp
+                    }).OrderBy(m => m.Timestamp).ToList()
+                }).ToList();
+
+                return chatHistories;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi khi lấy lịch sử chat cho user {UserId}", userId);
+                return new List<ChatHistoryDto>();
+            }
         }
 
-        public async Task SaveChatMessageAsync(ChatMessageDto message)
+        public async Task SaveChatMessageAsync(ChatMessageDto messageDto)
         {
-            // Tạm thời không implement, có thể thêm database sau
-            await Task.CompletedTask;
+            try
+            {
+                var conversation = await _context.ChatConversations
+                    .FirstOrDefaultAsync(c => c.ConversationId == messageDto.ConversationId);
+
+                if (conversation != null)
+                {
+                    var chatMessage = new ChatMessage
+                    {
+                        ConversationId = conversation.Id,
+                        Message = messageDto.Message,
+                        IsFromUser = messageDto.IsFromUser,
+                        Timestamp = messageDto.Timestamp
+                    };
+
+                    _context.ChatMessages.Add(chatMessage);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi khi lưu tin nhắn chat");
+            }
+        }
+
+        private async Task<ChatConversation> GetOrCreateConversationAsync(int userId, string? conversationId)
+        {
+            ChatConversation? conversation = null;
+
+            if (!string.IsNullOrEmpty(conversationId))
+            {
+                conversation = await _context.ChatConversations
+                    .FirstOrDefaultAsync(c => c.ConversationId == conversationId && c.UserId == userId);
+            }
+
+            if (conversation == null)
+            {
+                conversation = new ChatConversation
+                {
+                    ConversationId = conversationId ?? Guid.NewGuid().ToString(),
+                    UserId = userId,
+                    ConversationTitle = "Cuộc trò chuyện mới",
+                    CreatedAt = DateTime.Now,
+                    LastMessageTime = DateTime.Now
+                };
+
+                _context.ChatConversations.Add(conversation);
+                await _context.SaveChangesAsync();
+            }
+
+            return conversation;
+        }
+
+        public async Task DeleteConversationAsync(int userId, string conversationId)
+        {
+            try
+            {
+                var conversation = await _context.ChatConversations
+                    .Include(c => c.Messages)
+                    .FirstOrDefaultAsync(c => c.ConversationId == conversationId && c.UserId == userId);
+
+                if (conversation != null)
+                {
+                    // Xóa tất cả tin nhắn trong cuộc trò chuyện
+                    _context.ChatMessages.RemoveRange(conversation.Messages);
+                    
+                    // Xóa cuộc trò chuyện
+                    _context.ChatConversations.Remove(conversation);
+                    
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi khi xóa cuộc trò chuyện {ConversationId} cho user {UserId}", conversationId, userId);
+                throw;
+            }
         }
     }
 }

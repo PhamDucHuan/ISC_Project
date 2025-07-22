@@ -20,6 +20,8 @@ namespace ISC_Project.Data
         public virtual DbSet<Assignment> Assignments { get; set; } = null!;
         public virtual DbSet<AssignmentGroup> AssignmentGroups { get; set; } = null!;
         public virtual DbSet<Campus> Campuses { get; set; } = null!;
+        public virtual DbSet<ChatConversation> ChatConversations { get; set; } = null!;
+        public virtual DbSet<ChatMessage> ChatMessages { get; set; } = null!;
         public virtual DbSet<Class> Classes { get; set; } = null!;
         public virtual DbSet<ClassDetail> ClassDetails { get; set; } = null!;
         public virtual DbSet<ClassHistory> ClassHistories { get; set; } = null!;
@@ -2098,3 +2100,4 @@ namespace ISC_Project.Data
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
+
