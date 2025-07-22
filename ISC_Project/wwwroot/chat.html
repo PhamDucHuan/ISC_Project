@@ -1,0 +1,257 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat - ISC Project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            color: white;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+
+        .chat-container {
+            flex: 1;
+            margin: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: white;
+        }
+
+        .chat-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            min-height: 600px;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        .status-online {
+            background-color: #4CAF50;
+        }
+
+        .status-offline {
+            background-color: #f44336;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .error-message {
+            text-align: center;
+            padding: 50px 20px;
+            color: #666;
+        }
+
+        .error-message h2 {
+            color: #f44336;
+            margin-bottom: 20px;
+        }
+
+        .retry-button {
+            background: #2196F3;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .retry-button:hover {
+            background: #1976D2;
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="back-button">← Quay về</a>
+    
+    <div class="header">
+        <h1>🤖 AI Chat Assistant</h1>
+        <p>
+            <span id="status-indicator" class="status-indicator status-offline"></span>
+            <span id="status-text">Đang kết nối...</span>
+        </p>
+    </div>
+
+    <div class="chat-container">
+        <iframe 
+            id="chat-iframe" 
+            class="chat-iframe" 
+            src="about:blank"
+            onload="handleIframeLoad()"
+            onerror="handleIframeError()">
+        </iframe>
+        
+        <div id="error-content" class="error-message" style="display: none;">
+            <h2>🚫 Không thể kết nối Chat Service</h2>
+            <p>Chat AI hiện tại không khả dụng. Vui lòng kiểm tra:</p>
+            <ul style="text-align: left; display: inline-block; margin: 20px 0;">
+                <li>Chat service đã được khởi động chưa?</li>
+                <li>Đang chạy trên http://localhost:3000?</li>
+                <li>Firewall có chặn kết nối không?</li>
+            </ul>
+            <button class="retry-button" onclick="retryConnection()">Thử lại</button>
+        </div>
+    </div>
+
+    <script>
+        let connectionAttempts = 0;
+        const maxAttempts = 3;
+
+        function updateStatus(isOnline, message) {
+            const indicator = document.getElementById('status-indicator');
+            const text = document.getElementById('status-text');
+            
+            if (isOnline) {
+                indicator.className = 'status-indicator status-online';
+                text.textContent = message || 'Đã kết nối';
+            } else {
+                indicator.className = 'status-indicator status-offline';
+                text.textContent = message || 'Mất kết nối';
+            }
+        }
+
+        function showError() {
+            document.getElementById('chat-iframe').style.display = 'none';
+            document.getElementById('error-content').style.display = 'block';
+            updateStatus(false, 'Không thể kết nối');
+        }
+
+        function hideError() {
+            document.getElementById('chat-iframe').style.display = 'block';
+            document.getElementById('error-content').style.display = 'none';
+        }
+
+        function handleIframeLoad() {
+            const iframe = document.getElementById('chat-iframe');
+            try {
+                // Kiểm tra xem iframe có load thành công không
+                if (iframe.src !== 'about:blank') {
+                    updateStatus(true, 'Chat AI sẵn sàng');
+                    hideError();
+                }
+            } catch (e) {
+                console.log('Iframe loaded but cannot access content (CORS)');
+                updateStatus(true, 'Chat AI sẵn sàng');
+                hideError();
+            }
+        }
+
+        function handleIframeError() {
+            showError();
+        }
+
+        function connectToChat() {
+            connectionAttempts++;
+            updateStatus(false, 'Đang kết nối...');
+            
+            const iframe = document.getElementById('chat-iframe');
+            iframe.src = 'http://localhost:3000';
+            
+            // Timeout để kiểm tra kết nối
+            setTimeout(() => {
+                if (iframe.src === 'http://localhost:3000') {
+                    try {
+                        // Thử ping service
+                        fetch('http://localhost:3000')
+                            .then(response => {
+                                if (response.ok) {
+                                    updateStatus(true, 'Chat AI sẵn sàng');
+                                    hideError();
+                                } else {
+                                    throw new Error('Service unavailable');
+                                }
+                            })
+                            .catch(() => {
+                                if (connectionAttempts >= maxAttempts) {
+                                    showError();
+                                } else {
+                                    setTimeout(connectToChat, 2000);
+                                }
+                            });
+                    } catch (e) {
+                        if (connectionAttempts >= maxAttempts) {
+                            showError();
+                        } else {
+                            setTimeout(connectToChat, 2000);
+                        }
+                    }
+                }
+            }, 3000);
+        }
+
+        function retryConnection() {
+            connectionAttempts = 0;
+            connectToChat();
+        }
+
+        // Khởi động kết nối khi trang load
+        window.onload = function() {
+            connectToChat();
+        };
+    </script>
+</body>
+</html>

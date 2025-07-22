@@ -150,123 +150,54 @@
             }
 
             .cards-container {
+                grid-template-columns: 1fr;
                 gap: 30px;
-                margin-top: 40px;
             }
 
             .card {
                 padding: 30px 20px;
             }
-
-            .card-icon {
-                font-size: 48px;
-            }
-
-            .card-title {
-                font-size: 20px;
-            }
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .header {
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .card:nth-child(1) {
-            animation: fadeInUp 0.8s ease-out 0.2s both;
-        }
-
-        .card:nth-child(2) {
-            animation: fadeInUp 0.8s ease-out 0.4s both;
-        }
-
-        .footer {
-            animation: fadeInUp 0.8s ease-out 0.6s both;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <div class="logo">🎓 ISC Project</div>
-        <div class="subtitle">Hệ thống Quản lý Học tập Thông minh</div>
-        <div class="description">
-            Chào mừng bạn đến với ISC Project - Nền tảng học tập hiện đại với công nghệ AI tiên tiến.
-            Hãy chọn chức năng mà bạn muốn sử dụng bên dưới.
-        </div>
-    </div>
-
-    <div class="cards-container">
-        <a href="/swagger" class="card swagger-card">
-            <div class="card-icon">📚</div>
-            <div class="card-title">API Documentation</div>
-            <div class="card-description">
-                Khám phá và test các API endpoints của hệ thống.
-                Swagger UI cung cấp giao diện trực quan để tương tác với các API.
+    <div class="container">
+        <div class="header">
+            <div class="logo">🎓 ISC Project</div>
+            <div class="subtitle">Hệ thống quản lý học tập thông minh</div>
+            <div class="description">
+                Chào mừng bạn đến với ISC Project - nền tảng học tập hiện đại với API mạnh mẽ và trợ lý AI thông minh
             </div>
-            <div class="card-button">Mở Swagger UI</div>
-        </a>
+        </div>
 
-        <a href="http://localhost:3000" class="card chat-card" target="_blank">
-            <div class="card-icon">🤖</div>
-            <div class="card-title">Chat AI Assistant</div>
-            <div class="card-description">
-                Trò chuyện với AI Assistant thông minh.
-                Nhận hỗ trợ học tập và giải đáp thắc mắc 24/7.
+        <div class="cards-container">
+            <a href="/swagger" class="card swagger-card">
+                <div class="card-icon">🔧</div>
+                <div class="card-title">Swagger API</div>
+                <div class="card-description">
+                    Khám phá và kiểm thử các API của hệ thống. Giao diện trực quan giúp developers dễ dàng tích hợp và phát triển ứng dụng.
+                </div>
+                <div class="card-button">Truy cập API</div>
+            </a>
+
+            <a href="/chat.html" class="card chat-card">
+                <div class="card-icon">🤖</div>
+                <div class="card-title">AI Chat Assistant</div>
+                <div class="card-description">
+                    Trò chuyện với trợ lý AI thông minh để được hỗ trợ học tập, giải đáp thắc mắc và tư vấn học thuật 24/7.
+                </div>
+                <div class="card-button">Bắt đầu Chat</div>
+            </a>
+        </div>
+
+        <div class="footer">
+            <div class="version-info">
+                <strong>ISC Project v1.0</strong> | Phiên bản API hiện tại
             </div>
-            <div class="card-button">Bắt đầu Chat</div>
-        </a>
-    </div>
-
-    <div class="footer">
-        <div class="version-info">
-            📊 Version 1.0.0 | .NET 6.0 | PostgreSQL
-        </div>
-        <div class="copyright">
-            © 2025 ISC Project. Được phát triển bởi team ISC - BE2 - K2Y25.
+            <div class="copyright">
+                © 2024 ISC Project. Phát triển bởi đội ngũ ISC Team.
+            </div>
         </div>
     </div>
-</div>
-
-<script>
-    // Thêm hiệu ứng hover cho cards
-    document.querySelectorAll('.card').forEach(card => {
-        card.addEventListener('mouseenter', function () {
-            this.style.transform = 'translateY(-10px) scale(1.02)';
-        });
-
-        card.addEventListener('mouseleave', function () {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-    });
-
-    // Kiểm tra kết nối API
-    fetch('/api/ChatAI/test-connection')
-        .then(response => response.json())
-        .then(data => {
-            const chatCard = document.querySelector('.chat-card');
-            if (data.connected) {
-                chatCard.querySelector('.card-description').innerHTML +=
-                    '<br><span style="color: #2ecc71; font-weight: bold;">🟢 AI Service đang hoạt động</span>';
-            } else {
-                chatCard.querySelector('.card-description').innerHTML +=
-                    '<br><span style="color: #e74c3c; font-weight: bold;">🔴 AI Service không khả dụng</span>';
-            }
-        })
-        .catch(error => {
-            console.log('Không thể kiểm tra trạng thái AI service');
-        });
-</script>
 </body>
 </html>

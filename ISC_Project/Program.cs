@@ -199,9 +199,47 @@ namespace ISC_Project
             app.UseAuthorization();
             
             // Thêm routing cho trang chủ
-            app.MapGet("/", async context =>
+            app.MapGet("/", context =>
             {
                 context.Response.Redirect("/home.html");
+                return Task.CompletedTask;
+            });
+            
+            // Đơn giản hóa reverse proxy cho chat
+            app.MapGet("/chat", async context =>
+            {
+                try
+                {
+                    var httpClient = context.RequestServices.GetRequiredService<IHttpClientFactory>().CreateClient();
+                    var response = await httpClient.GetAsync("http://localhost:3000");
+                    
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        context.Response.ContentType = "text/html; charset=utf-8";
+                        await context.Response.WriteAsync(content);
+                    }
+                    else
+                    {
+                        context.Response.StatusCode = 503;
+                        await context.Response.WriteAsync("Chat service không khả dụng");
+                    }
+                }
+                catch
+                {
+                    context.Response.StatusCode = 503;
+                    context.Response.ContentType = "text/html; charset=utf-8";
+                    await context.Response.WriteAsync(@"
+                        <!DOCTYPE html>
+                        <html>
+                        <head><title>Chat Service Error</title></head>
+                        <body>
+                            <h1>🚫 Chat Service Không Khả Dụng</h1>
+                            <p>Không thể kết nối đến http://localhost:3000</p>
+                            <p><a href='/'>← Quay về trang chủ</a></p>
+                        </body>
+                        </html>");
+                }
             });
             
             app.MapControllers();

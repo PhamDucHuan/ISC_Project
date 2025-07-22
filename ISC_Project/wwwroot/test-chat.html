@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Chat Connection</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+        .info { background-color: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Test Chat Service Connection</h1>
+    
+    <div id="results"></div>
+    
+    <button onclick="testDirectConnection()">Test Direct (localhost:3000)</button>
+    <button onclick="testProxyConnection()">Test Proxy (/chat)</button>
+    
+    <script>
+        async function testDirectConnection() {
+            const results = document.getElementById('results');
+            
+            try {
+                const response = await fetch('http://localhost:3000');
+                if (response.ok) {
+                    results.innerHTML += '<div class="test-result success">✅ Direct connection to localhost:3000 thành công!</div>';
+                } else {
+                    results.innerHTML += '<div class="test-result error">❌ Direct connection failed with status: ' + response.status + '</div>';
+                }
+            } catch (error) {
+                results.innerHTML += '<div class="test-result error">❌ Direct connection error: ' + error.message + '</div>';
+            }
+        }
+        
+        async function testProxyConnection() {
+            const results = document.getElementById('results');
+            
+            try {
+                const response = await fetch('/chat');
+                if (response.ok) {
+                    results.innerHTML += '<div class="test-result success">✅ Proxy connection to /chat thành công!</div>';
+                } else {
+                    results.innerHTML += '<div class="test-result error">❌ Proxy connection failed with status: ' + response.status + '</div>';
+                }
+            } catch (error) {
+                results.innerHTML += '<div class="test-result error">❌ Proxy connection error: ' + error.message + '</div>';
+            }
+        }
+        
+        // Auto test on page load
+        window.onload = function() {
+            document.getElementById('results').innerHTML += '<div class="test-result info">🔍 Đang kiểm tra kết nối...</div>';
+            setTimeout(() => {
+                testDirectConnection();
+                setTimeout(() => testProxyConnection(), 1000);
+            }, 500);
+        };
+    </script>
+</body>
+</html>
+
