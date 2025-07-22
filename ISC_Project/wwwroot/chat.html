@@ -209,14 +209,14 @@
             updateStatus(false, 'Đang kết nối...');
             
             const iframe = document.getElementById('chat-iframe');
-            iframe.src = 'http://localhost:3000';
+            iframe.src = 'https://dev-chatbot-hono.vercel.app/';
             
             // Timeout để kiểm tra kết nối
             setTimeout(() => {
-                if (iframe.src === 'http://localhost:3000') {
+                if (iframe.src === 'https://dev-chatbot-hono.vercel.app/') {
                     try {
                         // Thử ping service
-                        fetch('http://localhost:3000')
+                        fetch('https://dev-chatbot-hono.vercel.app/')
                             .then(response => {
                                 if (response.ok) {
                                     updateStatus(true, 'Chat AI sẵn sàng');
