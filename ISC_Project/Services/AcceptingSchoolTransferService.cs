@@ -90,54 +90,5 @@ namespace ISC_Project.Services
                 SchoolYearId = ast.SchoolYearId
             };
         }
-
-        public async Task<bool> UpdateAsync(int id, UpdateAcceptingSchoolTransferDto updateDto)
-        {
-            var ast = await _context.AcceptingSchoolTransfers.FindAsync(id);
-            if (ast == null)
-            {
-                return false; 
-            }
-
-            ast.MoveInDate = updateDto.MoveInDate;
-            ast.SemesterMoveIn = updateDto.SemesterMoveIn;
-            ast.Province = updateDto.Province;
-            ast.District = updateDto.District;
-            ast.ConvertFrom = updateDto.ConvertFrom;
-            ast.Reason = updateDto.Reason;
-            ast.FileUrl = updateDto.FileUrl;
-            ast.UserId = updateDto.UserId;
-            ast.SchoolYearId = updateDto.SchoolYearId;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_context.AcceptingSchoolTransfers.Any(e => e.AcceptingSchoolTransfersId == id))
-                {
-                    return false; // Not Found
-                }
-                else
-                {
-                    throw; 
-                }
-            }
-        }
-
-        public async Task<bool> DeleteAsync(int id)
-        {
-            var ast = await _context.AcceptingSchoolTransfers.FindAsync(id);
-            if (ast == null)
-            {
-                return false;
-            }
-
-            _context.AcceptingSchoolTransfers.Remove(ast);
-            await _context.SaveChangesAsync();
-            return true;
-        }
     }
 }

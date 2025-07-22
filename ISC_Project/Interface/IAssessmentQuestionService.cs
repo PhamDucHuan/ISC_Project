@@ -9,7 +9,5 @@ namespace ISC_Project.Services
         Task<IEnumerable<AssessmentQuestionDto>> GetAllAsync();
         Task<AssessmentQuestionDto?> GetByIdAsync(int id);
         Task<AssessmentQuestionDto> CreateAsync(CreateAssessmentQuestionDto createDto);
-        Task<bool> UpdateAsync(int id, UpdateAssessmentQuestionDto updateDto);
-        Task<bool> DeleteAsync(int id);
     }
 }

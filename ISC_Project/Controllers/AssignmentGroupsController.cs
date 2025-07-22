@@ -65,38 +65,5 @@ namespace ISC_Project.Controllers
                 return BadRequest(new { message = "Error creating assignment group: " + ex.Message });
             }
         }
-
-    
-        [HttpPut("{oldAssignmentId}/{oldClassId}")]
-        public async Task<IActionResult> UpdateAssignmentGroup(int oldAssignmentId, int oldClassId, UpdateAssignmentGroupDto updateDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var success = await _service.UpdateAsync(oldAssignmentId, oldClassId, updateDto);
-
-            if (!success)
-            {
-                return BadRequest("Failed to update assignment group. Check old IDs, or if the new association already exists or is invalid.");
-            }
-
-            return NoContent(); // 204 No Content for successful update
-        }
-
-        // DELETE: api/AssignmentGroups/{assignmentId}/{classId}
-        [HttpDelete("{assignmentId}/{classId}")]
-        public async Task<IActionResult> DeleteAssignmentGroup(int assignmentId, int classId)
-        {
-            var success = await _service.DeleteAsync(assignmentId, classId);
-
-            if (!success)
-            {
-                return NotFound();
-            }
-
-            return NoContent(); // 204 No Content for successful delete
-        }
     }
 }

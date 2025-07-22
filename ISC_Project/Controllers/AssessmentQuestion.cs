@@ -53,38 +53,5 @@ namespace ISC_Project.Controllers
             var newAssessmentQuestion = await _service.CreateAsync(createDto);
             return CreatedAtAction(nameof(GetAssessmentQuestion), new { id = newAssessmentQuestion.AssessmentQuestionsId }, newAssessmentQuestion);
         }
-
-       
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAssessmentQuestion(int id, UpdateAssessmentQuestionDto updateDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var success = await _service.UpdateAsync(id, updateDto);
-
-            if (!success)
-            {
-                return NotFound();
-            }
-
-            return NoContent(); // 204 No Content for successful update
-        }
-
-        // DELETE: api/AssessmentQuestions/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAssessmentQuestion(int id)
-        {
-            var success = await _service.DeleteAsync(id);
-
-            if (!success)
-            {
-                return NotFound();
-            }
-
-            return NoContent(); // 204 No Content for successful delete
-        }
     }
 }

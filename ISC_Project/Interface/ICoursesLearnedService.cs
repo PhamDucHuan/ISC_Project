@@ -7,7 +7,5 @@ namespace ISC_Project.Interface
         Task<IEnumerable<CoursesLearned>> GetAllAsync();
         Task<CoursesLearned?> GetByIdAsync(int id);
         Task<CoursesLearned> CreateAsync(CoursesLearned course);
-        Task<bool> UpdateAsync(int id, CoursesLearned course);
-        Task<bool> DeleteAsync(int id);
     }
 }

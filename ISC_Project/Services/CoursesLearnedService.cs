@@ -37,32 +37,5 @@ namespace ISC_Project.Services
             await _context.SaveChangesAsync();
             return course;
         }
-
-        public async Task<bool> UpdateAsync(int id, CoursesLearned course)
-        {
-            var existing = await _context.CoursesLearneds.FindAsync(id);
-            if (existing == null) return false;
-
-            existing.Title = course.Title;
-            existing.Description = course.Description;
-            existing.Syllabus = course.Syllabus;
-            existing.DefaultPrice = course.DefaultPrice;
-            existing.CoursesImageUrl = course.CoursesImageUrl;
-            existing.TotalCoursesId = course.TotalCoursesId;
-            existing.SchoolYearId = course.SchoolYearId;
-
-            await _context.SaveChangesAsync();
-            return true;
-        }
-
-        public async Task<bool> DeleteAsync(int id)
-        {
-            var existing = await _context.CoursesLearneds.FindAsync(id);
-            if (existing == null) return false;
-
-            _context.CoursesLearneds.Remove(existing);
-            await _context.SaveChangesAsync();
-            return true;
-        }
     }
 }

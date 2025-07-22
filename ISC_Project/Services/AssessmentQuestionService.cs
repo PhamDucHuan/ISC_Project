@@ -19,13 +19,13 @@ namespace ISC_Project.Services
         public async Task<IEnumerable<AssessmentQuestionDto>> GetAllAsync()
         {
             return await _context.AssessmentQuestions
-                                 .Include(aq => aq.Questions) 
+                                 .Include(aq => aq.Questions)
                                  .Select(aq => new AssessmentQuestionDto
                                  {
                                      AssessmentQuestionsId = aq.AssessmentQuestionsId,
                                      QuestionOrder = aq.QuestionOrder,
                                      QuestionsId = aq.QuestionsId,
-                                     QuestionsText = aq.Questions != null ? aq.Questions.QuestionsText : null 
+                                     QuestionsText = aq.Questions != null ? aq.Questions.QuestionsText : null
                                  })
                                  .ToListAsync();
         }
@@ -72,48 +72,6 @@ namespace ISC_Project.Services
                 QuestionsId = createdAq.QuestionsId,
                 QuestionsText = createdAq.Questions != null ? createdAq.Questions.QuestionsText : null // Đã sửa
             };
-        }
-
-        public async Task<bool> UpdateAsync(int id, UpdateAssessmentQuestionDto updateDto)
-        {
-            var aq = await _context.AssessmentQuestions.FindAsync(id);
-            if (aq == null)
-            {
-                return false;
-            }
-
-            aq.QuestionOrder = updateDto.QuestionOrder ?? aq.QuestionOrder;
-            aq.QuestionsId = updateDto.QuestionsId ?? aq.QuestionsId;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_context.AssessmentQuestions.Any(e => e.AssessmentQuestionsId == id))
-                {
-                    return false;
-                }
-                else
-                {
-                    throw;
-                }
-            }
-        }
-
-        public async Task<bool> DeleteAsync(int id)
-        {
-            var aq = await _context.AssessmentQuestions.FindAsync(id);
-            if (aq == null)
-            {
-                return false;
-            }
-
-            _context.AssessmentQuestions.Remove(aq);
-            await _context.SaveChangesAsync();
-            return true;
         }
     }
 }
