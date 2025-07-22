@@ -111,7 +111,7 @@ namespace ISC_Project.Services
             {
                 var conversations = await _context.ChatConversations
                     .Where(c => c.UserId == userId)
-                    .Include(c => c.Messages)
+                    .Include(c => c.ChatMessages)
                     .OrderByDescending(c => c.LastMessageTime)
                     .ToListAsync();
 
@@ -119,15 +119,15 @@ namespace ISC_Project.Services
                 {
                     ConversationId = c.ConversationId,
                     ConversationTitle = c.ConversationTitle,
-                    LastMessageTime = c.LastMessageTime,
-                    Messages = c.Messages.Select(m => new ChatMessageDto
+                    LastMessageTime = (DateTime)c.LastMessageTime,
+                    Messages = c.ChatMessages.Select(m => new ChatMessageDto
                     {
-                        Id = m.Id,
+                        Id = m.ChatMessageId,
                         Message = m.Message,
                         ConversationId = c.ConversationId,
                         IsFromUser = m.IsFromUser,
                         UserId = userId,
-                        Timestamp = m.Timestamp
+                        Timestamp = (DateTime)m.Timestamp
                     }).OrderBy(m => m.Timestamp).ToList()
                 }).ToList();
 
@@ -151,7 +151,7 @@ namespace ISC_Project.Services
                 {
                     var chatMessage = new ChatMessage
                     {
-                        ConversationId = conversation.Id,
+                        ChatConversationId = conversation.ChatConversationId,
                         Message = messageDto.Message,
                         IsFromUser = messageDto.IsFromUser,
                         Timestamp = messageDto.Timestamp
@@ -200,13 +200,13 @@ namespace ISC_Project.Services
             try
             {
                 var conversation = await _context.ChatConversations
-                    .Include(c => c.Messages)
+                    .Include(c => c.ChatMessages)
                     .FirstOrDefaultAsync(c => c.ConversationId == conversationId && c.UserId == userId);
 
                 if (conversation != null)
                 {
                     // Xóa tất cả tin nhắn trong cuộc trò chuyện
-                    _context.ChatMessages.RemoveRange(conversation.Messages);
+                    _context.ChatMessages.RemoveRange(conversation.ChatMessages);
                     
                     // Xóa cuộc trò chuyện
                     _context.ChatConversations.Remove(conversation);

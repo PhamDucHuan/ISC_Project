@@ -8,6 +8,7 @@ namespace ISC_Project.Models
         public User()
         {
             AcceptingSchoolTransfers = new HashSet<AcceptingSchoolTransfer>();
+            ChatConversations = new HashSet<ChatConversation>();
             ClassDetails = new HashSet<ClassDetail>();
             ClassSessions = new HashSet<ClassSession>();
             Classes = new HashSet<Class>();
@@ -55,6 +56,7 @@ namespace ISC_Project.Models
 
         public virtual Role? Role { get; set; }
         public virtual ICollection<AcceptingSchoolTransfer> AcceptingSchoolTransfers { get; set; }
+        public virtual ICollection<ChatConversation> ChatConversations { get; set; }
         public virtual ICollection<ClassDetail> ClassDetails { get; set; }
         public virtual ICollection<ClassSession> ClassSessions { get; set; }
         public virtual ICollection<Class> Classes { get; set; }

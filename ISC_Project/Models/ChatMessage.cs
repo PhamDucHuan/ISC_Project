@@ -1,26 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ISC_Project.Models
 {
-    public class ChatMessage
+    public partial class ChatMessage
     {
-        [Key]
-        public int Id { get; set; }
-
-        [Required]
-        public int ConversationId { get; set; }
-
-        [Required]
-        public string Message { get; set; } = string.Empty;
-
-        [Required]
+        public int ChatMessageId { get; set; }
+        public string Message { get; set; } = null!;
         public bool IsFromUser { get; set; }
+        public DateTime? Timestamp { get; set; }
+        public int ChatConversationId { get; set; }
 
-        public DateTime Timestamp { get; set; } = DateTime.Now;
-
-        // Navigation properties
-        [ForeignKey("ConversationId")]
-        public virtual ChatConversation? Conversation { get; set; }
+        public virtual ChatConversation ChatConversation { get; set; } = null!;
     }
 }

@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using ISC_Project.Models;
 
 namespace ISC_Project.Data
@@ -90,9 +93,8 @@ namespace ISC_Project.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https: //go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseNpgsql(
-                    "Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=123456");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=123456");
             }
         }
 
@@ -271,6 +273,48 @@ namespace ISC_Project.Data
                     .WithMany(p => p.Campuses)
                     .HasForeignKey(d => d.SchoolId)
                     .HasConstraintName("FK_Campuses.School_ID");
+            });
+
+            modelBuilder.Entity<ChatConversation>(entity =>
+            {
+                entity.ToTable("ChatConversations", "ISC_Project");
+
+                entity.HasIndex(e => e.UserId, "IX_ChatConversations_UserID");
+
+                entity.Property(e => e.ChatConversationId).HasColumnName("ChatConversation_ID");
+
+                entity.Property(e => e.ConversationId).HasMaxLength(255);
+
+                entity.Property(e => e.ConversationTitle).HasMaxLength(255);
+
+                entity.Property(e => e.CreatedAt).HasColumnType("timestamp without time zone");
+
+                entity.Property(e => e.LastMessageTime).HasColumnType("timestamp without time zone");
+
+                entity.Property(e => e.UserId).HasColumnName("User_ID");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.ChatConversations)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_ChatConversations.User_ID");
+            });
+
+            modelBuilder.Entity<ChatMessage>(entity =>
+            {
+                entity.ToTable("ChatMessages", "ISC_Project");
+
+                entity.HasIndex(e => e.ChatConversationId, "IX_ChatMessages_ConversationID");
+
+                entity.Property(e => e.ChatMessageId).HasColumnName("ChatMessage_ID");
+
+                entity.Property(e => e.ChatConversationId).HasColumnName("ChatConversation_ID");
+
+                entity.Property(e => e.Timestamp).HasColumnType("timestamp without time zone");
+
+                entity.HasOne(d => d.ChatConversation)
+                    .WithMany(p => p.ChatMessages)
+                    .HasForeignKey(d => d.ChatConversationId)
+                    .HasConstraintName("FK_ChatMessages.ChatConversation_ID");
             });
 
             modelBuilder.Entity<Class>(entity =>
@@ -2100,4 +2144,3 @@ namespace ISC_Project.Data
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
-
