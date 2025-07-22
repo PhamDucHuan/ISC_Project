@@ -3,196 +3,24 @@
   "WorkspaceRootPath": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\services\\enrollmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:services\\enrollmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\services\\campusservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:services\\campusservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\services\\workhistoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:services\\workhistoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\services\\upcomingclassservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:services\\upcomingclassservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\dtos\\traininglevel\\trainingleveldto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:dtos\\traininglevel\\trainingleveldto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\dtos\\traininglevel\\createtrainingleveldto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:dtos\\traininglevel\\createtrainingleveldto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\services\\traininglevelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:services\\traininglevelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\services\\totalcoursestakenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:services\\totalcoursestakenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\services\\systemsettingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:services\\systemsettingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\services\\syllabustopicservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:services\\syllabustopicservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\controllers\\workhistoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:controllers\\workhistoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Data\\ISC_ProjectDbContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Data\\ISC_ProjectDbContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\interface\\iworkhistoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:interface\\iworkhistoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\dtos\\workhistory\\createworkhistorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:dtos\\workhistory\\createworkhistorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\dtos\\workhistory\\workhistorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:dtos\\workhistory\\workhistorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\controllers\\upcomingclassescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:controllers\\upcomingclassescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\interface\\iupcomingclassservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:interface\\iupcomingclassservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\dtos\\upcomingclass\\createupcomingclassdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:dtos\\upcomingclass\\createupcomingclassdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\dtos\\upcomingclass\\upcomingclassdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:dtos\\upcomingclass\\upcomingclassdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\controllers\\traininglevelscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:controllers\\traininglevelscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\interface\\itraininglevelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:interface\\itraininglevelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\controllers\\totalcoursestakencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:controllers\\totalcoursestakencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\interface\\itotalcoursestakenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:interface\\itotalcoursestakenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\dtos\\totalcoursestaken\\createtotalcoursestakendto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:dtos\\totalcoursestaken\\createtotalcoursestakendto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\dtos\\totalcoursestaken\\totalcoursestakendto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:dtos\\totalcoursestaken\\totalcoursestakendto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\controllers\\syllabustopicscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:controllers\\syllabustopicscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\controllers\\systemsettingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:controllers\\systemsettingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\interface\\isystemsettingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:interface\\isystemsettingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\dtos\\systemsetting\\createsystemsettingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:dtos\\systemsetting\\createsystemsettingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\dtos\\systemsetting\\systemsettingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:dtos\\systemsetting\\systemsettingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\interface\\isyllabustopicservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:interface\\isyllabustopicservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\dtos\\syllabustopic\\createsyllabustopicdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:dtos\\syllabustopic\\createsyllabustopicdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\dtos\\syllabustopic\\syllabustopicdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:dtos\\syllabustopic\\syllabustopicdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\controllers\\enrollmentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:controllers\\enrollmentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\interface\\ienrollmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:interface\\ienrollmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\dtos\\enrollment\\createenrollmentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:dtos\\enrollment\\createenrollmentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\dtos\\enrollment\\enrollmentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:dtos\\enrollment\\enrollmentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\controllers\\campusescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:controllers\\campusescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\interface\\icampusservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:interface\\icampusservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\dtos\\campus\\createcampusdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:dtos\\campus\\createcampusdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\dtos\\campus\\campusdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:dtos\\campus\\campusdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\controllers\\examscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:controllers\\examscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\services\\exam\\examservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:services\\exam\\examservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\interface\\exam\\iexamservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:interface\\exam\\iexamservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\dtos\\exam\\examresultdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:dtos\\exam\\examresultdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\dtos\\exam\\questionresultdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:dtos\\exam\\questionresultdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Migrations\\20250722131742_AddChatHistoryTables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20250722131742_AddChatHistoryTables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\data\\isc_projectdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:data\\isc_projectdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -205,6 +33,32 @@
           "SelectedChildIndex": 5,
           "Children": [
             {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ISC_ProjectDbContext.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Data\\ISC_ProjectDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\ISC_ProjectDbContext.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Data\\ISC_ProjectDbContext.cs",
+              "RelativeToolTip": "Data\\ISC_ProjectDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T13:28:34.554Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "20250722131742_AddChatHistoryTables.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Migrations\\20250722131742_AddChatHistoryTables.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250722131742_AddChatHistoryTables.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Migrations\\20250722131742_AddChatHistoryTables.cs",
+              "RelativeToolTip": "Migrations\\20250722131742_AddChatHistoryTables.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T13:17:42.356Z",
+              "EditorCaption": ""
+            },
+            {
               "$type": "Bookmark",
               "Name": "ST:0:0:{74946827-37a0-11d2-a273-00c04f8ef4ff}"
             },
@@ -214,580 +68,42 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UpcomingClassService.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\UpcomingClassService.cs",
-              "RelativeDocumentMoniker": "Services\\UpcomingClassService.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\UpcomingClassService.cs",
-              "RelativeToolTip": "Services\\UpcomingClassService.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAkwEgAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:23:12.018Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "WorkHistoryService.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\WorkHistoryService.cs",
-              "RelativeDocumentMoniker": "Services\\WorkHistoryService.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\WorkHistoryService.cs",
-              "RelativeToolTip": "Services\\WorkHistoryService.cs",
-              "ViewState": "AgIAACUAAAAAAAAAAAAwwD4AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:25:10.782Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CampusService.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\CampusService.cs",
-              "RelativeDocumentMoniker": "Services\\CampusService.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\CampusService.cs",
-              "RelativeToolTip": "Services\\CampusService.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAowFcAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:01:55.688Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "EnrollmentService.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\EnrollmentService.cs",
-              "RelativeDocumentMoniker": "Services\\EnrollmentService.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\EnrollmentService.cs",
-              "RelativeToolTip": "Services\\EnrollmentService.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAYwDYAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:06:22.048Z",
+              "DocumentIndex": 4,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Properties\\launchSettings.json",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-07-21T14:20:13.302Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "TrainingLevelDto.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\TrainingLevel\\TrainingLevelDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\TrainingLevel\\TrainingLevelDto.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\TrainingLevel\\TrainingLevelDto.cs",
-              "RelativeToolTip": "DTOs\\TrainingLevel\\TrainingLevelDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:19:07.206Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "CreateTrainingLevelDto.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\TrainingLevel\\CreateTrainingLevelDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\TrainingLevel\\CreateTrainingLevelDto.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\TrainingLevel\\CreateTrainingLevelDto.cs",
-              "RelativeToolTip": "DTOs\\TrainingLevel\\CreateTrainingLevelDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAQAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:19:24.928Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "TrainingLevelService.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\TrainingLevelService.cs",
-              "RelativeDocumentMoniker": "Services\\TrainingLevelService.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\TrainingLevelService.cs",
-              "RelativeToolTip": "Services\\TrainingLevelService.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAswBQAAABOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:20:04.469Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "TotalCoursesTakenService.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\TotalCoursesTakenService.cs",
-              "RelativeDocumentMoniker": "Services\\TotalCoursesTakenService.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\TotalCoursesTakenService.cs",
-              "RelativeToolTip": "Services\\TotalCoursesTakenService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:18:01.559Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "SystemSettingService.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\SystemSettingService.cs",
-              "RelativeDocumentMoniker": "Services\\SystemSettingService.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\SystemSettingService.cs",
-              "RelativeToolTip": "Services\\SystemSettingService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:14:12.718Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "SyllabusTopicService.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\SyllabusTopicService.cs",
-              "RelativeDocumentMoniker": "Services\\SyllabusTopicService.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\SyllabusTopicService.cs",
-              "RelativeToolTip": "Services\\SyllabusTopicService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:12:04.958Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAYwEYAAABSAAAAAAAAAA==",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAcwE8AAABYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T13:10:54.274Z"
+              "WhenOpened": "2025-07-19T13:10:54.274Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "WorkHistoriesController.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\WorkHistoriesController.cs",
-              "RelativeDocumentMoniker": "Controllers\\WorkHistoriesController.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\WorkHistoriesController.cs",
-              "RelativeToolTip": "Controllers\\WorkHistoriesController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:25:36.488Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "IWorkHistoryService.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IWorkHistoryService.cs",
-              "RelativeDocumentMoniker": "Interface\\IWorkHistoryService.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IWorkHistoryService.cs",
-              "RelativeToolTip": "Interface\\IWorkHistoryService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABDAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:24:53.915Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "CreateWorkHistoryDto.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\WorkHistory\\CreateWorkHistoryDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\WorkHistory\\CreateWorkHistoryDto.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\WorkHistory\\CreateWorkHistoryDto.cs",
-              "RelativeToolTip": "DTOs\\WorkHistory\\CreateWorkHistoryDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:24:37.88Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "WorkHistoryDto.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\WorkHistory\\WorkHistoryDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\WorkHistory\\WorkHistoryDto.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\WorkHistory\\WorkHistoryDto.cs",
-              "RelativeToolTip": "DTOs\\WorkHistory\\WorkHistoryDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:24:20.43Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "UpcomingClassesController.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\UpcomingClassesController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UpcomingClassesController.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\UpcomingClassesController.cs",
-              "RelativeToolTip": "Controllers\\UpcomingClassesController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:23:36.226Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "IUpcomingClassService.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IUpcomingClassService.cs",
-              "RelativeDocumentMoniker": "Interface\\IUpcomingClassService.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IUpcomingClassService.cs",
-              "RelativeToolTip": "Interface\\IUpcomingClassService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:22:44.853Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "CreateUpcomingClassDto.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\UpcomingClass\\CreateUpcomingClassDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\UpcomingClass\\CreateUpcomingClassDto.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\UpcomingClass\\CreateUpcomingClassDto.cs",
-              "RelativeToolTip": "DTOs\\UpcomingClass\\CreateUpcomingClassDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:22:23.671Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "UpcomingClassDto.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\UpcomingClass\\UpcomingClassDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\UpcomingClass\\UpcomingClassDto.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\UpcomingClass\\UpcomingClassDto.cs",
-              "RelativeToolTip": "DTOs\\UpcomingClass\\UpcomingClassDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:22:08.662Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "TrainingLevelsController.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\TrainingLevelsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\TrainingLevelsController.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\TrainingLevelsController.cs",
-              "RelativeToolTip": "Controllers\\TrainingLevelsController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:20:34.2Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "ITrainingLevelService.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\ITrainingLevelService.cs",
-              "RelativeDocumentMoniker": "Interface\\ITrainingLevelService.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\ITrainingLevelService.cs",
-              "RelativeToolTip": "Interface\\ITrainingLevelService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:19:44.558Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "TotalCoursesTakenController.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\TotalCoursesTakenController.cs",
-              "RelativeDocumentMoniker": "Controllers\\TotalCoursesTakenController.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\TotalCoursesTakenController.cs",
-              "RelativeToolTip": "Controllers\\TotalCoursesTakenController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:18:22.488Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "ITotalCoursesTakenService.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\ITotalCoursesTakenService.cs",
-              "RelativeDocumentMoniker": "Interface\\ITotalCoursesTakenService.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\ITotalCoursesTakenService.cs",
-              "RelativeToolTip": "Interface\\ITotalCoursesTakenService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:17:40.498Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "CreateTotalCoursesTakenDto.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\TotalCoursesTaken\\CreateTotalCoursesTakenDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\TotalCoursesTaken\\CreateTotalCoursesTakenDto.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\TotalCoursesTaken\\CreateTotalCoursesTakenDto.cs",
-              "RelativeToolTip": "DTOs\\TotalCoursesTaken\\CreateTotalCoursesTakenDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:17:17.509Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "TotalCoursesTakenDto.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\TotalCoursesTaken\\TotalCoursesTakenDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\TotalCoursesTaken\\TotalCoursesTakenDto.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\TotalCoursesTaken\\TotalCoursesTakenDto.cs",
-              "RelativeToolTip": "DTOs\\TotalCoursesTaken\\TotalCoursesTakenDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:16:57.843Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "SystemSettingsController.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\SystemSettingsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\SystemSettingsController.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\SystemSettingsController.cs",
-              "RelativeToolTip": "Controllers\\SystemSettingsController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:14:38.796Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "ISystemSettingService.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\ISystemSettingService.cs",
-              "RelativeDocumentMoniker": "Interface\\ISystemSettingService.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\ISystemSettingService.cs",
-              "RelativeToolTip": "Interface\\ISystemSettingService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:13:52.656Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "SyllabusTopicsController.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\SyllabusTopicsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\SyllabusTopicsController.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\SyllabusTopicsController.cs",
-              "RelativeToolTip": "Controllers\\SyllabusTopicsController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:12:31.325Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "CreateSystemSettingDto.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\SystemSetting\\CreateSystemSettingDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\SystemSetting\\CreateSystemSettingDto.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\SystemSetting\\CreateSystemSettingDto.cs",
-              "RelativeToolTip": "DTOs\\SystemSetting\\CreateSystemSettingDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAwAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:13:30.681Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "SystemSettingDto.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\SystemSetting\\SystemSettingDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\SystemSetting\\SystemSettingDto.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\SystemSetting\\SystemSettingDto.cs",
-              "RelativeToolTip": "DTOs\\SystemSetting\\SystemSettingDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAwAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:13:11.399Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "ISyllabusTopicService.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\ISyllabusTopicService.cs",
-              "RelativeDocumentMoniker": "Interface\\ISyllabusTopicService.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\ISyllabusTopicService.cs",
-              "RelativeToolTip": "Interface\\ISyllabusTopicService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:11:44.64Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "CreateSyllabusTopicDto.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\SyllabusTopic\\CreateSyllabusTopicDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\SyllabusTopic\\CreateSyllabusTopicDto.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\SyllabusTopic\\CreateSyllabusTopicDto.cs",
-              "RelativeToolTip": "DTOs\\SyllabusTopic\\CreateSyllabusTopicDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:10:35.001Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 32,
-              "Title": "SyllabusTopicDto.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\SyllabusTopic\\SyllabusTopicDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\SyllabusTopic\\SyllabusTopicDto.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\SyllabusTopic\\SyllabusTopicDto.cs",
-              "RelativeToolTip": "DTOs\\SyllabusTopic\\SyllabusTopicDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:10:19.819Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 33,
-              "Title": "EnrollmentsController.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\EnrollmentsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\EnrollmentsController.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\EnrollmentsController.cs",
-              "RelativeToolTip": "Controllers\\EnrollmentsController.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAYwCEAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:06:47.292Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 34,
-              "Title": "IEnrollmentService.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IEnrollmentService.cs",
-              "RelativeDocumentMoniker": "Interface\\IEnrollmentService.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IEnrollmentService.cs",
-              "RelativeToolTip": "Interface\\IEnrollmentService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:05:50.398Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 35,
-              "Title": "CreateEnrollmentDto.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\Enrollment\\CreateEnrollmentDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\Enrollment\\CreateEnrollmentDto.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\Enrollment\\CreateEnrollmentDto.cs",
-              "RelativeToolTip": "DTOs\\Enrollment\\CreateEnrollmentDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:05:31.008Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 36,
-              "Title": "EnrollmentDto.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\Enrollment\\EnrollmentDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\Enrollment\\EnrollmentDto.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\Enrollment\\EnrollmentDto.cs",
-              "RelativeToolTip": "DTOs\\Enrollment\\EnrollmentDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:03:50.007Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 37,
-              "Title": "CampusesController.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\CampusesController.cs",
-              "RelativeDocumentMoniker": "Controllers\\CampusesController.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\CampusesController.cs",
-              "RelativeToolTip": "Controllers\\CampusesController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:02:52.348Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 38,
-              "Title": "ICampusService.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\ICampusService.cs",
-              "RelativeDocumentMoniker": "Interface\\ICampusService.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\ICampusService.cs",
-              "RelativeToolTip": "Interface\\ICampusService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:01:34.111Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 39,
-              "Title": "CreateCampusDto.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\Campus\\CreateCampusDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\Campus\\CreateCampusDto.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\Campus\\CreateCampusDto.cs",
-              "RelativeToolTip": "DTOs\\Campus\\CreateCampusDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:01:01.611Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 40,
-              "Title": "CampusDto.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\Campus\\CampusDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\Campus\\CampusDto.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\Campus\\CampusDto.cs",
-              "RelativeToolTip": "DTOs\\Campus\\CampusDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T14:00:39.968Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 41,
-              "Title": "ExamsController.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\ExamsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ExamsController.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\ExamsController.cs",
-              "RelativeToolTip": "Controllers\\ExamsController.cs",
-              "ViewState": "AgIAADwAAAAAAAAAAAAqwEwAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T13:38:36.073Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 42,
-              "Title": "ExamService.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\Exam\\ExamService.cs",
-              "RelativeDocumentMoniker": "Services\\Exam\\ExamService.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\Exam\\ExamService.cs",
-              "RelativeToolTip": "Services\\Exam\\ExamService.cs",
-              "ViewState": "AgIAAK4AAAAAAAAAAAAgwKUAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T13:37:16.37Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 43,
-              "Title": "IExamService.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\Exam\\IExamService.cs",
-              "RelativeDocumentMoniker": "Interface\\Exam\\IExamService.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\Exam\\IExamService.cs",
-              "RelativeToolTip": "Interface\\Exam\\IExamService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T13:36:49.382Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 44,
-              "Title": "ExamResultDto.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\Exam\\ExamResultDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\Exam\\ExamResultDto.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\Exam\\ExamResultDto.cs",
-              "RelativeToolTip": "DTOs\\Exam\\ExamResultDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T13:36:10.313Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 45,
-              "Title": "QuestionResultDto.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\Exam\\QuestionResultDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\Exam\\QuestionResultDto.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\Exam\\QuestionResultDto.cs",
-              "RelativeToolTip": "DTOs\\Exam\\QuestionResultDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAABAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T13:35:45.05Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 3,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
               "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\appsettings.json",
               "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-07-19T13:10:36.516Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 47,
-              "Title": "ISC_ProjectDbContext.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Data\\ISC_ProjectDbContext.cs",
-              "RelativeDocumentMoniker": "Data\\ISC_ProjectDbContext.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Data\\ISC_ProjectDbContext.cs",
-              "RelativeToolTip": "Data\\ISC_ProjectDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T13:09:07.984Z"
+              "WhenOpened": "2025-07-19T13:10:36.516Z",
+              "EditorCaption": ""
             }
           ]
         }

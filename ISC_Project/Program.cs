@@ -70,6 +70,15 @@ namespace ISC_Project
             builder.Services.AddScoped<IUpcomingClassService, UpcomingClassService>();
             builder.Services.AddScoped<IWorkHistoryService, WorkHistoryService>();
 
+            builder.Services.AddScoped<IAcceptingSchoolTransferService, AcceptingSchoolTransferService>();
+            builder.Services.AddScoped<IAssessmentPartService, AssessmentPartService>(); // Add this line
+            builder.Services.AddScoped<IAssessmentQuestionService, AssessmentQuestionService>();
+            builder.Services.AddScoped<IAssignmentService, AssignmentService>();
+            builder.Services.AddScoped<IAssignmentGroupService, AssignmentGroupService>(); // Add this line
+            builder.Services.AddScoped<IClassDetailService, ClassDetailService>();
+            builder.Services.AddScoped<IClassroomSettingService, ClassroomSettingService>();
+            builder.Services.AddScoped<ICoursesLearnedService, CoursesLearnedService>();
+
             builder.Services.AddScoped<INotificationService, NotificationService>();
             builder.Services.AddScoped<IChatAIService, ChatAIService>();
             
