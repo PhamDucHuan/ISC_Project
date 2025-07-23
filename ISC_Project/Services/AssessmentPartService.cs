@@ -93,52 +93,5 @@ namespace ISC_Project.Services
                 AssignmentTitle = createdAp.Assignment != null ? createdAp.Assignment.Title : null
             };
         }
-
-        public async Task<bool> UpdateAsync(int id, UpdateAssessmentPartDto updateDto)
-        {
-            var ap = await _context.AssessmentParts.FindAsync(id);
-            if (ap == null)
-            {
-                return false; // Not found
-            }
-
-            ap.PartOrder = updateDto.PartOrder ?? ap.PartOrder; // Update if provided, otherwise keep existing
-            ap.Title = updateDto.Title ?? ap.Title;
-            ap.Description = updateDto.Description ?? ap.Description;
-            ap.AssignmentUrl = updateDto.AssignmentUrl ?? ap.AssignmentUrl;
-            ap.StarTime = updateDto.StarTime ?? ap.StarTime;
-            ap.EndTime = updateDto.EndTime ?? ap.EndTime;
-            ap.AssignmentId = updateDto.AssignmentId ?? ap.AssignmentId; // Be careful if you set it to null and it's not allowed in DB
-
-            try
-            {
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_context.AssessmentParts.Any(e => e.AssessmentPartsId == id))
-                {
-                    return false; // Not Found
-                }
-                else
-                {
-                    throw; // Other concurrency issues
-                }
-            }
-        }
-
-        public async Task<bool> DeleteAsync(int id)
-        {
-            var ap = await _context.AssessmentParts.FindAsync(id);
-            if (ap == null)
-            {
-                return false; // Not found
-            }
-
-            _context.AssessmentParts.Remove(ap);
-            await _context.SaveChangesAsync();
-            return true;
-        }
     }
 }

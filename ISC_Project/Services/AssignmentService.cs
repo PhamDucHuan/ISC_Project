@@ -117,59 +117,5 @@ namespace ISC_Project.Services
                 FacultyId = createdAssignment.FacultyId
             };
         }
-
-        public async Task<bool> UpdateAsync(int id, UpdateAssignmentDto updateDto)
-        {
-            var assignment = await _context.Assignments.FindAsync(id);
-            if (assignment == null)
-            {
-                return false;
-            }
-
-            assignment.Title = updateDto.Title ?? assignment.Title;
-            assignment.Format = updateDto.Format ?? assignment.Format;
-            assignment.AssignmentScope = updateDto.AssignmentScope ?? assignment.AssignmentScope;
-            assignment.Category = updateDto.Category ?? assignment.Category;
-            assignment.StarTime = updateDto.StarTime ?? assignment.StarTime;
-            assignment.EndTime = updateDto.EndTime ?? assignment.EndTime;
-            assignment.AssignmentUrl = updateDto.AssignmentUrl ?? assignment.AssignmentUrl;
-            assignment.Description = updateDto.Description ?? assignment.Description;
-            assignment.Status = updateDto.Status ?? assignment.Status;
-            assignment.PartitionType = updateDto.PartitionType ?? assignment.PartitionType;
-            assignment.TeachingId = updateDto.TeachingId ?? assignment.TeachingId;
-            assignment.FacultyId = updateDto.FacultyId ?? assignment.FacultyId;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_context.Assignments.Any(e => e.AssignmentId == id))
-                {
-                    return false;
-                }
-                else
-                {
-                    throw;
-                }
-            }
-        }
-
-        public async Task<bool> DeleteAsync(int id)
-        {
-            var assignment = await _context.Assignments.FindAsync(id);
-            if (assignment == null)
-            {
-                return false;
-            }
-
-            _context.Assignments.Remove(assignment);
-            await _context.SaveChangesAsync();
-            return true;
-        }
-
-       
     }
 }

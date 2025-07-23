@@ -3,16 +3,164 @@
   "WorkspaceRootPath": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\controllers\\semestercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:controllers\\semestercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\controllers\\studentschangeschoolcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:controllers\\studentschangeschoolcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\services\\reservedservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:services\\reservedservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\services\\qualificationsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:services\\qualificationsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\controllers\\acceptingschooltransferscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:controllers\\acceptingschooltransferscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\controllers\\courseslearnedcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:controllers\\courseslearnedcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\controllers\\classroomsettingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:controllers\\classroomsettingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\controllers\\classdetailcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:controllers\\classdetailcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\controllers\\assignmentgroupscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:controllers\\assignmentgroupscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\controllers\\assignmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:controllers\\assignmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\controllers\\assessmentquestion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:controllers\\assessmentquestion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\controllers\\assessmentpartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:controllers\\assessmentpartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\services\\courseslearnedservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:services\\courseslearnedservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\services\\classroomsettingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:services\\classroomsettingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\services\\classdetailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:services\\classdetailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\services\\assignmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:services\\assignmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\services\\assignmentgroupservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:services\\assignmentgroupservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\services\\assessmentquestionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:services\\assessmentquestionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\services\\assessmentpartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:services\\assessmentpartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\services\\acceptingschooltransferservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:services\\acceptingschooltransferservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\interface\\icourseslearnedservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:interface\\icourseslearnedservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\interface\\iclassroomsettingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:interface\\iclassroomsettingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\interface\\iclassdetailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:interface\\iclassdetailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\interface\\iassignmentgroupservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:interface\\iassignmentgroupservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\interface\\iassignmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:interface\\iassignmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\interface\\iassessmentquestionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:interface\\iassessmentquestionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\interface\\iassessmentpartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:interface\\iassessmentpartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\interface\\iacceptingschooltransferservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:interface\\iacceptingschooltransferservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\controllers\\rolepermissioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:controllers\\rolepermissioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\interface\\irelativesinformationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:interface\\irelativesinformationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\services\\studentschangeschoolservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:services\\studentschangeschoolservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\services\\semesterservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:services\\semesterservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\interface\\isemesterservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:interface\\isemesterservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\interface\\istudentschangeschoolservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:interface\\istudentschangeschoolservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\interface\\istudentschangeclassservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:interface\\istudentschangeclassservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\interface\\iscoreservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:interface\\iscoreservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\interface\\irolepermissionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:interface\\irolepermissionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\services\\chataiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:services\\chataiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\data\\isc_projectdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:data\\isc_projectdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Migrations\\20250722131742_AddChatHistoryTables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -39,40 +187,53 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ChatAIService.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\ChatAIService.cs",
-              "RelativeDocumentMoniker": "Services\\ChatAIService.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\ChatAIService.cs",
-              "RelativeToolTip": "Services\\ChatAIService.cs",
-              "ViewState": "AgIAAMMAAAAAAAAAAAAowNAAAABPAAAAAAAAAA==",
+              "Title": "SemesterController.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\SemesterController.cs",
+              "RelativeDocumentMoniker": "Controllers\\SemesterController.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\SemesterController.cs",
+              "RelativeToolTip": "Controllers\\SemesterController.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-22T13:39:28.527Z",
+              "WhenOpened": "2025-07-23T03:12:22.173Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ISC_ProjectDbContext.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Data\\ISC_ProjectDbContext.cs",
-              "RelativeDocumentMoniker": "Data\\ISC_ProjectDbContext.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Data\\ISC_ProjectDbContext.cs",
-              "RelativeToolTip": "Data\\ISC_ProjectDbContext.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAawBkAAAAtAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "ReservedService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\ReservedService.cs",
+              "RelativeDocumentMoniker": "Services\\ReservedService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\ReservedService.cs",
+              "RelativeToolTip": "Services\\ReservedService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-22T13:28:34.554Z",
+              "WhenOpened": "2025-07-23T03:11:41.545Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "20250722131742_AddChatHistoryTables.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Migrations\\20250722131742_AddChatHistoryTables.cs",
-              "RelativeDocumentMoniker": "Migrations\\20250722131742_AddChatHistoryTables.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Migrations\\20250722131742_AddChatHistoryTables.cs",
-              "RelativeToolTip": "Migrations\\20250722131742_AddChatHistoryTables.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Title": "QualificationsService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\QualificationsService.cs",
+              "RelativeDocumentMoniker": "Services\\QualificationsService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\QualificationsService.cs",
+              "RelativeToolTip": "Services\\QualificationsService.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAYwAMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-22T13:17:42.356Z",
+              "WhenOpened": "2025-07-23T03:11:33.291Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "StudentsChangeSchoolController.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\StudentsChangeSchoolController.cs",
+              "RelativeDocumentMoniker": "Controllers\\StudentsChangeSchoolController.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\StudentsChangeSchoolController.cs",
+              "RelativeToolTip": "Controllers\\StudentsChangeSchoolController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T03:09:53.263Z",
               "EditorCaption": ""
             },
             {
@@ -85,26 +246,37 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Properties\\launchSettings.json",
-              "RelativeToolTip": "Properties\\launchSettings.json",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-07-21T14:20:13.302Z",
-              "EditorCaption": ""
+              "DocumentIndex": 10,
+              "Title": "AssignmentController.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\AssignmentController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AssignmentController.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\AssignmentController.cs",
+              "RelativeToolTip": "Controllers\\AssignmentController.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAAAADgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:19:00.776Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 11,
+              "Title": "AssessmentQuestion.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\AssessmentQuestion.cs",
+              "RelativeDocumentMoniker": "Controllers\\AssessmentQuestion.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\AssessmentQuestion.cs",
+              "RelativeToolTip": "Controllers\\AssessmentQuestion.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAAADcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:18:50.39Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAD0AAAAAAAAAAAAcwE8AAABYAAAAAAAAAA==",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAcwFQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-19T13:10:54.274Z",
               "EditorCaption": ""
@@ -112,6 +284,427 @@
             {
               "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "AcceptingSchoolTransfersController.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\AcceptingSchoolTransfersController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AcceptingSchoolTransfersController.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\AcceptingSchoolTransfersController.cs",
+              "RelativeToolTip": "Controllers\\AcceptingSchoolTransfersController.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAuwC0AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:11:30.031Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AssignmentGroupsController.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\AssignmentGroupsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AssignmentGroupsController.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\AssignmentGroupsController.cs",
+              "RelativeToolTip": "Controllers\\AssignmentGroupsController.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAwEMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:19:11.699Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CoursesLearnedController.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\CoursesLearnedController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CoursesLearnedController.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\CoursesLearnedController.cs",
+              "RelativeToolTip": "Controllers\\CoursesLearnedController.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAAwCkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:19:59.242Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ClassDetailController.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\ClassDetailController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ClassDetailController.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\ClassDetailController.cs",
+              "RelativeToolTip": "Controllers\\ClassDetailController.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAAwCkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:19:25.735Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ClassroomSettingController.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\ClassroomSettingController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ClassroomSettingController.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\ClassroomSettingController.cs",
+              "RelativeToolTip": "Controllers\\ClassroomSettingController.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAgwCkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:19:47.641Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "AssessmentPartController.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\AssessmentPartController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AssessmentPartController.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\AssessmentPartController.cs",
+              "RelativeToolTip": "Controllers\\AssessmentPartController.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAxwDIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:18:32.733Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CoursesLearnedService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\CoursesLearnedService.cs",
+              "RelativeDocumentMoniker": "Services\\CoursesLearnedService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\CoursesLearnedService.cs",
+              "RelativeToolTip": "Services\\CoursesLearnedService.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:17:51.081Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ClassroomSettingService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\ClassroomSettingService.cs",
+              "RelativeDocumentMoniker": "Services\\ClassroomSettingService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\ClassroomSettingService.cs",
+              "RelativeToolTip": "Services\\ClassroomSettingService.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAAwCcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:16:34.731Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ClassDetailService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\ClassDetailService.cs",
+              "RelativeDocumentMoniker": "Services\\ClassDetailService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\ClassDetailService.cs",
+              "RelativeToolTip": "Services\\ClassDetailService.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAAACoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:16:21.413Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "AssignmentService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\AssignmentService.cs",
+              "RelativeDocumentMoniker": "Services\\AssignmentService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\AssignmentService.cs",
+              "RelativeToolTip": "Services\\AssignmentService.cs",
+              "ViewState": "AgIAAHMAAAAAAAAAAAAAwHcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:15:58.67Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "AssignmentGroupService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\AssignmentGroupService.cs",
+              "RelativeDocumentMoniker": "Services\\AssignmentGroupService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\AssignmentGroupService.cs",
+              "RelativeToolTip": "Services\\AssignmentGroupService.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAwFUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:15:12.764Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "AssessmentQuestionService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\AssessmentQuestionService.cs",
+              "RelativeDocumentMoniker": "Services\\AssessmentQuestionService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\AssessmentQuestionService.cs",
+              "RelativeToolTip": "Services\\AssessmentQuestionService.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAAwEsAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:14:58.73Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "AssessmentPartService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\AssessmentPartService.cs",
+              "RelativeDocumentMoniker": "Services\\AssessmentPartService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\AssessmentPartService.cs",
+              "RelativeToolTip": "Services\\AssessmentPartService.cs",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAAwF8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:14:47.704Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "AcceptingSchoolTransferService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\AcceptingSchoolTransferService.cs",
+              "RelativeDocumentMoniker": "Services\\AcceptingSchoolTransferService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\AcceptingSchoolTransferService.cs",
+              "RelativeToolTip": "Services\\AcceptingSchoolTransferService.cs",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAAwFwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:14:33.962Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "ICoursesLearnedService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\ICoursesLearnedService.cs",
+              "RelativeDocumentMoniker": "Interface\\ICoursesLearnedService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\ICoursesLearnedService.cs",
+              "RelativeToolTip": "Interface\\ICoursesLearnedService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:14:22.601Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "IClassroomSettingService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IClassroomSettingService.cs",
+              "RelativeDocumentMoniker": "Interface\\IClassroomSettingService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IClassroomSettingService.cs",
+              "RelativeToolTip": "Interface\\IClassroomSettingService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:14:02.09Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "IClassDetailService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IClassDetailService.cs",
+              "RelativeDocumentMoniker": "Interface\\IClassDetailService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IClassDetailService.cs",
+              "RelativeToolTip": "Interface\\IClassDetailService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:13:52.535Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "IAssignmentGroupService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IAssignmentGroupService.cs",
+              "RelativeDocumentMoniker": "Interface\\IAssignmentGroupService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IAssignmentGroupService.cs",
+              "RelativeToolTip": "Interface\\IAssignmentGroupService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:13:37.6Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "IAssignmentService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IAssignmentService.cs",
+              "RelativeDocumentMoniker": "Interface\\IAssignmentService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IAssignmentService.cs",
+              "RelativeToolTip": "Interface\\IAssignmentService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:13:29.491Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "IAssessmentQuestionService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IAssessmentQuestionService.cs",
+              "RelativeDocumentMoniker": "Interface\\IAssessmentQuestionService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IAssessmentQuestionService.cs",
+              "RelativeToolTip": "Interface\\IAssessmentQuestionService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:13:20.031Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "IAssessmentPartService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IAssessmentPartService.cs",
+              "RelativeDocumentMoniker": "Interface\\IAssessmentPartService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IAssessmentPartService.cs",
+              "RelativeToolTip": "Interface\\IAssessmentPartService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:13:10.55Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "IAcceptingSchoolTransferService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IAcceptingSchoolTransferService.cs",
+              "RelativeDocumentMoniker": "Interface\\IAcceptingSchoolTransferService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IAcceptingSchoolTransferService.cs",
+              "RelativeToolTip": "Interface\\IAcceptingSchoolTransferService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:12:54.351Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "StudentsChangeSchoolService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\StudentsChangeSchoolService.cs",
+              "RelativeDocumentMoniker": "Services\\StudentsChangeSchoolService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\StudentsChangeSchoolService.cs",
+              "RelativeToolTip": "Services\\StudentsChangeSchoolService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T13:50:41.736Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "IRelativesInformationService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IRelativesInformationService.cs",
+              "RelativeDocumentMoniker": "Interface\\IRelativesInformationService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IRelativesInformationService.cs",
+              "RelativeToolTip": "Interface\\IRelativesInformationService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T13:42:43.726Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "RolePermissionController.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\RolePermissionController.cs",
+              "RelativeDocumentMoniker": "Controllers\\RolePermissionController.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\RolePermissionController.cs",
+              "RelativeToolTip": "Controllers\\RolePermissionController.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwAcAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T13:59:41.873Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "SemesterService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\SemesterService.cs",
+              "RelativeDocumentMoniker": "Services\\SemesterService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\SemesterService.cs",
+              "RelativeToolTip": "Services\\SemesterService.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAgwAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T13:48:11.837Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "ISemesterService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\ISemesterService.cs",
+              "RelativeDocumentMoniker": "Interface\\ISemesterService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\ISemesterService.cs",
+              "RelativeToolTip": "Interface\\ISemesterService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T13:43:37.908Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "IStudentsChangeSchoolService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IStudentsChangeSchoolService.cs",
+              "RelativeDocumentMoniker": "Interface\\IStudentsChangeSchoolService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IStudentsChangeSchoolService.cs",
+              "RelativeToolTip": "Interface\\IStudentsChangeSchoolService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T13:43:50.924Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "IStudentsChangeClassService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IStudentsChangeClassService.cs",
+              "RelativeDocumentMoniker": "Interface\\IStudentsChangeClassService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IStudentsChangeClassService.cs",
+              "RelativeToolTip": "Interface\\IStudentsChangeClassService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T13:43:44.603Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "IScoreService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IScoreService.cs",
+              "RelativeDocumentMoniker": "Interface\\IScoreService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IScoreService.cs",
+              "RelativeToolTip": "Interface\\IScoreService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T13:43:31.003Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "IRolePermissionService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IRolePermissionService.cs",
+              "RelativeDocumentMoniker": "Interface\\IRolePermissionService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IRolePermissionService.cs",
+              "RelativeToolTip": "Interface\\IRolePermissionService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T13:43:15.155Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "ChatAIService.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\ChatAIService.cs",
+              "RelativeDocumentMoniker": "Services\\ChatAIService.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\ChatAIService.cs",
+              "RelativeToolTip": "Services\\ChatAIService.cs",
+              "ViewState": "AgIAAMMAAAAAAAAAAAAowMwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T13:39:28.527Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "ISC_ProjectDbContext.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Data\\ISC_ProjectDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\ISC_ProjectDbContext.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Data\\ISC_ProjectDbContext.cs",
+              "RelativeToolTip": "Data\\ISC_ProjectDbContext.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAawBkAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T13:28:34.554Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "20250722131742_AddChatHistoryTables.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Migrations\\20250722131742_AddChatHistoryTables.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250722131742_AddChatHistoryTables.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Migrations\\20250722131742_AddChatHistoryTables.cs",
+              "RelativeToolTip": "Migrations\\20250722131742_AddChatHistoryTables.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T13:17:42.356Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Properties\\launchSettings.json",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-07-21T14:20:13.302Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
@@ -119,8 +712,7 @@
               "RelativeToolTip": "appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-07-19T13:10:36.516Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-19T13:10:36.516Z"
             }
           ]
         }

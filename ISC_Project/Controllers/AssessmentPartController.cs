@@ -48,36 +48,5 @@ namespace ISC_Project.Controllers
             var created = await _service.CreateAsync(createDto); // Gọi service với DTO
             return CreatedAtAction(nameof(GetById), new { id = created.AssessmentPartsId }, created);
         }
-
-        // Bạn cũng sẽ muốn thêm các phương thức Update và Delete tương tự nếu chưa có:
-
-        // PUT: api/AssessmentPart/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] UpdateAssessmentPartDto updateDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var success = await _service.UpdateAsync(id, updateDto);
-            if (!success)
-            {
-                return NotFound();
-            }
-            return NoContent();
-        }
-
-        // DELETE: api/AssessmentPart/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var success = await _service.DeleteAsync(id);
-            if (!success)
-            {
-                return NotFound();
-            }
-            return NoContent();
-        }
     }
 }

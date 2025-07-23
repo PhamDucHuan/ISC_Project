@@ -79,8 +79,18 @@ namespace ISC_Project
             builder.Services.AddScoped<IClassroomSettingService, ClassroomSettingService>();
             builder.Services.AddScoped<ICoursesLearnedService, CoursesLearnedService>();
 
+            builder.Services.AddScoped<IRelativesInformationService, RelativesInformationService>();
+            builder.Services.AddScoped<IRelativesInformationService, RelativesInformationService>();
+
+            builder.Services.AddScoped<IQualificationsService, QualificationService>();
+            builder.Services.AddScoped<IReservedService, ReservedService>();
             builder.Services.AddScoped<INotificationService, NotificationService>();
-            builder.Services.AddScoped<IChatAIService, ChatAIService>();
+            builder.Services.AddScoped<IRolePermissionService, RolePermissionService>();
+            builder.Services.AddScoped<IScoreService, ScoreService>();
+            builder.Services.AddScoped<ISemesterService, SemesterService>();
+            builder.Services.AddScoped<IStudentsChangeClassService, StudentsChangeClassService>();
+            builder.Services.AddScoped<IStudentsChangeSchoolService, StudentsChangeSchoolService>();
+            builder.Services.AddScoped<ISubjectService, SubjectService>();
             
             // Thêm HttpClient cho ChatAI service
             builder.Services.AddHttpClient();

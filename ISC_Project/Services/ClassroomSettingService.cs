@@ -37,28 +37,5 @@ namespace ISC_Project.Services
             await _context.SaveChangesAsync();
             return setting;
         }
-
-        public async Task<bool> UpdateAsync(int id, ClassroomSetting setting)
-        {
-            var existing = await _context.ClassroomSettings.FindAsync(id);
-            if (existing == null) return false;
-
-            existing.Status = setting.Status;
-            existing.Description = setting.Description;
-            existing.ClassId = setting.ClassId;
-
-            await _context.SaveChangesAsync();
-            return true;
-        }
-
-        public async Task<bool> DeleteAsync(int id)
-        {
-            var existing = await _context.ClassroomSettings.FindAsync(id);
-            if (existing == null) return false;
-
-            _context.ClassroomSettings.Remove(existing);
-            await _context.SaveChangesAsync();
-            return true;
-        }
     }
 }

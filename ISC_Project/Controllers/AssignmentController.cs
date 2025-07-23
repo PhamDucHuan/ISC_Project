@@ -54,38 +54,5 @@ namespace ISC_Project.Controllers
             var newAssignment = await _service.CreateAsync(createDto);
             return CreatedAtAction(nameof(GetAssignment), new { id = newAssignment.AssignmentId }, newAssignment);
         }
-
-       
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAssignment(int id, UpdateAssignmentDto updateDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var success = await _service.UpdateAsync(id, updateDto);
-
-            if (!success)
-            {
-                return NotFound();
-            }
-
-            return NoContent();
-        }
-
-        // DELETE: api/Assignments/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAssignment(int id)
-        {
-            var success = await _service.DeleteAsync(id);
-
-            if (!success)
-            {
-                return NotFound();
-            }
-
-            return NoContent();
-        }
     }
 }
