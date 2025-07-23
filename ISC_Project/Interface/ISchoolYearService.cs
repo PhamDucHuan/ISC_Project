@@ -8,6 +8,6 @@ namespace ISC_Project.Interface
         Task<SchoolYearDto?> GetByIdAsync(int id);
         Task<IEnumerable<SchoolYearDto>> GetAllAsync();
         Task<SchoolYearDto> CreateAsync(CreateSchoolYearDto dto);
-        Task<SchoolYearDto> InheritAsync(InheritSchoolYearDto dto);
+        Task<InheritedSchoolYearResultDto> InheritAsync(InheritSchoolYearDto dto);
     }
 }

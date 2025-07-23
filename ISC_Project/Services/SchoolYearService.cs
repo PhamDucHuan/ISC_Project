@@ -1,6 +1,8 @@
 ﻿using ISC_Project.Data;
+using ISC_Project.DTOs.Class;
 using ISC_Project.DTOs.School_Year;
 using ISC_Project.DTOs.SchoolYear;
+using ISC_Project.DTOs.Student;
 using ISC_Project.Interface;
 using ISC_Project.Models;
 using Microsoft.EntityFrameworkCore;
@@ -59,109 +61,110 @@ namespace ISC_Project.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<SchoolYearDto> InheritAsync(InheritSchoolYearDto dto)
+        public async Task<InheritedSchoolYearResultDto> InheritAsync(InheritSchoolYearDto dto)
         {
-            // Bắt đầu một transaction để đảm bảo toàn vẹn dữ liệu
             using var transaction = await _context.Database.BeginTransactionAsync();
 
             try
             {
-                // === BƯỚC 1: TẠO NIÊN KHÓA MỚI ===
+                // ... Bước 1 & 2 không đổi ...
+                // 1. TẠO NIÊN KHÓA MỚI
                 var newSchoolYear = new SchoolYear
                 {
                     SchoolYearName = dto.NewSchoolYearName,
                     StarTime = dto.NewStartTime,
                     EndTime = dto.NewEndTime,
-                    // Giả sử SchoolId được lấy từ niên khóa cũ hoặc một nguồn khác
                 };
                 _context.SchoolYears.Add(newSchoolYear);
-                await _context.SaveChangesAsync(); // Lưu để lấy được newSchoolYear.SchoolYearId
+                await _context.SaveChangesAsync();
 
-                // === BƯỚC 2: LẤY DỮ LIỆU TỪ NIÊN KHÓA CŨ ===
-                var oldStudents = await _context.StudentsProfiles
-                    .Where(s => s.SchoolYearId == dto.SourceSchoolYearId)
-                    .AsNoTracking().ToListAsync();
-
+                // 2. LẤY DỮ LIỆU CŨ
                 var oldClasses = await _context.Classes
                     .Where(c => c.SchoolYearId == dto.SourceSchoolYearId)
                     .AsNoTracking().ToListAsync();
 
-                var oldSubjects = await _context.Subjects
+                var oldStudents = await _context.StudentsProfiles
                     .Where(s => s.SchoolYearId == dto.SourceSchoolYearId)
                     .AsNoTracking().ToListAsync();
 
-                // === BƯỚC 3: SAO CHÉP LỚP HỌC VÀ MÔN HỌC ===
-                // Tạo một map để theo dõi ID cũ -> ID mới
+                // === BƯỚC 3: SAO CHÉP LỚP HỌC VÀ LƯU VÀO DANH SÁCH MỚI ===
                 var oldToNewClassIdMap = new Dictionary<int, int>();
+                var newClassesList = new List<Class>(); // Danh sách để lưu các lớp mới
+
                 foreach (var oldClass in oldClasses)
                 {
                     var newClass = new Class
                     {
                         ClassName = oldClass.ClassName,
                         ClassCode = oldClass.ClassCode,
-                        Description = oldClass.Description,
-                        // ... sao chép các thuộc tính khác ...
-                        SchoolYearId = newSchoolYear.SchoolYearId // Gán vào niên khóa mới
+                        SchoolYearId = newSchoolYear.SchoolYearId,
+                        // ... sao chép các thuộc tính khác
                     };
-                    _context.Classes.Add(newClass);
-                    await _context.SaveChangesAsync(); // Lưu để lấy newClass.ClassId
-                    oldToNewClassIdMap[oldClass.ClassId] = newClass.ClassId;
+                    newClassesList.Add(newClass); // Thêm vào danh sách
+                }
+                await _context.Classes.AddRangeAsync(newClassesList); // Thêm hàng loạt để tối ưu
+                await _context.SaveChangesAsync();
+
+                // Tạo map ID sau khi đã lưu
+                for (int i = 0; i < oldClasses.Count; i++)
+                {
+                    oldToNewClassIdMap[oldClasses[i].ClassId] = newClassesList[i].ClassId;
                 }
 
-                // Tương tự cho môn học...
-
-                // === BƯỚC 4: SAO CHÉP HỌC VIÊN VÀ CẬP NHẬT LỚP MỚI ===
+                // === BƯỚC 4: SAO CHÉP HỌC VIÊN VÀ LƯU VÀO DANH SÁCH MỚI ===
+                var newStudentsList = new List<StudentsProfile>(); // Danh sách để lưu học viên mới
                 foreach (var oldStudent in oldStudents)
                 {
-                    // ✅ Bắt đầu sửa từ đây
-                    int? newMappedClassId = null; // Mặc định là không có lớp
-                    if (oldStudent.ClassId.HasValue) // Kiểm tra xem học viên cũ có thuộc lớp nào không
-                    {
-                        // Thử tìm ID lớp mới trong map, nếu có thì gán vào biến newMappedClassId
-                        oldToNewClassIdMap.TryGetValue(oldStudent.ClassId.Value, out int foundNewId);
-                        newMappedClassId = foundNewId > 0 ? foundNewId : (int?)null;
-                    }
+                    oldToNewClassIdMap.TryGetValue(oldStudent.ClassId.GetValueOrDefault(), out int newMappedClassId);
 
                     var newStudent = new StudentsProfile
                     {
                         StudentName = oldStudent.StudentName,
                         StudentCode = oldStudent.StudentCode,
-                        DateOfBirth = oldStudent.DateOfBirth,
                         Status = "Đang học",
-                        // ... sao chép các thuộc tính khác ...
                         SchoolYearId = newSchoolYear.SchoolYearId,
-
-                        // Gán ID lớp mới đã tìm được
-                        ClassId = newMappedClassId
+                        ClassId = newMappedClassId > 0 ? newMappedClassId : null,
+                        //... sao chép các thuộc tính khác
                     };
-                    _context.StudentsProfiles.Add(newStudent);
-                    // ✅ Kết thúc sửa ở đây
+                    newStudentsList.Add(newStudent);
                 }
-
-                // === BƯỚC 5: SAO CHÉP PHÂN CÔNG GIẢNG DẠY ===
-                // Logic này phụ thuộc vào cách bạn lưu trữ phân công.
-                // Ví dụ: cập nhật TeacherProfile hoặc tạo bản ghi trong bảng trung gian.
-
-                // Lưu tất cả các thay đổi còn lại
+                await _context.StudentsProfiles.AddRangeAsync(newStudentsList);
                 await _context.SaveChangesAsync();
 
-                // Nếu mọi thứ thành công, commit transaction
                 await transaction.CommitAsync();
 
-                // Trả về thông tin niên khóa mới đã tạo
-                return new SchoolYearDto
+
+                // === BƯỚC 5: TẠO KẾT QUẢ TRẢ VỀ ===
+                var result = new InheritedSchoolYearResultDto
                 {
-                    SchoolYearId = newSchoolYear.SchoolYearId,
-                    SchoolYearName = newSchoolYear.SchoolYearName,
-                    StarTime = (DateTime)newSchoolYear.StarTime,
-                    EndTime = (DateTime)newSchoolYear.EndTime
+                    NewSchoolYear = new SchoolYearDto
+                    {
+                        SchoolYearId = newSchoolYear.SchoolYearId,
+                        SchoolYearName = newSchoolYear.SchoolYearName,
+                        StarTime = newSchoolYear.StarTime,
+                        EndTime = newSchoolYear.EndTime
+                    },
+                    // Chuyển danh sách các model mới thành danh sách DTO
+                    InheritedClasses = newClassesList.Select(c => new ClassDto
+                    {
+                        ClassId = c.ClassId,
+                        ClassName = c.ClassName,
+                        ClassCode = c.ClassCode
+                    }).ToList(),
+                    InheritedStudents = newStudentsList.Select(s => new StudentProfileDto
+                    {
+                        StudentName = s.StudentName,
+                        StudentCode = s.StudentCode,
+                        Status = s.Status
+                    }).ToList()
                 };
+
+                return result; // Trả về đối tượng chứa đầy đủ dữ liệu
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // Nếu có bất kỳ lỗi nào, rollback tất cả thay đổi
                 await transaction.RollbackAsync();
-                throw; // Ném lại exception để controller xử lý
+                throw;
             }
         }
     }
