@@ -3,7 +3,6 @@ using ISC_Project.Infrastructure.Services;
 using ISC_Project.Interface;
 using ISC_Project.Interface.AuthService;
 using ISC_Project.Interface.Exam;
-using ISC_Project.Repositories;
 using ISC_Project.Services;
 using ISC_Project.Services.AuthService;
 using ISC_Project.Services.Exam;
@@ -83,8 +82,8 @@ namespace ISC_Project
             builder.Services.AddScoped<IRelativesInformationService, RelativesInformationService>();
             builder.Services.AddScoped<IRelativesInformationService, RelativesInformationService>();
 
-            //builder.Services.AddScoped<IQualificationsRepository, QualificationsRepository>(); bug
-            //builder.Services.AddScoped<IReservedRepository, ReservedRepository>(); bug
+            builder.Services.AddScoped<IQualificationsService, QualificationService>();
+            builder.Services.AddScoped<IReservedService, ReservedService>();
             builder.Services.AddScoped<INotificationService, NotificationService>();
             builder.Services.AddScoped<IRolePermissionService, RolePermissionService>();
             builder.Services.AddScoped<IScoreService, ScoreService>();
