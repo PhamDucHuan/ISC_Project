@@ -146,14 +146,14 @@
         </iframe>
         
         <div id="error-content" class="error-message" style="display: none;">
-            <h2>🚫 Không thể kết nối Chat Service</h2>
-            <p>Chat AI hiện tại không khả dụng. Vui lòng kiểm tra:</p>
+            <h2>🚫 Can't connect to Chat Service</h2>
+            <p>Chat AI not working. Pls check:</p>
             <ul style="text-align: left; display: inline-block; margin: 20px 0;">
-                <li>Chat service đã được khởi động chưa?</li>
-                <li>Đang chạy trên http://localhost:3000?</li>
-                <li>Firewall có chặn kết nối không?</li>
+                <li>Is Chat service setup?</li>
+                <li>Is running on: https://dev-chatbot-hono.vercel.app/?</li>
+                <li>Is Firewall block connect?</li>
             </ul>
-            <button class="retry-button" onclick="retryConnection()">Thử lại</button>
+            <button class="retry-button" onclick="retryConnection()">Try again</button>
         </div>
     </div>
 
@@ -167,17 +167,17 @@
             
             if (isOnline) {
                 indicator.className = 'status-indicator status-online';
-                text.textContent = message || 'Đã kết nối';
+                text.textContent = message || 'Connected to Chat AI';
             } else {
                 indicator.className = 'status-indicator status-offline';
-                text.textContent = message || 'Mất kết nối';
+                text.textContent = message || 'Disconnected from Chat AI';
             }
         }
 
         function showError() {
             document.getElementById('chat-iframe').style.display = 'none';
             document.getElementById('error-content').style.display = 'block';
-            updateStatus(false, 'Không thể kết nối');
+            updateStatus(false, 'Chat AI cant connect');
         }
 
         function hideError() {
@@ -188,14 +188,14 @@
         function handleIframeLoad() {
             const iframe = document.getElementById('chat-iframe');
             try {
-                // Kiểm tra xem iframe có load thành công không
+                // Check if we can access the iframe content
                 if (iframe.src !== 'about:blank') {
-                    updateStatus(true, 'Chat AI sẵn sàng');
+                    updateStatus(true, 'Chat AI is ready');
                     hideError();
                 }
             } catch (e) {
                 console.log('Iframe loaded but cannot access content (CORS)');
-                updateStatus(true, 'Chat AI sẵn sàng');
+                updateStatus(true, 'Chat AI is ready (CORS issue)');
                 hideError();
             }
         }
@@ -206,20 +206,20 @@
 
         function connectToChat() {
             connectionAttempts++;
-            updateStatus(false, 'Đang kết nối...');
+            updateStatus(false, 'Connecting to Chat AI...');
             
             const iframe = document.getElementById('chat-iframe');
             iframe.src = 'https://dev-chatbot-hono.vercel.app/';
             
-            // Timeout để kiểm tra kết nối
+            // Timeout to check connection status
             setTimeout(() => {
                 if (iframe.src === 'https://dev-chatbot-hono.vercel.app/') {
                     try {
-                        // Thử ping service
+                        // Test ping service
                         fetch('https://dev-chatbot-hono.vercel.app/')
                             .then(response => {
                                 if (response.ok) {
-                                    updateStatus(true, 'Chat AI sẵn sàng');
+                                    updateStatus(true, 'Chat AI connected successfully');
                                     hideError();
                                 } else {
                                     throw new Error('Service unavailable');
@@ -248,7 +248,7 @@
             connectToChat();
         }
 
-        // Khởi động kết nối khi trang load
+        // Start connection on page load
         window.onload = function() {
             connectToChat();
         };
