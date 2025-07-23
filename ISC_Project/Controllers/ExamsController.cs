@@ -28,7 +28,7 @@ namespace ISC_Project.Controllers
 
             try
             {
-                var labScheduleId = await _examService.CreateExamAsync(examDto, teacherUserId);
+                var labScheduleId = await _examService.CreateRandomExamAsync(examDto, teacherUserId);
                 return CreatedAtAction(nameof(GetExamById), new { id = labScheduleId }, new { labScheduleId });
             }
             catch (Exception ex)

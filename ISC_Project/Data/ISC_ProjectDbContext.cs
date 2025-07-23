@@ -934,6 +934,8 @@ namespace ISC_Project.Data
                     .HasColumnType("timestamp without time zone")
                     .HasColumnName("Lab_start_date");
 
+                entity.Property(e => e.NumberOfRandomQuestions).HasColumnName("NumberOfRandomQuestions ");
+
                 entity.Property(e => e.SchoolYearId).HasColumnName("SchoolYear_ID");
 
                 entity.Property(e => e.Status).HasMaxLength(100);

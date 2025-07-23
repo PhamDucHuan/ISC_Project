@@ -2,15 +2,15 @@
 using ISC_Project.DTOs.UserManagement;
 using ISC_Project.Interface.AuthService;
 using ISC_Project.Models;
+using ISC_Project.Utils;
 using Microsoft.EntityFrameworkCore;
+
 namespace ISC_Project.Services.AuthService  
 {
     public class AuthService : IAuthService
     {
         private readonly ISC_ProjectDbContext _context;
         private readonly IJwtService _jwtService; // ✅ TIÊM IJwtService VÀO
-
-        private readonly string _jwtKey; // ✅ BIẾN MỚI ĐỂ LƯU KEY
         public AuthService(ISC_ProjectDbContext context, IJwtService jwtService)
         {
             _context = context;
@@ -66,6 +66,9 @@ namespace ISC_Project.Services.AuthService
 
         public async Task<User> RegisterAsync(RegisterRequestDto request)
         {
+            // ✅ GỌI HÀM VALIDATE TỪ LỚP TĨNH
+            PasswordValidator.Validate(request.Password);
+
             // 1. Kiểm tra xem username đã tồn tại chưa
             if (await _context.Users.AnyAsync(u => u.UserName == request.Username))
             {
@@ -76,16 +79,14 @@ namespace ISC_Project.Services.AuthService
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
             // 3. Tạo đối tượng User mới
-            // Mặc định gán vai trò là "Student" (ID = 3 theo thiết kế trước)
-            // Bạn có thể thay đổi logic này nếu cần
             var newUser = new User
             {
                 UserName = request.Username,
                 Password = hashedPassword,
-                FullName = request.FullName, // Giả sử bạn có cột FullName trong bảng User
-                Email = request.Email,       // Giả sử bạn có cột Email
+                FullName = request.FullName,
+                Email = request.Email,
                 RoleId = 3, // Mặc định là Student
-                Status = "Active", // Mặc định
+                Status = "Active",
                 CreateAt = DateTime.UtcNow
             };
 

@@ -16,18 +16,24 @@ namespace ISC_Project.Services.Exam
             _context = context;
         }
 
-        public async Task<int> CreateExamAsync(ExamCreationDto examDto, int teacherUserId)
+        public async Task<int> CreateRandomExamAsync(ExamCreationDto examDto, int teacherUserId)
         {
-            // 1. Xác thực giáo viên và môn học
-            var teacherProfile = await _context.TeacherProfiles
-                .FirstOrDefaultAsync(t => t.UserId == teacherUserId);
-
+            var teacherProfile = await _context.TeacherProfiles.FirstOrDefaultAsync(t => t.UserId == teacherUserId);
             if (teacherProfile == null || !teacherProfile.SubjectId.HasValue)
             {
                 throw new Exception("Không tìm thấy giáo viên hoặc giáo viên chưa được phân công môn học.");
             }
 
-            // 2. Tạo bài kiểm tra (LabSchedule)
+            // Kiểm tra xem ngân hàng đề có đủ câu hỏi không
+            var totalQuestionsInBank = await _context.Questions
+                .CountAsync(q => q.SubjectId == teacherProfile.SubjectId.Value);
+
+            if (totalQuestionsInBank < examDto.NumberOfQuestions)
+            {
+                throw new Exception($"Ngân hàng đề chỉ có {totalQuestionsInBank} câu hỏi, không đủ để tạo bài kiểm tra {examDto.NumberOfQuestions} câu.");
+            }
+
+            // Tạo bài kiểm tra và LƯU SỐ LƯỢNG CÂU HỎI
             var labSchedule = new LabSchedule
             {
                 LabName = examDto.Name,
@@ -35,30 +41,16 @@ namespace ISC_Project.Services.Exam
                 LabEndDate = examDto.EndDate,
                 UserId = teacherUserId,
                 SubjectId = teacherProfile.SubjectId.Value,
-                Status = "Scheduled"
+                Status = "Scheduled",
+                NumberOfRandomQuestions = examDto.NumberOfQuestions // Lưu số lượng câu hỏi
             };
             _context.LabSchedules.Add(labSchedule);
-            await _context.SaveChangesAsync(); // Lưu để lấy LabSchedules_ID
+            await _context.SaveChangesAsync();
 
-            // 3. Thêm các câu hỏi đã chọn vào bài kiểm tra
-            foreach (var questionId in examDto.QuestionIds)
-            {
-                var examQuestion = new LabScheduleQuestion
-                {
-                    LabSchedulesId = labSchedule.LabSchedulesId,
-                    QuestionsId = questionId
-                };
-                _context.LabScheduleQuestions.Add(examQuestion);
-            }
-
-            // 4. Gán bài kiểm tra cho các lớp
+            // Gán bài kiểm tra cho các lớp (logic này giữ nguyên)
             foreach (var classId in examDto.ClassIds)
             {
-                var scheduleClass = new LabScheduleClass
-                {
-                    LabSchedulesId = labSchedule.LabSchedulesId,
-                    ClassId = classId
-                };
+                var scheduleClass = new LabScheduleClass { LabSchedulesId = labSchedule.LabSchedulesId, ClassId = classId };
                 _context.LabScheduleClasses.Add(scheduleClass);
             }
 
@@ -66,40 +58,53 @@ namespace ISC_Project.Services.Exam
             return labSchedule.LabSchedulesId;
         }
 
+        // ✅ 2. SỬA LẠI PHƯƠNG THỨC BẮT ĐẦU LÀM BÀI
         public async Task<StartedExamDto> StartExamAsync(int labScheduleId, int studentUserId)
         {
-            // 1. Tạo một lượt làm bài mới
+            var labSchedule = await _context.LabSchedules.FindAsync(labScheduleId);
+            if (labSchedule == null || !labSchedule.NumberOfRandomQuestions.HasValue)
+            {
+                throw new Exception("Bài kiểm tra không hợp lệ hoặc không được cấu hình để lấy câu hỏi ngẫu nhiên.");
+            }
+
+            // 1. Lấy ID của tất cả câu hỏi có thể một cách hiệu quả
+            var allQuestionIds = await _context.Questions
+                .Where(q => q.SubjectId == labSchedule.SubjectId)
+                .Select(q => q.QuestionsId)
+                .ToListAsync();
+
+            // 2. Xáo trộn danh sách ID trong bộ nhớ (cách này rất nhanh)
+            var random = new Random();
+            var shuffledIds = allQuestionIds.OrderBy(id => random.Next()).ToList();
+
+            // 3. Lấy ra số lượng ID cần thiết cho bài kiểm tra
+            var selectedQuestionIds = shuffledIds.Take(labSchedule.NumberOfRandomQuestions.Value).ToList();
+
+            // 4. Bây giờ, mới truy vấn CSDL để lấy toàn bộ thông tin chi tiết của các câu hỏi đã được chọn
+            var randomQuestions = await _context.Questions
+                .Where(q => selectedQuestionIds.Contains(q.QuestionsId))
+                .Include(q => q.QuestionOptions)
+                .ToListAsync();
+
+            // Phần còn lại của code vẫn giữ nguyên...
             var submission = new StudentSubmission
             {
                 SubmissionTime = DateTime.UtcNow,
                 UserId = studentUserId,
                 LabSchedulesId = labScheduleId,
-                // Các trường khác có thể set giá trị mặc định
             };
             _context.StudentSubmissions.Add(submission);
             await _context.SaveChangesAsync();
 
-            // 2. Lấy danh sách câu hỏi và hoán đổi vị trí
-            var questions = await _context.LabScheduleQuestions
-                .Where(lq => lq.LabSchedulesId == labScheduleId)
-                .Include(lq => lq.Questions)
-                    .ThenInclude(q => q.QuestionOptions)
-                .Select(lq => lq.Questions)
-                .ToListAsync();
-
-            // Logic hoán đổi ngẫu nhiên
-            var random = new Random();
-            var shuffledQuestions = questions.OrderBy(q => random.Next()).ToList();
-
-            // 3. Chuyển đổi sang DTO để gửi về cho client
             var resultDto = new StartedExamDto
             {
                 SubmissionId = submission.SubmissionsId,
-                ShuffledQuestions = shuffledQuestions.Select(q => new QuestionForStudentDto
+                // Xáo trộn lại danh sách cuối cùng để hiển thị cho sinh viên theo thứ tự ngẫu nhiên
+                ShuffledQuestions = randomQuestions.OrderBy(q => random.Next()).Select(q => new QuestionForStudentDto
                 {
                     QuestionId = q.QuestionsId,
                     QuestionText = q.QuestionsText,
-                    Options = q.QuestionOptions.Select(o => new OptionDto
+                    Options = q.QuestionOptions.OrderBy(o => random.Next()).Select(o => new OptionDto
                     {
                         OptionId = o.QuestionOptionsId,
                         OptionText = o.OptionText

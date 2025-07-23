@@ -22,6 +22,7 @@ namespace ISC_Project.Models
         public int? SubjectId { get; set; }
         public int? UserId { get; set; }
         public int? SchoolYearId { get; set; }
+        public int? NumberOfRandomQuestions { get; set; }
 
         public virtual Subject? Subject { get; set; }
         public virtual User? User { get; set; }

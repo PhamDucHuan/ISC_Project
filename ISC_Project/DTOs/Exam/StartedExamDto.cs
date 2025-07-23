@@ -3,6 +3,6 @@
     public class StartedExamDto
     {
         public int SubmissionId { get; set; }
-        public List<QuestionForStudentDto> ShuffledQuestions { get; set; }
+        public List<QuestionForStudentDto> ShuffledQuestions { get; set; } = new List<QuestionForStudentDto>();
     }
 }
