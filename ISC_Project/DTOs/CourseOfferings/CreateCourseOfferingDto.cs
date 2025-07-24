@@ -6,7 +6,7 @@ namespace ISC_Project.DTOs.Course
     {
         public int CourseOfferingsId { get; set; }
         public decimal Price { get; set; }
-        public string Status { get; set; } = null!;
+        public string Status { get; set; } = string.Empty;
     }
 
     public class CreateCourseOfferingDto
@@ -18,7 +18,7 @@ namespace ISC_Project.DTOs.Course
         public int MaxStudent { get; set; }
         public decimal Price { get; set; }
         [Required]
-        public string Status { get; set; } = null!;
+        public string Status { get; set; } = string.Empty!;
         [Required]
         public int CoursesId { get; set; }
         [Required]
