@@ -35,19 +35,6 @@ namespace ISC_Project.Controllers
             return CreatedAtAction(nameof(GetById), new { id = exemption.ExemptionsId }, exemption);
         }
 
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> Update(int id, [FromBody] CreateExemptionDto dto)
-        //{
-        //    if (!ModelState.IsValid) return BadRequest(ModelState);
-        //    var updatedExemption = await _service.UpdateAsync(id, dto);
-        //    return updatedExemption == null ? NotFound() : Ok(updatedExemption);
-        //}
-
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    var success = await _service.DeleteAsync(id);
-        //    return success ? NoContent() : NotFound();
-        //}
+       
     }
 }

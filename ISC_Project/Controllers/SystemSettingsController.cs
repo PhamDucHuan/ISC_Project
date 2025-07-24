@@ -35,7 +35,7 @@ namespace ISC_Project.Controllers
             {
                 return BadRequest(ModelState);
             }
-            // Thêm kiểm tra xem key đã tồn tại chưa
+            // Add check to see if the key already exists
             var existingSetting = await _service.GetByIdAsync(dto.SettingKey);
             if (existingSetting != null)
             {

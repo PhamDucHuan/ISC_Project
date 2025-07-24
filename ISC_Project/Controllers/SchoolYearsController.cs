@@ -36,7 +36,7 @@ namespace ISC_Project.API.Controllers
         }
 
         [HttpPost("inherit")]
-        [Authorize(Roles = "Admin")] // Chỉ Admin mới được thực hiện hành động này
+        [Authorize(Roles = "Admin")] // Only Admins are allowed to perform this action
         public async Task<IActionResult> InheritSchoolYear([FromBody] InheritSchoolYearDto dto)
         {
             if (!ModelState.IsValid)
@@ -55,7 +55,7 @@ namespace ISC_Project.API.Controllers
             }
             catch (Exception ex)
             {
-                // Trả về lỗi server nếu có vấn đề xảy ra trong quá trình kế thừa
+                // Return server error if an issue occurs during the inheritance process
                 return StatusCode(500, $"Đã xảy ra lỗi trong quá trình kế thừa: {ex.Message}");
             }
         }

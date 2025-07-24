@@ -42,13 +42,13 @@ namespace ISC_Project.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] CreateAssessmentPartDto createDto) // THAY ĐỔI Ở ĐÂY
         {
-            // Thêm kiểm tra ModelState.IsValid để bắt lỗi validation từ Data Annotations trong DTO
+            // dd ModelState.IsValid check to catch validation errors from Data Annotations in DTO
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var created = await _service.CreateAsync(createDto); // Gọi service với DTO
+            var created = await _service.CreateAsync(createDto); //Call service with DTO
             return CreatedAtAction(nameof(GetById), new { id = created.AssessmentPartsId }, created);
         }
     }

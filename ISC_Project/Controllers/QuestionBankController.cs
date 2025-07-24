@@ -39,9 +39,9 @@ namespace ISC_Project.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            // Trong thực tế, ID người tạo sẽ lấy từ thông tin xác thực (authentication token)
+            // In a real-world scenario, the creator's ID would be retrieved from the authentication token
             // var creatorUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var creatorUserId = 1; // Tạm thời gán một giá trị mẫu
+            var creatorUserId = 1; // Temporarily assign a sample value
 
             var newQuestion = await _service.CreateQuestionAsync(dto, creatorUserId);
             return CreatedAtAction(nameof(GetQuestion), new { questionId = newQuestion.QuestionId }, newQuestion);

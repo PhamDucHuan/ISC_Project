@@ -10,7 +10,7 @@ namespace ISC_Project.Services.AuthService
     public class AuthService : IAuthService
     {
         private readonly ISC_ProjectDbContext _context;
-        private readonly IJwtService _jwtService; // ✅ TIÊM IJwtService VÀO
+        private readonly IJwtService _jwtService; // ✅ Inject IJwtService
         public AuthService(ISC_ProjectDbContext context, IJwtService jwtService)
         {
             _context = context;
@@ -28,7 +28,7 @@ namespace ISC_Project.Services.AuthService
                 throw new UnauthorizedAccessException("Tên đăng nhập hoặc mật khẩu không hợp lệ.");
             }
 
-            // ✅ GỌI JwtService ĐỂ TẠO TOKEN
+            // ✅ Call JwtService to generate token
             var accessToken = _jwtService.CreateAccessToken(user);
 
             var refreshToken = _jwtService.CreateRefreshToken();
@@ -54,7 +54,7 @@ namespace ISC_Project.Services.AuthService
                 throw new ArgumentException("Refresh token không hợp lệ.");
             }
 
-            // ✅ GỌI JwtService ĐỂ TẠO TOKEN MỚI
+            // ✅ Call JwtService to generate new token
             var newAccessToken = _jwtService.CreateAccessToken(user);
             var newRefreshToken = _jwtService.CreateRefreshToken();
 
@@ -66,31 +66,31 @@ namespace ISC_Project.Services.AuthService
 
         public async Task<User> RegisterAsync(RegisterRequestDto request)
         {
-            // ✅ GỌI HÀM VALIDATE TỪ LỚP TĨNH
+            // ✅ Call static class to validate password
             PasswordValidator.Validate(request.Password);
 
-            // 1. Kiểm tra xem username đã tồn tại chưa
+            // 1. Check if the username already exists
             if (await _context.Users.AnyAsync(u => u.UserName == request.Username))
             {
                 throw new ArgumentException("Tên đăng nhập đã tồn tại.");
             }
 
-            // 2. Mã hóa mật khẩu
+            // 2. Hash the password
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
-            // 3. Tạo đối tượng User mới
+            // 3. Create new User object
             var newUser = new User
             {
                 UserName = request.Username,
                 Password = hashedPassword,
                 FullName = request.FullName,
                 Email = request.Email,
-                RoleId = 3, // Mặc định là Student
+                RoleId = 3, // Default is Student
                 Status = "Active",
                 CreateAt = DateTime.UtcNow
             };
 
-            // 4. Lưu vào cơ sở dữ liệu
+            // 4. Save to the database
             _context.Users.Add(newUser);
             await _context.SaveChangesAsync();
 

@@ -18,12 +18,12 @@ namespace ISC_Project.Controllers
             _examService = examService;
         }
 
-        // Endpoint cho giáo viên tạo bài kiểm tra
+        // Endpoint for teachers to create an exam
         [HttpPost]
-        [Authorize(Roles = "Teacher")] // Chỉ giáo viên mới được gọi API này
+        [Authorize(Roles = "Teacher")] // Only teachers can call this API
         public async Task<IActionResult> CreateExam([FromBody] ExamCreationDto examDto)
         {
-            // Lấy User ID của giáo viên từ token
+            // Get the teacher's User ID from token
             var teacherUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             try
@@ -33,16 +33,16 @@ namespace ISC_Project.Controllers
             }
             catch (Exception ex)
             {
-                // Dòng này sẽ cho bạn biết lỗi gốc rễ từ CSDL là gì.
-                // Hãy đặt một breakpoint ở đây và xem giá trị của ex.InnerException.Message
+                // This line will help you trace the root cause error from the database.
+                // Set a breakpoint here and inspect ex.InnerException.Message
                 var errorMessage = ex.InnerException?.Message ?? ex.Message;
                 return BadRequest(errorMessage);
             }
         }
 
-        // Endpoint cho học sinh bắt đầu làm bài
+        // Endpoint for students to start the exam
         [HttpPost("{id}/start")]
-        [Authorize(Roles = "Student")] // Chỉ học sinh
+        [Authorize(Roles = "Student")] // Students only
         public async Task<ActionResult<StartedExamDto>> StartExam(int id)
         {
             var studentUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -50,17 +50,17 @@ namespace ISC_Project.Controllers
             return Ok(startedExam);
         }
 
-        // Endpoint cho học sinh nộp 1 câu trả lời
+        // Endpoint for students to submit one answer
         [HttpPost("submit-answer")]
         [Authorize(Roles = "Student")]
         public async Task<IActionResult> SubmitAnswer([FromBody] SubmitAnswerDto answerDto)
         {
-            // Cần thêm logic xác thực xem người dùng có quyền nộp bài cho submission này không
+           // Additional logic should be added here to verify whether the user has permission to submit for this submission
             await _examService.SubmitAnswerAsync(answerDto);
             return Ok();
         }
 
-        // Endpoint để kết thúc và chấm điểm
+        // Endpoint to finalize and grade the exam
         [HttpPost("submission/{submissionId}/finalize")]
         [Authorize(Roles = "Student")]
         public async Task<ActionResult<ExamResultDto>> FinalizeExam(int submissionId)
@@ -76,7 +76,7 @@ namespace ISC_Project.Controllers
             }
         }
 
-        // Endpoint ví dụ để lấy thông tin bài thi (chưa implement)
+        // Example endpoint to get exam details (not yet implemented)
         [HttpGet("{id}")]
         [Authorize(Roles = "Teacher")]
         public IActionResult GetExamById(int id)

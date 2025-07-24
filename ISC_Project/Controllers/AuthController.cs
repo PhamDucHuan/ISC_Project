@@ -22,12 +22,12 @@ namespace ISC_Project.Controllers
             {
                 var loginResult = await _authService.LoginAsync(request);
 
-                // ✅ TẠO RESPONSE CUỐI CÙNG THEO YÊU CẦU
+                // ✅ CREATE FINAL RESPONSE OBJECT AS REQUESTED
                 var response = new
                 {
                     message = "Đăng nhập thành công",
-                    data = loginResult.UserData, // Dữ liệu người dùng
-                    tokens = new // Dữ liệu token
+                    data = loginResult.UserData, // User data
+                    tokens = new // Token data
                     {
                         accessToken = loginResult.AccessToken,
                         refreshToken = loginResult.RefreshToken
@@ -64,17 +64,17 @@ namespace ISC_Project.Controllers
             {
                 var newUser = await _authService.RegisterAsync(request);
 
-                // ✅ TẠO ĐỐI TƯỢNG RESPONSE MỚI THEO YÊU CẦU CỦA BẠN
+                // ✅ CREATE RESPONSE OBJECT AS REQUESTED
                 var response = new
                 {
-                    message = "Đăng ký thành công", // Thông báo thành công
-                    data = new // Dữ liệu người dùng trả về
+                    message = "Đăng ký thành công", // Success message
+                    data = new // Returned user data
                     {
                         UserId = newUser.UserId,
                         Username = newUser.UserName,
                         FullName = newUser.FullName,
                         Email = newUser.Email
-                        // Bạn có thể thêm các trường khác từ newUser vào đây nếu muốn
+                        // You can add other fields from newUser here if needed
                     }
                 };
 

@@ -22,7 +22,7 @@ namespace ISC_Project.Controllers
         {
             try
             {
-                // Lấy ID của Admin đang đăng nhập từ token
+                // Get the ID of the currently logged-in Admin from the token
                 var currentUserIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 if (string.IsNullOrEmpty(currentUserIdString))
                 {
@@ -30,7 +30,7 @@ namespace ISC_Project.Controllers
                 }
                 var currentUserId = int.Parse(currentUserIdString);
 
-                // Gọi service với đầy đủ tham số
+                // Call the service with all required parameters
                 await _userService.UpdateUserRoleAsync(targetUserId, request.NewRoleId, currentUserId);
 
                 return Ok(new { message = "Cập nhật vai trò thành công." });
