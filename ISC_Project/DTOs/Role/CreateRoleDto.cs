@@ -6,7 +6,7 @@ namespace ISC_Project.DTOs.Role
     public class RoleDto
     {
         public int RoleId { get; set; }
-        public string RoleName { get; set; } = null!;
+        public string RoleName { get; set; } = string.Empty!;
         public bool IsAdmin { get; set; }
     }
 
@@ -15,10 +15,10 @@ namespace ISC_Project.DTOs.Role
     {
         [Required(ErrorMessage = "Tên vai trò không được để trống.")]
         [StringLength(100)]
-        public string RoleName { get; set; } = null!;
+        public string RoleName { get; set; } = string.Empty!;
 
         [StringLength(500)]
-        public string Description { get; set; } = null!;
+        public string Description { get; set; } = string.Empty!;
 
         public bool IsAdmin { get; set; }
     }

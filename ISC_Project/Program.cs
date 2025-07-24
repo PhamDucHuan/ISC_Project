@@ -91,7 +91,9 @@ namespace ISC_Project
             builder.Services.AddScoped<IStudentsChangeClassService, StudentsChangeClassService>();
             builder.Services.AddScoped<IStudentsChangeSchoolService, StudentsChangeSchoolService>();
             builder.Services.AddScoped<ISubjectService, SubjectService>();
-            
+
+            builder.Services.AddScoped<IGradeService, GradeService>();
+
             // Thêm HttpClient cho ChatAI service
             builder.Services.AddHttpClient();
 

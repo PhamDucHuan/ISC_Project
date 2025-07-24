@@ -14,6 +14,8 @@ namespace ISC_Project.Models
         public int? TrainingId { get; set; }
         public int? SchoolYearId { get; set; }
 
+        public virtual User? User { get; set; }
         public virtual TrainingLevel? Training { get; set; }
+        public virtual SchoolYear? SchoolYear { get; set; }
     }
 }

@@ -7,7 +7,7 @@ namespace ISC_Project.DTOs.School_Year
     public class InheritedSchoolYearResultDto
     {
         // Information of the newly created school year
-        public SchoolYearDto NewSchoolYear { get; set; } = string.Empty!;
+        public SchoolYearDto NewSchoolYear { get; set; } = null!;
 
         // List of classes copied
         public List<ClassDto> InheritedClasses { get; set; } = new List<ClassDto>();

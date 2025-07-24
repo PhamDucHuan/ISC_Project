@@ -6,9 +6,9 @@ namespace ISC_Project.DTOs.SubjectType
     {
         [Required(ErrorMessage = "Tên loại môn học không được để trống")]
         [MaxLength(255)]
-        public string? SubjectTypeName { get; set; }
+        public string? SubjectTypeName { get; set; } = string.Empty!;
 
-        public string? Description { get; set; }
+        public string? Description { get; set; } = string.Empty!;
 
         public bool? Status { get; set; }
 

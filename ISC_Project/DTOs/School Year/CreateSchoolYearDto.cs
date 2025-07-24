@@ -5,7 +5,7 @@ namespace ISC_Project.DTOs.SchoolYear
     public class SchoolYearDto
     {
         public int SchoolYearId { get; set; }
-        public string SchoolYearName { get; set; } = null!;
+        public string SchoolYearName { get; set; } = string.Empty!;
         public DateTime? StarTime { get; set; }
         public DateTime? EndTime { get; set; }
     }
@@ -14,7 +14,7 @@ namespace ISC_Project.DTOs.SchoolYear
     {
         [Required]
         [StringLength(100)]
-        public string SchoolYearName { get; set; } = null!;
+        public string SchoolYearName { get; set; } = string.Empty!;
         [Required]
         public DateTime StarTime { get; set; }
         [Required]
