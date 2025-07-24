@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ISC_Project.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [ApiController]
     [Route("api/users")]
     public class UserManagementController : ControllerBase
@@ -38,21 +38,6 @@ namespace ISC_Project.Controllers
             var users = await _userService.GetAllUsersAsync();
             return Ok(users);
         }
-
-        //[HttpPut("users/{userId}")]
-        //public async Task<IActionResult> UpdateUser(int userId, [FromBody] UpdateUserDto dto)
-        //{
-        //    if (!ModelState.IsValid) return BadRequest(ModelState);
-        //    var updatedUser = await _userService.UpdateUserAsync(userId, dto);
-        //    return updatedUser == null ? NotFound() : Ok(updatedUser);
-        //}
-
-        //[HttpDelete("users/{userId}")]
-        //public async Task<IActionResult> DeleteUser(int userId)
-        //{
-        //    var success = await _userService.DeleteUserSoftAsync(userId);
-        //    return success ? NoContent() : NotFound();
-        //}
 
         [HttpGet("roles")]
         public async Task<IActionResult> GetAllRoles()

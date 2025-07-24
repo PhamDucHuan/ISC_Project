@@ -20,6 +20,7 @@ namespace ISC_Project.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Teacher, Student")]
         public async Task<ActionResult<IEnumerable<AcceptingSchoolTransferDto>>> GetAcceptingSchoolTransfers()
         {
             var transfers = await _service.GetAllAsync();
@@ -27,6 +28,7 @@ namespace ISC_Project.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin, Teacher, Student")]
         public async Task<ActionResult<AcceptingSchoolTransferDto>> GetAcceptingSchoolTransfer(int id)
         {
             var transfer = await _service.GetByIdAsync(id);
@@ -40,6 +42,7 @@ namespace ISC_Project.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Student")]
         public async Task<ActionResult<AcceptingSchoolTransferDto>> CreateAcceptingSchoolTransfer(CreateAcceptingSchoolTransferDto createDto)
         {
             if (!ModelState.IsValid)

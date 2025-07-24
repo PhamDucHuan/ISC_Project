@@ -22,6 +22,7 @@ namespace ISC_Project.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Teacher")]
         public async Task<IActionResult> GetAll()
         {
             var result = await _service.GetAllAsync();
@@ -29,6 +30,7 @@ namespace ISC_Project.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin, Teacher, Student")]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _service.GetByIdAsync(id);
@@ -37,6 +39,7 @@ namespace ISC_Project.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] CreateAssessmentPartDto createDto) // THAY ĐỔI Ở ĐÂY
         {
             // Thêm kiểm tra ModelState.IsValid để bắt lỗi validation từ Data Annotations trong DTO
