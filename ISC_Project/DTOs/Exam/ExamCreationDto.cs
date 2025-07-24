@@ -5,7 +5,7 @@ namespace ISC_Project.DTOs.Exam
     public class ExamCreationDto
     {
         [Required(ErrorMessage = "Tên bài kiểm tra không được để trống.")]
-        public string Name { get; set; } = null!;
+        public string Name { get; set; } = string.Empty!;
 
         [Required]
         public DateTime StartDate { get; set; }

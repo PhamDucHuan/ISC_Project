@@ -5,11 +5,11 @@ namespace ISC_Project.DTOs.QuestionBank
     public class CreateQuestionDto
     {
         [Required]
-        public string QuestionText { get; set; } = null!;
+        public string QuestionText { get; set; } = string.Empty!;
 
         [Required]
         [RegularExpression("^(SingleChoice|MultipleChoice|FillInTheBlank)$", ErrorMessage = "QuestionType không hợp lệ.")]
-        public string QuestionType { get; set; } = null!;
+        public string QuestionType { get; set; } = string.Empty!;
 
         public int? SubjectId { get; set; }
 
@@ -20,7 +20,7 @@ namespace ISC_Project.DTOs.QuestionBank
     public class CreateQuestionOptionDto
     {
         [Required]
-        public string OptionText { get; set; } = null!;
+        public string OptionText { get; set; } = string.Empty!;
         public bool IsCorrect { get; set; }
     }
 }

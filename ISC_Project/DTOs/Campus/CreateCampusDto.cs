@@ -6,7 +6,7 @@ namespace ISC_Project.DTOs.Campus
     {
         [Required]
         [StringLength(255)]
-        public string Name { get; set; } = null!;
+        public string Name { get; set; } = string.Empty;
 
         [StringLength(512)]
         public string? Address { get; set; }

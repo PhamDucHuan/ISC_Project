@@ -13,7 +13,7 @@ namespace ISC_Project.DTOs.AssessmentPartDto
         public string? Title { get; set; }
 
         [StringLength(1000, ErrorMessage = "Description cannot exceed 1000 characters.")]
-        public string? Description { get; set; }
+        public string? Description { get; set; } = string.Empty!;
 
         [StringLength(500, ErrorMessage = "Assignment URL cannot exceed 500 characters.")]
         [Url(ErrorMessage = "Assignment URL must be a valid URL.")]

@@ -7,7 +7,7 @@ namespace ISC_Project.DTOs
     {
         [Required(ErrorMessage = "Title is required.")]
         [StringLength(255, ErrorMessage = "Title cannot exceed 255 characters.")]
-        public string Title { get; set; } = null!;
+        public string Title { get; set; } = string.Empty;
 
         [StringLength(50, ErrorMessage = "Format cannot exceed 50 characters.")]
         public string? Format { get; set; }

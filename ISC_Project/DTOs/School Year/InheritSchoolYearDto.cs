@@ -6,7 +6,7 @@ namespace ISC_Project.DTOs.School_Year
     {
         [Required(ErrorMessage = "Tên niên khóa mới không được để trống.")]
         [StringLength(100)]
-        public string NewSchoolYearName { get; set; } = null!;
+        public string NewSchoolYearName { get; set; } = string.Empty!;
 
         [Required]
         public DateTime NewStartTime { get; set; }
@@ -15,6 +15,6 @@ namespace ISC_Project.DTOs.School_Year
         public DateTime NewEndTime { get; set; }
 
         [Required(ErrorMessage = "Cần chọn một niên khóa cũ để kế thừa.")]
-        public int SourceSchoolYearId { get; set; } // ID của niên khóa cũ
+        public int SourceSchoolYearId { get; set; } // Old school year ID
     }
 }

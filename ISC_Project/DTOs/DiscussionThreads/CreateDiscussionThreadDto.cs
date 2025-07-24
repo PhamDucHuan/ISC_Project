@@ -11,10 +11,10 @@ namespace ISC_Project.DTOs.DiscussionThreads
         [Required]
         public int TeachingId { get; set; }
         [Required]
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
 
         [Required]
-        public string Visibility { get; set; }
+        public string Visibility { get; set; } = string.Empty;
         [Required]
         public bool IsResolved { get; set; }
         [Required]

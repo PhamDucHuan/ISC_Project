@@ -2,38 +2,38 @@
 
 namespace ISC_Project.DTOs.Teacher
 {
-    // DTO để trả về
+    // DTO to return
     public class TeacherProfileDto
     {
         public int TeacherId { get; set; }
-        public string TeacherName { get; set; } = null!;
-        public string TeacherCode { get; set; } = null!;
-        public string Position { get; set; } = null!;
-        public string Status { get; set; } = null!;
+        public string TeacherName { get; set; } = string.Empty;
+        public string TeacherCode { get; set; } = string.Empty;
+        public string Position { get; set; } = string.Empty;
+        public string Status { get; set; } = string.Empty;
     }
 
-    // DTO để tạo mới
+    // DTO to create new
     public class CreateTeacherProfileDto
     {
         [Required]
         [StringLength(255)]
-        public string TeacherName { get; set; } = null!;
+        public string TeacherName { get; set; } = string.Empty;
 
         [Required]
         [StringLength(50)]
-        public string TeacherCode { get; set; } = null!;
+        public string TeacherCode { get; set; } = string.Empty;
 
         [StringLength(100)]
-        public string Position { get; set; } = null!;
+        public string Position { get; set; } = string.Empty;
 
         [Required]
         public DateTime DateOfBirth { get; set; }
 
         [EmailAddress]
-        public string Email { get; set; } = null!;
+        public string Email { get; set; } = string.Empty    ;
 
         [Phone]
-        public string PhoneNumber { get; set; } = null!;
+        public string PhoneNumber { get; set; } = string.Empty;
 
         [Required]
         public int Department_ID { get; set; }

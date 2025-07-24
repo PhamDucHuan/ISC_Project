@@ -6,15 +6,13 @@ namespace ISC_Project.DTOs.School_Year
 {
     public class InheritedSchoolYearResultDto
     {
-        // Thông tin của niên khóa mới được tạo
-        public SchoolYearDto NewSchoolYear { get; set; } = null!;
+        // Information of the newly created school year
+        public SchoolYearDto NewSchoolYear { get; set; } = string.Empty!;
 
-        // Danh sách các lớp học đã được sao chép
+        // List of classes copied
         public List<ClassDto> InheritedClasses { get; set; } = new List<ClassDto>();
 
-        // Danh sách học viên đã được sao chép
+        // Student list copied
         public List<StudentProfileDto> InheritedStudents { get; set; } = new List<StudentProfileDto>();
-
-        // Bạn có thể thêm danh sách môn học, phân công... ở đây nếu muốn
     }
 }

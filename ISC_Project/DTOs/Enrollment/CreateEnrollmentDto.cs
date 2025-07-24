@@ -6,7 +6,7 @@ namespace ISC_Project.DTOs.Enrollment
     {
         [Required]
         [StringLength(100)]
-        public string Status { get; set; } = null!;
+        public string Status { get; set; } = string.Empty;
 
         [Required]
         public int UserId { get; set; }

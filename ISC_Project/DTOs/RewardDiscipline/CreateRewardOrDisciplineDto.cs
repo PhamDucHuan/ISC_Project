@@ -9,7 +9,7 @@ namespace ISC_Project.DTOs.RewardDiscipline
         [Required]
         public int ClassId { get; set; }
         [Required]
-        public string Content { get; set; } = null!;
+        public string Content { get; set; } = string.Empty!;
         public DateTime? DecisionDate { get; set; }
     }
 }

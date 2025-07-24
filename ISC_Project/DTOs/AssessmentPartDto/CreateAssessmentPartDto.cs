@@ -9,10 +9,10 @@ namespace ISC_Project.DTOs.AssessmentPartDto
 
         [Required(ErrorMessage = "Title is required.")]
         [StringLength(255, ErrorMessage = "Title cannot exceed 255 characters.")]
-        public string Title { get; set; } = null!;
+        public string Title { get; set; } = string.Empty!;
 
         [StringLength(1000, ErrorMessage = "Description cannot exceed 1000 characters.")]
-        public string? Description { get; set; }
+        public string? Description { get; set; } = string.Empty!;
 
         [StringLength(500, ErrorMessage = "Assignment URL cannot exceed 500 characters.")]
         [Url(ErrorMessage = "Assignment URL must be a valid URL.")] // Optional: Basic URL validation

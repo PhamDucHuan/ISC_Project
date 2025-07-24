@@ -10,7 +10,7 @@ namespace ISC_Project.DTOs.LiveChatMessage
         [Required]
         public int LiveSessionId { get; set; }
         [Required]
-        public string MessageContent { get; set; }
+        public string MessageContent { get; set; } = string.Empty;
         [Required]
         public bool IsPinned { get; set; }
 
@@ -21,11 +21,11 @@ namespace ISC_Project.DTOs.LiveChatMessage
 
         [Required]
         [RegularExpression("^(Cả lớp|Giáo viên|QnA)$", ErrorMessage = "Loại tin nhắn không hợp lệ.")]
-        public string MessageType { get; set; } = null!;
+        public string MessageType { get; set; } = string.Empty;
 
         [Required]
         [RegularExpression("^(Active|Delete|Edited)$", ErrorMessage = "Trạng thái không hợp lệ.")]
-        public string Status { get; set; } = null!;
+        public string Status { get; set; } = string.Empty;
     }
 }
 
