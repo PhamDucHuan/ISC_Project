@@ -88,6 +88,8 @@ namespace ISC_Project.Data
         public virtual DbSet<UpcomingClass> UpcomingClasses { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<WorkHistory> WorkHistories { get; set; } = null!;
+        public virtual DbSet<PrivateChat> PrivateChats { get; set; } = null!;
+        public virtual DbSet<UserOnlineStatus> UserOnlineStatuses { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

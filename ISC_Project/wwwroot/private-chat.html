@@ -1,0 +1,475 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Chat - ISC Project</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+            max-height: calc(100vh - 80px);
+        }
+
+        .sidebar {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-search {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 14px;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .user-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .user-item {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            border: 1px solid transparent;
+        }
+
+        .user-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .user-item.active {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .user-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .user-status {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .chat-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .chat-with {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            word-wrap: break-word;
+        }
+
+        .message.sent {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .message.received {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .message-time {
+            font-size: 11px;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+
+        .message-input-container {
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            gap: 10px;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 14px;
+        }
+
+        .message-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .send-btn {
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .empty-chat {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 18px;
+        }
+
+        .login-form {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            margin: 20px;
+            color: white;
+        }
+
+        .login-form h3 {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>👥 Private Chat</h1>
+        <a href="/" class="back-btn">← Về trang chủ</a>
+    </div>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <div id="loginSection" class="login-form">
+                <h3>Đăng nhập để chat</h3>
+                <input type="text" id="usernameInput" placeholder="Tên đăng nhập" />
+                <button onclick="login()">Đăng nhập</button>
+            </div>
+            
+            <div id="chatSection" style="display: none; height: 100%; display: flex; flex-direction: column;">
+                <div class="user-search">
+                    <input type="text" class="search-input" id="userSearch" placeholder="Tìm kiếm người dùng..." />
+                </div>
+                <div class="user-list" id="userList">
+                    <!-- Danh sách người dùng sẽ được load động -->
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-container">
+            <div id="emptyChatMessage" class="empty-chat">
+                Chọn một người dùng để bắt đầu trò chuyện
+            </div>
+            
+            <div id="chatArea" style="display: none; height: 100%; display: flex; flex-direction: column;">
+                <div class="chat-header">
+                    <div class="chat-with" id="chatWith">Đang chat với: </div>
+                </div>
+                
+                <div class="messages-container" id="messagesContainer">
+                    <!-- Tin nhắn sẽ hiển thị ở đây -->
+                </div>
+                
+                <div class="message-input-container">
+                    <input type="text" class="message-input" id="messageInput" placeholder="Nhập tin nhắn..." onkeypress="handleKeyPress(event)" />
+                    <button class="send-btn" onclick="sendMessage()">Gửi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let connection;
+        let currentUser = '';
+        let selectedUser = '';
+        let users = [
+            { username: 'admin', status: 'online' },
+            { username: 'teacher1', status: 'online' },
+            { username: 'student1', status: 'offline' },
+            { username: 'student2', status: 'online' }
+        ];
+
+        async function login() {
+            const username = document.getElementById('usernameInput').value.trim();
+            if (!username) {
+                alert('Vui lòng nhập tên đăng nhập');
+                return;
+            }
+
+            currentUser = username;
+            
+            // Ẩn form login và hiện chat
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('chatSection').style.display = 'flex';
+            
+            // Khởi tạo SignalR connection
+            await initializeSignalR();
+            
+            // Load danh sách người dùng
+            loadUserList();
+        }
+
+        async function initializeSignalR() {
+            connection = new signalR.HubConnectionBuilder()
+                .withUrl("/privateChatHub")
+                .build();
+
+            connection.on("ReceiveMessage", function (fromUser, message, timestamp) {
+                if (fromUser === selectedUser) {
+                    addMessage(message, 'received', timestamp);
+                }
+            });
+
+            connection.on("UserConnected", function (username) {
+                updateUserStatus(username, 'online');
+            });
+
+            connection.on("UserDisconnected", function (username) {
+                updateUserStatus(username, 'offline');
+            });
+
+            try {
+                await connection.start();
+                await connection.invoke("JoinChat", currentUser);
+            } catch (err) {
+                console.error('SignalR connection error:', err);
+                alert('Không thể kết nối đến server chat');
+            }
+        }
+
+        function loadUserList() {
+            const userList = document.getElementById('userList');
+            userList.innerHTML = '';
+            
+            users.filter(u => u.username !== currentUser).forEach(user => {
+                const userItem = document.createElement('div');
+                userItem.className = 'user-item';
+                userItem.innerHTML = `
+                    <div class="user-name">${user.username}</div>
+                    <div class="user-status">${user.status === 'online' ? '🟢 Đang online' : '🔴 Offline'}</div>
+                `;
+                userItem.onclick = () => selectUser(user.username);
+                userList.appendChild(userItem);
+            });
+        }
+
+        function selectUser(username) {
+            selectedUser = username;
+            
+            // Update UI
+            document.querySelectorAll('.user-item').forEach(item => item.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            document.getElementById('emptyChatMessage').style.display = 'none';
+            document.getElementById('chatArea').style.display = 'flex';
+            document.getElementById('chatWith').textContent = `Đang chat với: ${username}`;
+            
+            // Clear previous messages
+            document.getElementById('messagesContainer').innerHTML = '';
+        }
+
+        function addMessage(message, type, timestamp = new Date()) {
+            const messagesContainer = document.getElementById('messagesContainer');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            
+            const timeStr = new Date(timestamp).toLocaleTimeString('vi-VN', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            
+            messageDiv.innerHTML = `
+                <div>${message}</div>
+                <div class="message-time">${timeStr}</div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value.trim();
+            
+            if (!message || !selectedUser) return;
+            
+            try {
+                await connection.invoke("SendMessage", selectedUser, message);
+                addMessage(message, 'sent');
+                messageInput.value = '';
+            } catch (err) {
+                console.error('Error sending message:', err);
+                alert('Không thể gửi tin nhắn');
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function updateUserStatus(username, status) {
+            const user = users.find(u => u.username === username);
+            if (user) {
+                user.status = status;
+                loadUserList();
+            }
+        }
+
+        // Search functionality
+        document.getElementById('userSearch').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const userItems = document.querySelectorAll('.user-item');
+            
+            userItems.forEach(item => {
+                const username = item.querySelector('.user-name').textContent.toLowerCase();
+                if (username.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
