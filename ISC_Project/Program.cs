@@ -32,7 +32,8 @@ namespace ISC_Project
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IJwtService, JwtService>();
 
-            // Đăng ký các services vào IoC container
+            // Registering various services
+            builder.Services.AddScoped<IChatAIService, ChatAIService>();
             builder.Services.AddScoped<IUserManagementService, UserManagementService>();
             builder.Services.AddScoped<IRewardDisciplineService, RewardDisciplineService>();
             builder.Services.AddScoped<IQuestionBankService, QuestionBankService>();
