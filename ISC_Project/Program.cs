@@ -26,6 +26,7 @@ namespace ISC_Project
             var builder = WebApplication.CreateBuilder(args);
             var configuration = builder.Configuration;
 
+            #region Register services into the IoC container
             // Register services into the IoC container
             builder.Services.AddScoped<ISC_ProjectDbContext, ISC_ProjectDbContext>();
             builder.Services.AddScoped<IAuthService, AuthService>();
@@ -95,7 +96,10 @@ namespace ISC_Project
             builder.Services.AddScoped<IStudentsChangeSchoolService, StudentsChangeSchoolService>();
             builder.Services.AddScoped<ISubjectService, SubjectService>();
             builder.Services.AddScoped<IGradeService, GradeService>();
-            
+            builder.Services.AddScoped<IFacultyStudyBlockService, FacultyStudyBlockService>();
+
+            #endregion
+
             // Thêm HttpClient cho ChatAI service
             builder.Services.AddHttpClient();
 
