@@ -163,7 +163,7 @@ namespace ISC_Project
             builder.Services.AddSwaggerGen(options =>
             {
                 // Cấu hình thông tin cơ bản cho Swagger
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "My Project API", Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "ISC Project API", Version = "v1" });
 
                 // 1. Định nghĩa Security Scheme (phương thức bảo mật)
                 // Dòng này khai báo cho Swagger biết có một phương thức bảo mật tên là 'Bearer'
@@ -177,24 +177,23 @@ namespace ISC_Project
                     BearerFormat = "JWT",
                     Scheme = "Bearer"
                 });
-
                 // 2. Thêm Security Requirement
                 // Dòng này yêu cầu Swagger phải áp dụng Security Scheme đã định nghĩa ở trên
                 // cho tất cả các API cần xác thực.
                 options.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
                 {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            new string[]{}
-        }
-    });
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[]{}
+                    }
+                });
             });
 
             var app = builder.Build();
@@ -202,7 +201,10 @@ namespace ISC_Project
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(options =>
+                {
+                    options.InjectJavascript("/swagger-custom.js");
+                });
             }
 
             app.UseHttpsRedirection();

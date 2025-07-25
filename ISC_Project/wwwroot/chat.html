@@ -28,15 +28,15 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .header h1 {
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
+            .header h1 {
+                font-size: 28px;
+                margin-bottom: 10px;
+            }
 
-        .header p {
-            opacity: 0.9;
-            font-size: 16px;
-        }
+            .header p {
+                opacity: 0.9;
+                font-size: 16px;
+            }
 
         .chat-container {
             flex: 1;
@@ -70,10 +70,33 @@
             backdrop-filter: blur(10px);
         }
 
-        .back-button:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
+            .back-button:hover {
+                background: rgba(255, 255, 255, 0.3);
+                transform: translateY(-2px);
+            }
+
+        /* --- BẮT ĐẦU MÃ MỚI --- */
+        .home-button {
+            position: fixed;
+            top: 20px;
+            right: 20px; /* Định vị ở bên phải */
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 100;
         }
+
+            .home-button:hover {
+                background: rgba(255, 255, 255, 0.3);
+                transform: scale(1.05);
+            }
 
         .status-indicator {
             display: inline-block;
@@ -93,9 +116,17 @@
         }
 
         @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 1;
+            }
         }
 
         .error-message {
@@ -104,10 +135,10 @@
             color: #666;
         }
 
-        .error-message h2 {
-            color: #f44336;
-            margin-bottom: 20px;
-        }
+            .error-message h2 {
+                color: #f44336;
+                margin-bottom: 20px;
+            }
 
         .retry-button {
             background: #2196F3;
@@ -120,14 +151,14 @@
             margin-top: 20px;
         }
 
-        .retry-button:hover {
-            background: #1976D2;
-        }
+            .retry-button:hover {
+                background: #1976D2;
+            }
     </style>
 </head>
 <body>
     <a href="/" class="back-button">← Back</a>
-    
+    <a href="/" class="home-button">← Về trang chủ</a>
     <div class="header">
         <h1>🤖 AI Chat Assistant</h1>
         <p>
@@ -137,14 +168,13 @@
     </div>
 
     <div class="chat-container">
-        <iframe 
-            id="chat-iframe" 
-            class="chat-iframe" 
-            src="about:blank"
-            onload="handleIframeLoad()"
-            onerror="handleIframeError()">
+        <iframe id="chat-iframe"
+                class="chat-iframe"
+                src="about:blank"
+                onload="handleIframeLoad()"
+                onerror="handleIframeError()">
         </iframe>
-        
+
         <div id="error-content" class="error-message" style="display: none;">
             <h2>🚫 Can't connect to Chat Service</h2>
             <p>Chat AI not working. Pls check:</p>
@@ -164,7 +194,7 @@
         function updateStatus(isOnline, message) {
             const indicator = document.getElementById('status-indicator');
             const text = document.getElementById('status-text');
-            
+
             if (isOnline) {
                 indicator.className = 'status-indicator status-online';
                 text.textContent = message || 'Connected to Chat AI';
@@ -207,10 +237,10 @@
         function connectToChat() {
             connectionAttempts++;
             updateStatus(false, 'Connecting to Chat AI...');
-            
+
             const iframe = document.getElementById('chat-iframe');
             iframe.src = 'https://dev-chatbot-hono.vercel.app/';
-            
+
             // Timeout to check connection status
             setTimeout(() => {
                 if (iframe.src === 'https://dev-chatbot-hono.vercel.app/') {
@@ -249,7 +279,7 @@
         }
 
         // Start connection on page load
-        window.onload = function() {
+        window.onload = function () {
             connectToChat();
         };
     </script>
