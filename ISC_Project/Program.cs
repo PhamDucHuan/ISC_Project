@@ -19,13 +19,15 @@ namespace ISC_Project
     {
         public static void Main(string[] args)
         {
-            // Thêm dòng này vào ngay đầu file Program.cs
+            // Set switch to enable legacy timestamp behavior for Npgsql
+            // This is necessary to handle timestamp with time zone correctly in PostgreSQL
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
             var builder = WebApplication.CreateBuilder(args);
             var configuration = builder.Configuration;
 
-            // == ĐĂNG KÝ SERVICE VÀ INTERFACE ==
+            // Register services into the IoC container
+            builder.Services.AddScoped<ISC_ProjectDbContext, ISC_ProjectDbContext>();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IJwtService, JwtService>();
@@ -71,10 +73,10 @@ namespace ISC_Project
             builder.Services.AddScoped<IWorkHistoryService, WorkHistoryService>();
 
             builder.Services.AddScoped<IAcceptingSchoolTransferService, AcceptingSchoolTransferService>();
-            builder.Services.AddScoped<IAssessmentPartService, AssessmentPartService>(); // Add this line
+            builder.Services.AddScoped<IAssessmentPartService, AssessmentPartService>();
             builder.Services.AddScoped<IAssessmentQuestionService, AssessmentQuestionService>();
             builder.Services.AddScoped<IAssignmentService, AssignmentService>();
-            builder.Services.AddScoped<IAssignmentGroupService, AssignmentGroupService>(); // Add this line
+            builder.Services.AddScoped<IAssignmentGroupService, AssignmentGroupService>();
             builder.Services.AddScoped<IClassDetailService, ClassDetailService>();
             builder.Services.AddScoped<IClassroomSettingService, ClassroomSettingService>();
             builder.Services.AddScoped<ICoursesLearnedService, CoursesLearnedService>();
@@ -91,6 +93,7 @@ namespace ISC_Project
             builder.Services.AddScoped<IStudentsChangeClassService, StudentsChangeClassService>();
             builder.Services.AddScoped<IStudentsChangeSchoolService, StudentsChangeSchoolService>();
             builder.Services.AddScoped<ISubjectService, SubjectService>();
+            builder.Services.AddScoped<IGradeService, GradeService>();
             
             // Thêm HttpClient cho ChatAI service
             builder.Services.AddHttpClient();
