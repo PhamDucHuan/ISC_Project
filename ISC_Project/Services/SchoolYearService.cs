@@ -3,6 +3,7 @@ using ISC_Project.DTOs.Class;
 using ISC_Project.DTOs.School_Year;
 using ISC_Project.DTOs.SchoolYear;
 using ISC_Project.DTOs.Student;
+using ISC_Project.DTOs.Subject;
 using ISC_Project.Interface;
 using ISC_Project.Models;
 using Microsoft.EntityFrameworkCore;
@@ -67,7 +68,6 @@ namespace ISC_Project.Services
 
             try
             {
-                // ... Bước 1 & 2 không đổi ...
                 // 1. TẠO NIÊN KHÓA MỚI
                 var newSchoolYear = new SchoolYear
                 {
@@ -78,7 +78,7 @@ namespace ISC_Project.Services
                 _context.SchoolYears.Add(newSchoolYear);
                 await _context.SaveChangesAsync();
 
-                // 2. LẤY DỮ LIỆU CŨ
+                // 2. LẤY DỮ LIỆU CŨ TỪ NIÊN KHÓA NGUỒN
                 var oldClasses = await _context.Classes
                     .Where(c => c.SchoolYearId == dto.SourceSchoolYearId)
                     .AsNoTracking().ToListAsync();
@@ -87,9 +87,15 @@ namespace ISC_Project.Services
                     .Where(s => s.SchoolYearId == dto.SourceSchoolYearId)
                     .AsNoTracking().ToListAsync();
 
-                // === BƯỚC 3: SAO CHÉP LỚP HỌC VÀ LƯU VÀO DANH SÁCH MỚI ===
+                // ✅ LẤY DỮ LIỆU MÔN HỌC CŨ
+                var oldSubjects = await _context.Subjects
+                    .Where(s => s.SchoolYearId == dto.SourceSchoolYearId)
+                    .AsNoTracking().ToListAsync();
+
+
+                // 3. SAO CHÉP LỚP HỌC
                 var oldToNewClassIdMap = new Dictionary<int, int>();
-                var newClassesList = new List<Class>(); // Danh sách để lưu các lớp mới
+                var newClassesList = new List<Class>();
 
                 foreach (var oldClass in oldClasses)
                 {
@@ -100,10 +106,10 @@ namespace ISC_Project.Services
                         SchoolYearId = newSchoolYear.SchoolYearId,
                         // ... sao chép các thuộc tính khác
                     };
-                    newClassesList.Add(newClass); // Thêm vào danh sách
+                    newClassesList.Add(newClass);
                 }
-                await _context.Classes.AddRangeAsync(newClassesList); // Thêm hàng loạt để tối ưu
-                await _context.SaveChangesAsync();
+                await _context.Classes.AddRangeAsync(newClassesList);
+                await _context.SaveChangesAsync(); // Lưu để lấy ClassId mới
 
                 // Tạo map ID sau khi đã lưu
                 for (int i = 0; i < oldClasses.Count; i++)
@@ -111,8 +117,8 @@ namespace ISC_Project.Services
                     oldToNewClassIdMap[oldClasses[i].ClassId] = newClassesList[i].ClassId;
                 }
 
-                // === BƯỚC 4: SAO CHÉP HỌC VIÊN VÀ LƯU VÀO DANH SÁCH MỚI ===
-                var newStudentsList = new List<StudentsProfile>(); // Danh sách để lưu học viên mới
+                // 4. SAO CHÉP HỌC VIÊN
+                var newStudentsList = new List<StudentsProfile>();
                 foreach (var oldStudent in oldStudents)
                 {
                     oldToNewClassIdMap.TryGetValue(oldStudent.ClassId.GetValueOrDefault(), out int newMappedClassId);
@@ -129,42 +135,68 @@ namespace ISC_Project.Services
                     newStudentsList.Add(newStudent);
                 }
                 await _context.StudentsProfiles.AddRangeAsync(newStudentsList);
+
+                // ✅ 5. SAO CHÉP MÔN HỌC
+                var newSubjectsList = new List<Subject>();
+                foreach (var oldSubject in oldSubjects)
+                {
+                    var newSubject = new Subject
+                    {
+                        SubjectCode = oldSubject.SubjectCode,
+                        SubjectsName = oldSubject.SubjectsName,
+                        StarTime = oldSubject.StarTime,
+                        EndTime = oldSubject.EndTime,
+                        SchoolYearId = newSchoolYear.SchoolYearId, // Gán niên khóa mới
+                                                                    //... sao chép các thuộc tính khác nếu có
+                    };
+                    newSubjectsList.Add(newSubject);
+                }
+                await _context.Subjects.AddRangeAsync(newSubjectsList);
+
+                // Lưu tất cả các thay đổi vào CSDL
                 await _context.SaveChangesAsync();
 
+                // Hoàn tất giao dịch
                 await transaction.CommitAsync();
 
 
-                // === BƯỚC 5: TẠO KẾT QUẢ TRẢ VỀ ===
+                // 6. TẠO KẾT QUẢ TRẢ VỀ
                 var result = new InheritedSchoolYearResultDto
                 {
                     NewSchoolYear = new SchoolYearDto
                     {
                         SchoolYearId = newSchoolYear.SchoolYearId,
                         SchoolYearName = newSchoolYear.SchoolYearName,
-                        StarTime = newSchoolYear.StarTime,
-                        EndTime = newSchoolYear.EndTime
+                        StarTime = (DateTime)newSchoolYear.StarTime,
+                        EndTime = (DateTime)newSchoolYear.EndTime
                     },
-                    // Chuyển danh sách các model mới thành danh sách DTO
                     InheritedClasses = newClassesList.Select(c => new ClassDto
                     {
                         ClassId = c.ClassId,
-                        ClassName = c.ClassName,
-                        ClassCode = c.ClassCode
+                        ClassName = c.ClassName!,
+                        ClassCode = c.ClassCode!
                     }).ToList(),
                     InheritedStudents = newStudentsList.Select(s => new StudentProfileDto
                     {
-                        StudentName = s.StudentName,
-                        StudentCode = s.StudentCode,
-                        Status = s.Status
+                        StudentName = s.StudentName!,
+                        StudentCode = s.StudentCode!,
+                        Status = s.Status!
+                    }).ToList(),
+                    // ✅ THÊM KẾT QUẢ MÔN HỌC
+                    InheritedSubjects = newSubjectsList.Select(s => new SubjectDto
+                    {
+                        SubjectsId = s.SubjectsId,
+                        SubjectCode = s.SubjectCode,
+                        SubjectsName = s.SubjectsName
                     }).ToList()
                 };
 
-                return result; // Trả về đối tượng chứa đầy đủ dữ liệu
+                return result;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await transaction.RollbackAsync();
-                throw;
+                throw; // Ném lại lỗi để controller có thể xử lý
             }
         }
     }
