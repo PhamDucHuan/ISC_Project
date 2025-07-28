@@ -12,7 +12,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using System.Text.Json;
-using Thuc_Tap_ISC.Services;
 
 namespace ISC_Project
 {
@@ -66,8 +65,8 @@ namespace ISC_Project
 
             builder.Services.AddScoped<IFamilyInformationService, FamilyInformationService>();
             builder.Services.AddScoped<IGradeService, GradeService>();
-            builder.Services.AddScoped<ILabGraderService, LabGraderService>();
             builder.Services.AddScoped<ILearningOutcomeService, LearningOutcomeService>();
+            builder.Services.AddScoped<ILabGraderService, LabGraderService>();
             builder.Services.AddScoped<ILiveChatMessageService, LiveChatMessageService>();
             builder.Services.AddScoped<ILiveSessionService, LiveSessionService>();
             builder.Services.AddScoped<INotificationService, NotificationService>();

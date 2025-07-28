@@ -1,30 +1,48 @@
-﻿using ISC_Project.Interface;
+﻿using ISC_Project.Data;
+using ISC_Project.Interface;
 using ISC_Project.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ISC_Project.Services
 {
     public class LabGraderService : ILabGraderService
     {
-        private readonly ILabGraderService _context;
+        private readonly ISC_ProjectDbContext _context;
 
-        public LabGraderService(ILabGraderService context)
+        public LabGraderService(ISC_ProjectDbContext context)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<LabGrader>> GetAllAsync()
+        // CREATE
+        public async Task AssignGraderAsync(int? labScheduleId, int? userId)
         {
-            return await _context.GetAllAsync();
+            // Kiểm tra xem đã tồn tại chưa để tránh lỗi khóa chính
+            var existing = await _context.LabGraders
+                .AnyAsync(lg => lg.LabSchedulesId == labScheduleId && lg.UserId == userId);
+
+            if (!existing)
+            {
+                var labGrader = new LabGrader
+                {
+                    LabSchedulesId = labScheduleId,
+                    UserId = userId
+                };
+                _context.LabGraders.Add(labGrader);
+                await _context.SaveChangesAsync();
+            }
         }
 
-        public async Task<LabGrader?> GetByKeyAsync(int labId, int userId)
+        // READ
+        public async Task<IEnumerable<User>> GetGradersForLabAsync(int labScheduleId)
         {
-            return await _context.GetByKeyAsync(labId, userId);
-        }
+            // Dùng LINQ để join và lấy thông tin User
+            var query = from lg in _context.LabGraders
+                        join u in _context.Users on lg.UserId equals u.UserId
+                        where lg.LabSchedulesId == labScheduleId
+                        select u;
 
-        public async Task<LabGrader> AddAsync(LabGrader entity)
-        {
-            return await _context.AddAsync(entity);
+            return await query.ToListAsync();
         }
     }
 }

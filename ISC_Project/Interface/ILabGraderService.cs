@@ -1,11 +1,14 @@
-﻿using ISC_Project.Models;
+﻿using ISC_Project.Controllers;
+using ISC_Project.Models;
 
 namespace ISC_Project.Interface
 {
     public interface ILabGraderService
     {
-        Task<IEnumerable<LabGrader>> GetAllAsync();
-        Task<LabGrader?> GetByKeyAsync(int labId, int userId);
-        Task<LabGrader> AddAsync(LabGrader entity);
+        // Read
+        Task<IEnumerable<User>> GetGradersForLabAsync(int labScheduleId);
+
+        // Create
+        Task AssignGraderAsync(int? labSchedulesId, int? userId);
     }
 }
