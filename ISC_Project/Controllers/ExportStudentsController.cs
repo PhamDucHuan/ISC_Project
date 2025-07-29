@@ -10,19 +10,10 @@ namespace ISC_Project.Controllers
     public class ExportStudentsController : ControllerBase
     {
         private readonly IExportStudentService _studentService;
-        private readonly ISchoolYearService _schoolYearService;
 
-        public ExportStudentsController(IExportStudentService studentService, ISchoolYearService schoolYearService)
+        public ExportStudentsController(IExportStudentService studentService)
         {
             _studentService = studentService;
-            _schoolYearService = schoolYearService;
-        }
-
-        [HttpGet("school-years")]
-        public async Task<IActionResult> GetSchoolYears()
-        {
-            var result = await _schoolYearService.GetAllAsync();
-            return Ok(result);
         }
 
         [HttpGet("export/excel/{classId}")]
