@@ -7,9 +7,9 @@ namespace ISC_Project.Services
 {
     public class ExportStudentService : IExportStudentService
     {
-        private readonly ISC_ProjectDbContext _context; 
+        private readonly ISC_ProjectDbContext _context;
 
-        public ExportStudentService(ISC_ProjectDbContext context) 
+        public ExportStudentService(ISC_ProjectDbContext context)
         {
             _context = context;
         }
@@ -86,6 +86,86 @@ namespace ISC_Project.Services
                 {
                     workbook.SaveAs(stream);
                     // Trả về cả nội dung file và tên file
+                    return (stream.ToArray(), fileName);
+                }
+            }
+        }
+
+        public async Task<(byte[] fileContents, string fileName)> ExportAllClassesBySchoolYearAsync(int schoolYearId)
+        {
+            var schoolYear = await _context.SchoolYears.FindAsync(schoolYearId);
+            if (schoolYear == null)
+            {
+                throw new Exception($"Không tìm thấy niên khóa với ID {schoolYearId}.");
+            }
+
+            var classesInYear = await _context.Classes
+                                              .Where(c => c.SchoolYearId == schoolYearId)
+                                              .OrderBy(c => c.ClassName)
+                                              .ToListAsync();
+
+            if (!classesInYear.Any())
+            {
+                throw new Exception($"Không có lớp học nào trong niên khóa '{schoolYear.SchoolYearName}'.");
+            }
+
+            var sanitizedSchoolYearName = schoolYear.SchoolYearName?.Replace("/", "-") ?? "KhongTen";
+            var fileName = $"DanhSachCacLop_NienKhoa_{sanitizedSchoolYearName}.xlsx";
+
+            using (var workbook = new XLWorkbook())
+            {
+                foreach (var cls in classesInYear)
+                {
+                    // Tên sheet không được chứa ký tự đặc biệt và không quá 31 ký tự
+                    var sheetName = new string(cls.ClassName.Where(char.IsLetterOrDigit).ToArray());
+                    if (string.IsNullOrWhiteSpace(sheetName))
+                    {
+                        sheetName = $"Lop_{cls.ClassId}";
+                    }
+                    sheetName = sheetName.Length > 31 ? sheetName.Substring(0, 31) : sheetName;
+
+                    var worksheet = workbook.Worksheets.Add(sheetName);
+
+                    worksheet.Cell("A1").Value = $"DANH SÁCH HỌC SINH LỚP: {cls.ClassName?.ToUpper()}";
+                    worksheet.Cell("A1").Style.Font.Bold = true;
+                    worksheet.Cell("A1").Style.Font.FontSize = 14;
+                    worksheet.Range("A1:D1").Merge().Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+
+                    // Thêm tiêu đề cột
+                    worksheet.Cell("A3").Value = "Mã học sinh";
+                    worksheet.Cell("B3").Value = "Họ và tên";
+                    worksheet.Cell("C3").Value = "Ngày sinh";
+                    worksheet.Cell("D3").Value = "Giới tính";
+
+                    var headerRange = worksheet.Range("A3:D3");
+                    headerRange.Style.Font.Bold = true;
+                    headerRange.Style.Fill.BackgroundColor = XLColor.LightGray;
+
+                    // Lấy danh sách học sinh của lớp hiện tại
+                    var students = await _context.StudentsProfiles
+                                                 .Where(s => s.ClassId == cls.ClassId)
+                                                 .OrderBy(s => s.StudentName)
+                                                 .ToListAsync();
+
+                    if (students.Any())
+                    {
+                        var currentRow = 4;
+                        foreach (var student in students)
+                        {
+                            worksheet.Cell(currentRow, 1).Value = student.StudentCode;
+                            worksheet.Cell(currentRow, 2).Value = student.StudentName;
+                            worksheet.Cell(currentRow, 3).Value = student.DateOfBirth?.ToString("dd/MM/yyyy");
+                            worksheet.Cell(currentRow, 4).Value = student.Sex;
+                            currentRow++;
+                        }
+                    }
+
+                    worksheet.Columns().AdjustToContents();
+                }
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
                     return (stream.ToArray(), fileName);
                 }
             }

@@ -3,5 +3,6 @@
     public interface IExportStudentService
     {
         Task<(byte[] fileContents, string fileName)> ExportStudentsToExcelAsync(int classId);
+        Task<(byte[] fileContents, string fileName)> ExportAllClassesBySchoolYearAsync(int schoolYearId);
     }
 }

@@ -10,10 +10,19 @@ namespace ISC_Project.Controllers
     public class ExportStudentsController : ControllerBase
     {
         private readonly IExportStudentService _studentService;
+        private readonly ISchoolYearService _schoolYearService;
 
-        public ExportStudentsController(IExportStudentService studentService)
+        public ExportStudentsController(IExportStudentService studentService, ISchoolYearService schoolYearService)
         {
             _studentService = studentService;
+            _schoolYearService = schoolYearService;
+        }
+
+        [HttpGet("school-years")]
+        public async Task<IActionResult> GetSchoolYears()
+        {
+            var result = await _schoolYearService.GetAllAsync();
+            return Ok(result);
         }
 
         [HttpGet("export/excel/{classId}")]
@@ -24,6 +33,20 @@ namespace ISC_Project.Controllers
                 // Nhận cả fileContents và fileName từ service
                 var (fileContents, fileName) = await _studentService.ExportStudentsToExcelAsync(classId);
 
+                return File(fileContents, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("export/school-year/{schoolYearId}")]
+        public async Task<IActionResult> ExportStudentsBySchoolYear(int schoolYearId)
+        {
+            try
+            {
+                var (fileContents, fileName) = await _studentService.ExportAllClassesBySchoolYearAsync(schoolYearId);
                 return File(fileContents, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
             }
             catch (System.Exception ex)
