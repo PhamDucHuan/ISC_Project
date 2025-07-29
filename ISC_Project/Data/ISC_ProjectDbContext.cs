@@ -321,6 +321,8 @@ namespace ISC_Project.Data
 
             modelBuilder.Entity<Class>(entity =>
             {
+                entity.HasKey(e => e.ClassId);
+
                 entity.ToTable("Class", "ISC_Project");
 
                 entity.Property(e => e.ClassId).HasColumnName("Class_ID");

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ISC_Project.Models
 {
@@ -16,8 +17,10 @@ namespace ISC_Project.Models
             LabScheduleClasses = new HashSet<LabScheduleClass>();
             TeacherProfiles = new HashSet<TeacherProfile>();
             TeachingAssessments = new HashSet<TeachingAssessment>();
+            StudentsProfiles = new HashSet<StudentsProfile>();
         }
 
+        [Key]
         public int ClassId { get; set; }
         public string? ClassName { get; set; }
         public string? ClassCode { get; set; }
@@ -50,5 +53,6 @@ namespace ISC_Project.Models
         public virtual ICollection<LabScheduleClass> LabScheduleClasses { get; set; }
         public virtual ICollection<TeacherProfile> TeacherProfiles { get; set; }
         public virtual ICollection<TeachingAssessment> TeachingAssessments { get; set; }
+        public virtual ICollection<StudentsProfile> StudentsProfiles { get; set; }
     }
 }

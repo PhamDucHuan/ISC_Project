@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ISC_Project.Models
 {
     public partial class StudentsProfile
     {
+        [Key]
         public int StudentsProfileId { get; set; }
         public string? StudentName { get; set; }
         public string? StudentCode { get; set; }
@@ -23,5 +24,8 @@ namespace ISC_Project.Models
         public int? DepartmentId { get; set; }
         public int? UserId { get; set; }
         public int? SchoolYearId { get; set; }
+
+        [ForeignKey("Class_ID")]
+        public virtual ICollection<Class> Class { get; set; } = new HashSet<Class>();
     }
 }

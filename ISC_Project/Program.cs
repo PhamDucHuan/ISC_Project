@@ -61,6 +61,7 @@ namespace ISC_Project
             builder.Services.AddScoped<IEmploymentHistoryService, EmploymentHistoryService>();
             builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
             builder.Services.AddScoped<IExemptionService, ExemptionService>();
+            builder.Services.AddScoped<IExportStudentService, ExportStudentService>();
             builder.Services.AddScoped<IFacultyStudyBlockService, FacultyStudyBlockService>();
 
             builder.Services.AddScoped<IFamilyInformationService, FamilyInformationService>();
