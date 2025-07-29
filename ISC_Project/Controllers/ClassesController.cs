@@ -14,11 +14,11 @@ namespace ISC_Project.API.Controllers
         public ClassesController(IClassService service) { _service = service; }
 
         [HttpGet]
-        [Authorize(Roles = "Teacher")]
+        [Authorize(Roles = "Admin, Teacher, Student")]
         public async Task<IActionResult> GetAll() => Ok(await _service.GetAllAsync());
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "Student, Teacher")]
+        [Authorize(Roles = "Admin, Teacher, Student")]
         public async Task<IActionResult> GetById(int id)
         {
             var item = await _service.GetByIdAsync(id);
@@ -26,7 +26,7 @@ namespace ISC_Project.API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Teacher")]
+        [Authorize(Roles = "Admin, Teacher")]
         public async Task<IActionResult> Create([FromBody] CreateClassDto dto)
         {
             if (!ModelState.IsValid)
