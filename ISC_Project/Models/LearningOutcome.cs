@@ -7,7 +7,7 @@ namespace ISC_Project.Models
     {
         public int LearningOutcomes { get; set; }
         public string? Conduct { get; set; }
-        public int? AverageScore { get; set; }
+        public float? AverageScore { get; set; }
         public bool? AcademicPerformance { get; set; }
         public DateTime? UpdateAt { get; set; }
         public int? ScoreId { get; set; }

@@ -2,8 +2,6 @@
 using ISC_Project.Interface;
 using ISC_Project.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ISC_Project.Services
 {
