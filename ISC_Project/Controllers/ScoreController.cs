@@ -1,5 +1,7 @@
-﻿using ISC_Project.Interface;
+﻿using ISC_Project.DTOs.Score;
+using ISC_Project.Interface;
 using ISC_Project.Models;
+using ISC_Project.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,11 +26,29 @@ namespace ISC_Project.Controllers
             return Ok(scores);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Score score)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Score>> GetScoreById(int id)
         {
-            var created = await _service.CreateAsync(score);
-            return CreatedAtAction(nameof(GetAll), new { }, created);
+            var score = await _service.GetByIdAsync(id);
+            if (score == null)
+            {
+                return NotFound(); // Trả về 404 Not Found nếu không có score
+            }
+            return Ok(score);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Score>> CreateScore(CreateScoreDto scoreDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var createdScore = await _service.CreateAsync(scoreDto);
+
+            // Trả về đối tượng Score đã được tạo thành công
+            return CreatedAtAction(nameof(GetScoreById), new { id = createdScore.ScoreId }, createdScore);
         }
     }
 }
