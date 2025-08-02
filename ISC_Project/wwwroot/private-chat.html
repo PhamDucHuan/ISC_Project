@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Private Chat - ISC Project</title>
+    <title>Hỏi đáp - Lớp học</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.min.js"></script>
     <style>
+        /* --- General Reset & Body --- */
         * {
             margin: 0;
             padding: 0;
@@ -14,304 +15,377 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            background-color: #f0f2f5;
+            color: #333;
             display: flex;
-            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        .header {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 20px;
+        /* --- Main Layout --- */
+        .app-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        .icon-sidebar {
+            width: 80px;
+            background-color: #ffffff;
+            border-right: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
             color: white;
+            background-color: #ccc;
+        }
+
+            .sidebar-icon.active {
+                background-color: #ff9800;
+            }
+
+        .main-wrapper {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* --- Header --- */
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px 30px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+            flex-shrink: 0;
         }
 
-        .header h1 {
-            font-size: 24px;
+        .breadcrumbs {
+            font-size: 20px;
+            color: #555;
+            font-weight: 500;
+        }
+
+            .breadcrumbs span.current {
+                color: #333;
+                font-weight: 600;
+            }
+
+        .user-profile {
             display: flex;
             align-items: center;
-            gap: 10px;
         }
 
-        .back-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
+            .user-profile img {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                margin-right: 10px;
+            }
 
-        .back-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
-        }
+            .user-profile span {
+                font-weight: 600;
+                margin-right: 20px;
+            }
 
-        .main-container {
+            .user-profile a {
+                color: #888;
+                text-decoration: none;
+                font-size: 14px;
+            }
+
+        /* --- Content Body --- */
+        .content-body {
             display: flex;
-            flex: 1;
-            max-height: calc(100vh - 80px);
+            flex-grow: 1;
+            padding: 20px 30px;
+            gap: 20px;
+            overflow: hidden;
         }
 
-        .sidebar {
-            width: 300px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-right: 1px solid rgba(255, 255, 255, 0.2);
+        .conversation-list-container {
+            width: 380px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
+            flex-shrink: 0;
+            border: 1px solid #e0e0e0;
         }
 
-        .user-search {
-            padding: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        .conversation-tabs {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
         }
 
-        .search-input {
+            .conversation-tabs button {
+                padding: 10px 15px;
+                border: none;
+                background: none;
+                cursor: pointer;
+                font-size: 14px;
+                color: #888;
+                border-bottom: 2px solid transparent;
+            }
+
+                .conversation-tabs button.active {
+                    color: #007bff;
+                    font-weight: 600;
+                    border-bottom-color: #007bff;
+                }
+
+        .search-bar {
             width: 100%;
-            padding: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin-bottom: 20px;
             font-size: 14px;
         }
 
-        .search-input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .user-list {
-            flex: 1;
+        .conversation-list {
+            list-style: none;
             overflow-y: auto;
-            padding: 10px;
+            flex-grow: 1;
         }
 
-        .user-item {
+        .conversation-item {
+            display: flex;
             padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            color: white;
-            border: 1px solid transparent;
-        }
-
-        .user-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .user-item.active {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.5);
-        }
-
-        .user-name {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .user-status {
-            font-size: 12px;
-            opacity: 0.7;
-        }
-
-        .chat-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .chat-header {
-            padding: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .chat-with {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .messages-container {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
             gap: 15px;
+            align-items: flex-start;
         }
 
-        .message {
-            max-width: 70%;
+            .conversation-item:hover, .conversation-item.active {
+                background-color: #f0f8ff;
+            }
+
+            .conversation-item img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                flex-shrink: 0;
+            }
+
+        .conversation-details {
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+            .conversation-details .author {
+                font-weight: 600;
+            }
+
+            .conversation-details .text {
+                font-size: 14px;
+                color: #666;
+                margin-top: 4px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+        .conversation-meta {
+            text-align: right;
+            font-size: 12px;
+            color: #999;
+            flex-shrink: 0;
+        }
+
+        /* --- Right Column: Chat View --- */
+        .chat-view-container {
+            flex-grow: 1;
+            background-color: #ffffff;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+
+        .empty-chat-message {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 1.1em;
+        }
+
+        .chat-scroll-area {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 25px;
+        }
+
+        /* Tin nhắn */
+        .message-card {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            max-width: 80%;
+        }
+
+            .message-card.sent {
+                align-self: flex-end;
+                flex-direction: row-reverse;
+            }
+
+            .message-card.received {
+                align-self: flex-start;
+            }
+
+            .message-card img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+            }
+
+        .message-content {
             padding: 12px 16px;
             border-radius: 18px;
-            word-wrap: break-word;
+            display: flex;
+            flex-direction: column;
         }
 
-        .message.sent {
-            align-self: flex-end;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+        .message-card.sent .message-content {
+            background-color: #007bff;
             color: white;
         }
 
-        .message.received {
-            align-self: flex-start;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+        .message-card.received .message-content {
+            background-color: #e9ecef;
+            color: #333;
+        }
+
+        .message-author-info {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .message-card.sent .message-author-info {
+            display: none;
+        }
+        /* Hide own name */
+        .message-body {
+            line-height: 1.5;
         }
 
         .message-time {
             font-size: 11px;
-            opacity: 0.7;
             margin-top: 5px;
+            opacity: 0.7;
         }
 
-        .message-input-container {
-            padding: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.1);
-            display: flex;
-            gap: 10px;
+        .message-card.sent .message-time {
+            align-self: flex-end;
         }
 
-        .message-input {
-            flex: 1;
-            padding: 12px 16px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 14px;
+        .message-card.received .message-time {
+            align-self: flex-start;
         }
 
-        .message-input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
+        /* Input */
+        .answer-input-container {
+            padding: 20px 25px;
+            border-top: 1px solid #e0e0e0;
+            background-color: #f9f9f9;
         }
 
-        .send-btn {
-            padding: 12px 20px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border: none;
-            border-radius: 20px;
-            color: white;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .send-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .empty-chat {
-            flex: 1;
+        .answer-input-wrapper {
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 18px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            padding: 5px 5px 5px 20px;
         }
 
-        .login-form {
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            margin: 20px;
-            color: white;
-        }
-
-        .login-form h3 {
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .login-form input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-        }
-
-        .login-form button {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border: none;
-            border-radius: 10px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .main-container {
-                flex-direction: column;
+            .answer-input-wrapper input {
+                flex-grow: 1;
+                border: none;
+                outline: none;
+                font-size: 15px;
+                background: none;
             }
-            
-            .sidebar {
-                width: 100%;
-                height: 300px;
+
+            .answer-input-wrapper button {
+                width: 40px;
+                height: 40px;
+                border: none;
+                border-radius: 50%;
+                background-color: #007bff;
+                color: white;
+                font-size: 20px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
-        }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>👥 Private Chat</h1>
-        <a href="/" class="back-btn">← Về trang chủ</a>
-    </div>
-
-    <div class="main-container">
-        <div class="sidebar">
-            <div id="loginSection" class="login-form">
-                <h3>Đăng nhập để chat</h3>
-                <input type="text" id="usernameInput" placeholder="Tên đăng nhập" />
-                <button onclick="login()">Đăng nhập</button>
-            </div>
-            
-            <div id="chatSection" style="display: none; height: 100%; display: flex; flex-direction: column;">
-                <div class="user-search">
-                    <input type="text" class="search-input" id="userSearch" placeholder="Tìm kiếm người dùng..." />
+    <div class="app-container">
+        <nav class="icon-sidebar">
+            <div class="sidebar-icon active">A</div>
+        </nav>
+        <div class="main-wrapper">
+            <header class="header">
+                <div class="breadcrumbs">
+                    <span>Thông tin lớp học</span> &gt; <span>Hỏi đáp</span>
                 </div>
-                <div class="user-list" id="userList">
-                    <!-- Danh sách người dùng sẽ được load động -->
+                <div class="user-profile">
+                    <img id="currentUserAvatar" src="" alt="Avatar">
+                    <span id="currentUserDisplay"></span>
+                    <a href="#" onclick="logout()">Đăng xuất</a>
                 </div>
-            </div>
-        </div>
-
-        <div class="chat-container">
-            <div id="emptyChatMessage" class="empty-chat">
-                Chọn một người dùng để bắt đầu trò chuyện
-            </div>
-            
-            <div id="chatArea" style="display: none; height: 100%; display: flex; flex-direction: column;">
-                <div class="chat-header">
-                    <div class="chat-with" id="chatWith">Đang chat với: </div>
+            </header>
+            <div class="content-body">
+                <div class="conversation-list-container">
+                    <div id="loginSection">
+                        <h3>Đăng nhập để chat</h3>
+                        <input type="text" id="usernameInput" placeholder="Nhập tên của bạn (vd: student1, teacher1...)" class="search-bar" />
+                        <button onclick="login()">Đăng nhập</button>
+                    </div>
+                    <div id="chatListSection" style="display: none; height: 100%; display: flex; flex-direction: column;">
+                        <input type="text" class="search-bar" id="userSearch" placeholder="Tìm kiếm...">
+                        <ul class="conversation-list" id="userList"></ul>
+                    </div>
                 </div>
-                
-                <div class="messages-container" id="messagesContainer">
-                    <!-- Tin nhắn sẽ hiển thị ở đây -->
-                </div>
-                
-                <div class="message-input-container">
-                    <input type="text" class="message-input" id="messageInput" placeholder="Nhập tin nhắn..." onkeypress="handleKeyPress(event)" />
-                    <button class="send-btn" onclick="sendMessage()">Gửi</button>
+                <div class="chat-view-container">
+                    <div id="emptyChatMessage" class="empty-chat-message">
+                        Chọn một cuộc trò chuyện để bắt đầu
+                    </div>
+                    <div id="chatArea" style="display: none; height: 100%; flex-direction: column;">
+                        <div class="chat-scroll-area" id="messagesContainer"></div>
+                        <div class="answer-input-container">
+                            <div class="answer-input-wrapper">
+                                <input type="text" id="messageInput" placeholder="Nhập tin nhắn..." onkeypress="handleKeyPress(event)">
+                                <button onclick="sendMessage()">➤</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -321,124 +395,135 @@
         let connection;
         let currentUser = '';
         let selectedUser = '';
-        let users = [
-            { username: 'admin', status: 'online' },
-            { username: 'teacher1', status: 'online' },
-            { username: 'student1', status: 'offline' },
-            { username: 'student2', status: 'online' }
+        // Dữ liệu người dùng mẫu (bạn sẽ thay bằng API call)
+        const allUsers = [
+            { username: 'teacher1', displayName: 'Thầy Thanh Tâm', role: 'Giáo viên' },
+            { username: 'student1', displayName: 'Ngọc Ngạn', role: 'Học sinh' },
+            { username: 'student2', displayName: 'Hiển Mai', role: 'Học sinh' },
         ];
 
-        async function login() {
+        // --- 1. LOGIN & INITIALIZATION ---
+        function login() {
             const username = document.getElementById('usernameInput').value.trim();
-            if (!username) {
-                alert('Vui lòng nhập tên đăng nhập');
+            const userExists = allUsers.find(u => u.username === username);
+            if (!userExists) {
+                alert('Tên đăng nhập không tồn tại. Vui lòng thử: teacher1, student1, student2');
                 return;
             }
-
             currentUser = username;
-            
-            // Ẩn form login và hiện chat
+
+            // Cập nhật UI
             document.getElementById('loginSection').style.display = 'none';
-            document.getElementById('chatSection').style.display = 'flex';
-            
-            // Khởi tạo SignalR connection
-            await initializeSignalR();
-            
-            // Load danh sách người dùng
+            document.getElementById('chatListSection').style.display = 'flex';
+            document.getElementById('currentUserDisplay').textContent = userExists.displayName;
+            document.getElementById('currentUserAvatar').src = `https://i.pravatar.cc/40?u=${currentUser}`;
+
+            // Tải danh sách người dùng và kết nối tới server
             loadUserList();
+            initializeSignalR();
         }
 
         async function initializeSignalR() {
             connection = new signalR.HubConnectionBuilder()
-                .withUrl("/privateChatHub")
+                .withUrl("/privateChatHub") // Đảm bảo URL này đúng với backend của bạn
                 .build();
 
-            connection.on("ReceiveMessage", function (fromUser, message, timestamp) {
+            // Lắng nghe tin nhắn đến
+            connection.on("ReceiveMessage", function (fromUser, message) {
                 if (fromUser === selectedUser) {
-                    addMessage(message, 'received', timestamp);
+                    addMessage(fromUser, message, 'received');
                 }
-            });
-
-            connection.on("UserConnected", function (username) {
-                updateUserStatus(username, 'online');
-            });
-
-            connection.on("UserDisconnected", function (username) {
-                updateUserStatus(username, 'offline');
             });
 
             try {
                 await connection.start();
                 await connection.invoke("JoinChat", currentUser);
             } catch (err) {
-                console.error('SignalR connection error:', err);
-                alert('Không thể kết nối đến server chat');
+                console.error('SignalR connection error: ', err);
+                alert('Không thể kết nối đến server chat.');
             }
         }
 
+        // --- 2. USER LIST & SELECTION ---
         function loadUserList() {
-            const userList = document.getElementById('userList');
-            userList.innerHTML = '';
-            
-            users.filter(u => u.username !== currentUser).forEach(user => {
-                const userItem = document.createElement('div');
-                userItem.className = 'user-item';
-                userItem.innerHTML = `
-                    <div class="user-name">${user.username}</div>
-                    <div class="user-status">${user.status === 'online' ? '🟢 Đang online' : '🔴 Offline'}</div>
-                `;
-                userItem.onclick = () => selectUser(user.username);
-                userList.appendChild(userItem);
+            const userListEl = document.getElementById('userList');
+            userListEl.innerHTML = '';
+
+            allUsers.filter(u => u.username !== currentUser).forEach(user => {
+                const item = document.createElement('li');
+                item.className = 'conversation-item';
+                item.onclick = () => selectUser(user);
+
+                item.innerHTML = `
+                        <img src="https://i.pravatar.cc/40?u=${user.username}" alt="Avatar">
+                        <div class="conversation-details">
+                            <div class="author">${user.displayName}</div>
+                            <div class="text">Bắt đầu trò chuyện...</div>
+                        </div>
+                        <div class="conversation-meta">
+                            <div class="time"></div>
+                        </div>
+                    `;
+                userListEl.appendChild(item);
             });
         }
 
-        function selectUser(username) {
-            selectedUser = username;
-            
-            // Update UI
-            document.querySelectorAll('.user-item').forEach(item => item.classList.remove('active'));
+        function selectUser(user) {
+            selectedUser = user.username;
+
+            // Highlight người được chọn
+            document.querySelectorAll('.conversation-item').forEach(item => item.classList.remove('active'));
             event.currentTarget.classList.add('active');
-            
+
+            // Hiển thị khung chat
             document.getElementById('emptyChatMessage').style.display = 'none';
             document.getElementById('chatArea').style.display = 'flex';
-            document.getElementById('chatWith').textContent = `Đang chat với: ${username}`;
-            
-            // Clear previous messages
+
+            // Xóa tin nhắn cũ và tải tin nhắn mới (nếu có)
             document.getElementById('messagesContainer').innerHTML = '';
+            // TODO: Bạn có thể thêm hàm gọi API để tải lịch sử tin nhắn ở đây
         }
 
-        function addMessage(message, type, timestamp = new Date()) {
+        // --- 3. SENDING & RECEIVING MESSAGES ---
+        function addMessage(fromUser, message, type) {
             const messagesContainer = document.getElementById('messagesContainer');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${type}`;
-            
-            const timeStr = new Date(timestamp).toLocaleTimeString('vi-VN', { 
-                hour: '2-digit', 
-                minute: '2-digit' 
-            });
-            
-            messageDiv.innerHTML = `
-                <div>${message}</div>
-                <div class="message-time">${timeStr}</div>
-            `;
-            
-            messagesContainer.appendChild(messageDiv);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            const messageCard = document.createElement('div');
+            messageCard.className = `message-card ${type}`; // 'sent' hoặc 'received'
+
+            const senderInfo = allUsers.find(u => u.username === fromUser);
+            const avatar = `https://i.pravatar.cc/40?u=${fromUser}`;
+            const time = new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+
+            messageCard.innerHTML = `
+                    <img src="${avatar}" alt="Avatar">
+                    <div class="message-content">
+                        <div class="message-author-info">${senderInfo.displayName}</div>
+                        <div class="message-body">${message}</div>
+                        <div class="message-time">${time}</div>
+                    </div>
+                `;
+
+            messagesContainer.appendChild(messageCard);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight; // Tự động cuộn xuống
         }
 
         async function sendMessage() {
             const messageInput = document.getElementById('messageInput');
             const message = messageInput.value.trim();
-            
+
             if (!message || !selectedUser) return;
-            
+
             try {
+                // Gửi tin nhắn đến server
                 await connection.invoke("SendMessage", selectedUser, message);
-                addMessage(message, 'sent');
-                messageInput.value = '';
+
+                // Hiển thị tin nhắn đã gửi ngay lập tức
+                addMessage(currentUser, message, 'sent');
+
+                messageInput.value = ''; // Xóa input
             } catch (err) {
                 console.error('Error sending message:', err);
-                alert('Không thể gửi tin nhắn');
+                alert('Không thể gửi tin nhắn.');
             }
         }
 
@@ -448,28 +533,26 @@
             }
         }
 
-        function updateUserStatus(username, status) {
-            const user = users.find(u => u.username === username);
-            if (user) {
-                user.status = status;
-                loadUserList();
-            }
-        }
-
-        // Search functionality
-        document.getElementById('userSearch').addEventListener('input', function(e) {
+        // --- 4. SEARCH & LOGOUT ---
+        document.getElementById('userSearch').addEventListener('input', function (e) {
             const searchTerm = e.target.value.toLowerCase();
-            const userItems = document.querySelectorAll('.user-item');
-            
-            userItems.forEach(item => {
-                const username = item.querySelector('.user-name').textContent.toLowerCase();
+            const conversationItems = document.querySelectorAll('.conversation-item');
+
+            conversationItems.forEach(item => {
+                const username = item.querySelector('.author').textContent.toLowerCase();
                 if (username.includes(searchTerm)) {
-                    item.style.display = 'block';
+                    item.style.display = 'flex';
                 } else {
                     item.style.display = 'none';
                 }
             });
         });
+
+        function logout() {
+            // Logic đăng xuất
+            location.reload();
+        }
+
     </script>
 </body>
 </html>
