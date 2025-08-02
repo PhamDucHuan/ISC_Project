@@ -3,37 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giao diện Hỏi Đáp Lớp Học với Chatbot AI</title>
+    <title>Hỏi đáp Q&A</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.min.js"></script>
     <style>
-        /* --- Cài đặt chung --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --sidebar-bg: #ffffff;
+            --conversation-list-bg: #f7f8fa;
+            --chat-panel-bg: #ffffff;
+            --border-color: #eef0f3;
+            --primary-orange: #ff6f00;
+            --text-primary: #333;
+            --text-secondary: #858d9a;
+            --active-bg: #e6f2ff;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f7f8fa;
-            color: #333;
-            display: flex;
+            margin: 0;
             height: 100vh;
+            background-color: #f0f2f5;
+            display: flex;
             overflow: hidden;
         }
 
-        /* --- Bố cục chính --- */
         .app-container {
             display: flex;
             width: 100%;
             height: 100%;
-            background-color: #fff;
+            background-color: var(--sidebar-bg);
         }
 
-        /* --- 1. Cột Sidebar bên trái --- */
-        .sidebar {
+        /* --- Cột 1: Sidebar Icon --- */
+        .icon-sidebar {
             width: 70px;
-            background-color: #ffffff;
-            border-right: 1px solid #eef0f3;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -41,26 +46,27 @@
             flex-shrink: 0;
         }
 
-            .sidebar .logo {
+            .icon-sidebar .logo {
                 width: 40px;
                 height: 40px;
-                background-color: #ff6f00;
+                background-color: var(--primary-orange);
                 border-radius: 12px;
                 margin-bottom: 30px;
             }
 
-            .sidebar nav ul {
+            .icon-sidebar nav ul {
                 list-style: none;
+                padding: 0;
                 width: 100%;
             }
 
-            .sidebar nav li {
+            .icon-sidebar nav li {
                 display: flex;
                 justify-content: center;
                 margin-bottom: 10px;
             }
 
-            .sidebar nav a {
+            .icon-sidebar nav a {
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -73,34 +79,36 @@
                 transition: all 0.3s ease;
             }
 
-                .sidebar nav a:hover {
+                .icon-sidebar nav a:hover {
                     background-color: #f7f8fa;
-                    color: #ff6f00;
+                    color: var(--primary-orange);
                 }
 
-                .sidebar nav a.active {
-                    background-color: #ff6f00;
+                .icon-sidebar nav a.active {
+                    background-color: var(--primary-orange);
                     color: #ffffff;
                 }
 
-        /* --- 2. Cột danh sách câu hỏi (giữa) --- */
-        .question-list-panel {
-            width: 380px;
-            border-right: 1px solid #eef0f3;
+        /* --- Cột 2: Danh sách cuộc trò chuyện --- */
+        .conversation-panel {
+            width: 350px;
+            background-color: var(--conversation-list-bg);
+            border-right: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
             flex-shrink: 0;
         }
 
-        .question-list-header {
+        .conversation-header {
             padding: 24px;
-            border-bottom: 1px solid #eef0f3;
+            background-color: var(--sidebar-bg);
+            border-bottom: 1px solid var(--border-color);
         }
 
-            .question-list-header h2 {
+            .conversation-header h2 {
                 font-size: 24px;
                 font-weight: 600;
-                margin-bottom: 15px;
+                margin: 0 0 15px 0;
             }
 
         .tabs {
@@ -111,139 +119,129 @@
             .tabs button {
                 background: none;
                 border: none;
-                font-family: 'Segoe UI', sans-serif;
+                font-family: inherit;
                 font-size: 14px;
                 padding: 8px 0;
                 cursor: pointer;
-                color: #858d9a;
+                color: var(--text-secondary);
                 font-weight: 600;
                 border-bottom: 2px solid transparent;
             }
 
                 .tabs button.active, .tabs button:hover {
-                    color: #000000;
-                    border-bottom-color: #ff6f00;
+                    color: #000;
+                    border-bottom-color: var(--primary-orange);
                 }
 
         .search-bar {
             padding: 20px;
+            background-color: var(--sidebar-bg);
         }
 
             .search-bar input {
                 width: 100%;
                 padding: 12px 15px;
                 border-radius: 8px;
-                border: 1px solid #eef0f3;
+                border: 1px solid var(--border-color);
                 background-color: #f7f8fa;
                 font-size: 14px;
+                box-sizing: border-box;
             }
 
         .conversation-list {
             list-style: none;
             flex-grow: 1;
             overflow-y: auto;
-            padding: 0 10px;
+            padding: 10px;
+            margin: 0;
         }
 
         .conversation-item {
             display: flex;
+            align-items: center;
             padding: 15px;
             border-radius: 10px;
             cursor: pointer;
             transition: background-color 0.2s;
+            margin-bottom: 5px;
         }
 
-            .conversation-item.active, .conversation-item:hover {
-                background-color: #f7f8fa;
+            .conversation-item:hover {
+                background-color: #e9e9eb;
             }
 
-            .conversation-item img {
-                width: 40px;
-                height: 40px;
+            .conversation-item.active {
+                background-color: var(--sidebar-bg);
+            }
+
+            .conversation-item .avatar {
+                width: 45px;
+                height: 45px;
                 border-radius: 50%;
                 margin-right: 12px;
-                object-fit: cover;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #ddd;
+                color: #555;
+                font-size: 20px;
+                flex-shrink: 0;
             }
 
-        .conversation-content {
-            flex-grow: 1;
-        }
+                .conversation-item .avatar.ai {
+                    background-color: #333;
+                    color: white;
+                }
 
-            .conversation-content .name {
+                .conversation-item .avatar.teacher {
+                    background-color: var(--primary-orange);
+                    color: white;
+                }
+
+            .conversation-item .details {
+                overflow: hidden;
+            }
+
+            .conversation-item .name {
                 font-weight: 600;
                 font-size: 15px;
+                white-space: nowrap;
             }
 
-            .conversation-content .message-preview {
+            .conversation-item .preview {
                 font-size: 14px;
                 color: #666;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                max-width: 200px;
             }
 
-        .conversation-info {
-            text-align: right;
-            font-size: 12px;
-            color: #a0a9b9;
-        }
-
-        /* --- 3. Khung Chat chính (bên phải) --- */
+        /* --- Cột 3: Khung Chat Chính --- */
         .chat-panel {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            background-color: #ffffff; /* Nền trắng cho panel chat */
+            background-color: var(--chat-panel-bg);
         }
 
         .chat-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 30px;
-            background-color: #ffffff;
-            border-bottom: 1px solid #eef0f3;
+            padding: 20px 30px;
+            border-bottom: 1px solid var(--border-color);
             flex-shrink: 0;
         }
 
-        .header-left {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .breadcrumbs {
-            margin-bottom: 5px;
-        }
-
-            .breadcrumbs a {
-                text-decoration: none;
-                color: #666;
-                font-size: 14px;
-            }
-
-                .breadcrumbs a.current {
-                    color: #000;
-                    font-weight: 600;
-                }
-
-        .chat-status {
+        .chat-info .status {
             font-size: 12px;
-            display: flex;
-            align-items: center;
+            color: #4CAF50;
         }
 
         .user-profile {
             display: flex;
             align-items: center;
         }
-
-            .user-profile img {
-                width: 32px;
-                height: 32px;
-                border-radius: 50%;
-                margin-right: 10px;
-            }
 
             .user-profile .user-name {
                 font-weight: 600;
@@ -252,91 +250,124 @@
 
             .user-profile .logout-link {
                 font-size: 14px;
-                color: #ff6f00;
+                color: var(--primary-orange);
                 text-decoration: none;
                 font-weight: 600;
+                cursor: pointer;
             }
 
-        /* --- CSS CHO IFRAME VÀ LỖI TỪ CODE GỐC --- */
-        .chat-body {
+        .messages-area {
             flex-grow: 1;
-            position: relative;
-        }
-
-        .chat-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .error-message {
-            text-align: center;
-            padding: 50px 20px;
-            color: #666;
-            height: 100%;
+            padding: 30px;
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
         }
 
-            .error-message h2 {
-                color: #f44336;
-                margin-bottom: 20px;
+        .message {
+            display: flex;
+            align-items: flex-start;
+            max-width: 75%;
+            margin-bottom: 20px;
+        }
+
+            .message .avatar {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                margin-right: 15px;
+                flex-shrink: 0;
             }
 
-        .retry-button {
-            background: #2196F3;
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 20px;
-        }
-
-            .retry-button:hover {
-                background: #1976D2;
+            .message .content {
+                padding: 12px 18px;
+                border-radius: 18px;
+                line-height: 1.5;
             }
 
-        .status-indicator {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            margin-right: 8px;
-            animation: pulse 2s infinite;
-        }
+            .message.sent {
+                align-self: flex-end;
+                flex-direction: row-reverse;
+            }
 
-        .status-online {
-            background-color: #4CAF50;
-        }
+                .message.sent .avatar {
+                    margin-left: 15px;
+                    margin-right: 0;
+                }
 
-        .status-offline {
-            background-color: #f44336;
-        }
+                .message.sent .content {
+                    background-color: var(--primary-orange);
+                    color: white;
+                    border-bottom-right-radius: 4px;
+                }
 
-        @keyframes pulse {
-            0% {
-                opacity: 1;
+            .message.received .content {
+                background-color: #f1f1f1;
+                color: var(--text-primary);
+                border-bottom-left-radius: 4px;
+            }
+
+            .message .typing-indicator span {
+                display: inline-block;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background-color: #999;
+                margin: 0 2px;
+                animation: typing 1s infinite;
+            }
+
+                .message .typing-indicator span:nth-child(2) {
+                    animation-delay: 0.2s;
+                }
+
+                .message .typing-indicator span:nth-child(3) {
+                    animation-delay: 0.4s;
+                }
+
+        @keyframes typing {
+            0%, 100% {
+                opacity: 0.3;
             }
 
             50% {
-                opacity: 0.5;
-            }
-
-            100% {
                 opacity: 1;
             }
         }
+
+        .chat-input-area {
+            padding: 20px 30px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+
+            .chat-input-area textarea {
+                flex-grow: 1;
+                border: none;
+                outline: none;
+                resize: none;
+                font-family: inherit;
+                font-size: 15px;
+                padding: 10px;
+                max-height: 100px;
+            }
+
+            .chat-input-area button {
+                background: none;
+                border: none;
+                font-size: 22px;
+                color: var(--primary-orange);
+                cursor: pointer;
+                margin-left: 15px;
+            }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
 
     <div class="app-container">
-        <aside class="sidebar">
+        <!-- CỘT 1: SIDEBAR ICON -->
+        <aside class="icon-sidebar">
             <div class="logo"></div>
             <nav>
                 <ul>
@@ -349,8 +380,9 @@
             </nav>
         </aside>
 
-        <aside class="question-list-panel">
-            <header class="question-list-header">
+        <!-- CỘT 2: DANH SÁCH CUỘC TRÒ CHUYỆN -->
+        <aside class="conversation-panel">
+            <header class="conversation-header">
                 <h2>Hỏi đáp Q & A</h2>
                 <div class="tabs">
                     <button class="active">Tất cả câu hỏi</button>
@@ -361,156 +393,300 @@
             <div class="search-bar">
                 <input type="text" placeholder="Tìm kiếm câu hỏi hoặc học viên">
             </div>
-            <ul class="conversation-list">
-                <li class="conversation-item active">
-                    <img src="https://i.pravatar.cc/40?u=chatbot" alt="Avatar">
-                    <div class="conversation-content">
+            <ul class="conversation-list" id="conversation-list">
+                <!-- AI Item -->
+                <li class="conversation-item" data-id="ai" data-name="AI Chat Assistant">
+                    <div class="avatar ai"><i class="fa-solid fa-robot"></i></div>
+                    <div class="details">
                         <div class="name">AI Chat Assistant</div>
-                        <div class="message-preview">Đang hoạt động...</div>
+                        <div class="preview">Đang hoạt động...</div>
                     </div>
                 </li>
-                <li class="conversation-item">
-                    <img src="https://i.pravatar.cc/40?u=ngocngoan" alt="Avatar">
-                    <div class="conversation-content">
-                        <div class="name">Nguyễn Ngọc Ngoan</div>
-                        <div class="message-preview">Alo alo 1234 nghe hong???</div>
-                    </div>
-                </li>
+                <!-- Teacher items will be populated here -->
             </ul>
         </aside>
 
+        <!-- CỘT 3: KHUNG CHAT CHÍNH -->
         <main class="chat-panel">
             <header class="chat-header">
-                <div class="header-left">
-                    <div class="breadcrumbs">
-                        <a href="#" class="current">AI Chat Assistant</a>
-                    </div>
-                    <div class="chat-status">
-                        <span id="status-indicator" class="status-indicator status-offline"></span>
-                        <span id="status-text">Connecting...</span>
-                    </div>
+                <div class="chat-info">
+                    <h3 id="chat-with-name">Chọn một cuộc trò chuyện</h3>
+                    <div class="status" id="chat-status"></div>
                 </div>
                 <div class="user-profile">
-                    <img src="https://i.pravatar.cc/40?u=hienmai_profile" alt="User Avatar">
-                    <span class="user-name">Hiền Mai</span>
-                    <a href="#" class="logout-link">Đăng xuất</a>
+                    <span class="user-name" id="user-name-display"></span>
+                    <a class="logout-link" id="logout-btn">Đăng xuất</a>
                 </div>
             </header>
-
-            <div class="chat-body">
-                <iframe id="chat-iframe"
-                        class="chat-iframe"
-                        src="about:blank"
-                        onload="handleIframeLoad()"
-                        onerror="handleIframeError()">
-                </iframe>
-
-                <div id="error-content" class="error-message" style="display: none;">
-                    <h2>🚫 Không thể kết nối đến dịch vụ Chat</h2>
-                    <p>Chatbot AI hiện không hoạt động. Vui lòng kiểm tra:</p>
-                    <ul style="text-align: left; display: inline-block; margin: 20px 0;">
-                        <li>Dịch vụ Chat đã được cài đặt chưa?</li>
-                        <li>Có đang chạy trên: https://dev-chatbot-hono.vercel.app/ không?</li>
-                        <li>Tường lửa có đang chặn kết nối không?</li>
-                    </ul>
-                    <button class="retry-button" onclick="retryConnection()">Thử lại</button>
-                </div>
+            <div class="messages-area" id="messages-area">
+                <!-- Messages will appear here -->
+            </div>
+            <div class="chat-input-area">
+                <textarea id="message-input" placeholder="Type your message here..." rows="1"></textarea>
+                <button id="send-btn" title="Gửi"><i class="fa-solid fa-paper-plane"></i></button>
             </div>
         </main>
     </div>
 
     <script>
-        let connectionAttempts = 0;
-        const maxAttempts = 3;
-
-        function updateStatus(isOnline, message) {
-            const indicator = document.getElementById('status-indicator');
-            const text = document.getElementById('status-text');
-
-            if (isOnline) {
-                indicator.className = 'status-indicator status-online';
-                text.textContent = message || 'Chat AI đã kết nối';
-            } else {
-                indicator.className = 'status-indicator status-offline';
-                text.textContent = message || 'Mất kết nối với Chat AI';
-            }
-        }
-
-        function showError() {
-            document.getElementById('chat-iframe').style.display = 'none';
-            document.getElementById('error-content').style.display = 'block';
-            updateStatus(false, 'Không thể kết nối Chat AI');
-        }
-
-        function hideError() {
-            document.getElementById('chat-iframe').style.display = 'block';
-            document.getElementById('error-content').style.display = 'none';
-        }
-
-        function handleIframeLoad() {
-            const iframe = document.getElementById('chat-iframe');
-            try {
-                // Kiểm tra xem có thể truy cập nội dung iframe không
-                if (iframe.src !== 'about:blank' && iframe.contentWindow.location.href !== 'about:blank') {
-                    updateStatus(true, 'Chat AI sẵn sàng');
-                    hideError();
-                    connectionAttempts = 0; // Reset khi thành công
-                }
-            } catch (e) {
-                // Lỗi CORS thường xảy ra ở đây, nhưng nếu iframe load được thì coi như thành công
-                console.log('Iframe đã tải nhưng không thể truy cập nội dung (CORS)');
-                updateStatus(true, 'Chat AI sẵn sàng');
-                hideError();
-                connectionAttempts = 0; // Reset khi thành công
-            }
-        }
-
-        function handleIframeError() {
-            console.error('Lỗi khi tải Iframe.');
-            if (connectionAttempts >= maxAttempts) {
-                showError();
-            } else {
-                setTimeout(connectToChat, 3000); // Thử lại sau 3s nếu iframe báo lỗi
-            }
-        }
-
-        function connectToChat() {
-            if (connectionAttempts >= maxAttempts) {
-                showError();
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- AUTHENTICATION CHECK ---
+            const token = localStorage.getItem('jwtToken');
+            if (!token) {
+                window.location.href = '/index.html'; // Redirect to login page
                 return;
             }
-            connectionAttempts++;
-            updateStatus(false, `Đang kết nối đến Chat AI (lần ${connectionAttempts})...`);
-            hideError(); // Ẩn lỗi cũ khi thử lại
 
-            const iframe = document.getElementById('chat-iframe');
-            const chatUrl = 'https://dev-chatbot-hono.vercel.app/';
+            // --- GLOBAL VARIABLES & DOM ELEMENTS ---
+            const conversationList = document.getElementById('conversation-list');
+            const messagesArea = document.getElementById('messages-area');
+            const messageInput = document.getElementById('message-input');
+            const sendBtn = document.getElementById('send-btn');
+            const chatWithName = document.getElementById('chat-with-name');
+            const chatStatus = document.getElementById('chat-status');
+            const userNameDisplay = document.getElementById('user-name-display');
+            const logoutBtn = document.getElementById('logout-btn');
 
-            // Dùng fetch để kiểm tra dịch vụ có sống không trước khi gán src
-            fetch(chatUrl, { mode: 'no-cors' }) // no-cors để tránh lỗi CORS khi chỉ ping
-                .then(() => {
-                    console.log('Dịch vụ có phản hồi. Đang tải iframe...');
-                    iframe.src = chatUrl;
-                })
-                .catch(() => {
-                    console.error('Không thể fetch dịch vụ. Thử lại...');
-                    if (connectionAttempts < maxAttempts) {
-                        setTimeout(connectToChat, 3000);
-                    } else {
-                        showError();
+            let currentUserId = null;
+            let currentRecipient = { id: null, type: null }; // type can be 'ai' or 'human'
+            let signalRConnection = null;
+
+            // --- HELPER FUNCTIONS ---
+            function decodeJwt(token) {
+                try {
+                    const payload = JSON.parse(atob(token.split('.')[1]));
+                    return payload;
+                } catch (e) {
+                    console.error('Failed to decode JWT:', e);
+                    return null;
+                }
+            }
+
+            // --- INITIALIZATION ---
+            function initializeApp() {
+                const decodedToken = decodeJwt(token);
+                if (!decodedToken) {
+                    logout();
+                    return;
+                }
+
+                currentUserId = parseInt(decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
+                userNameDisplay.textContent = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+
+                setupSignalR();
+                fetchAndDisplayTeachers();
+
+                // Default to AI chat
+                const aiItem = conversationList.querySelector('.conversation-item[data-id="ai"]');
+                if (aiItem) {
+                    aiItem.click();
+                }
+            }
+
+            // --- UI RENDERING ---
+            function renderMessage(message, isSent) {
+                const messageClass = isSent ? 'sent' : 'received';
+                const avatarClass = currentRecipient.type === 'ai' ? 'ai' : 'teacher';
+                const avatarIcon = isSent ? 'fa-user' : (currentRecipient.type === 'ai' ? 'fa-robot' : 'fa-user-tie');
+
+                const messageHTML = `
+                <div class="message ${messageClass}">
+                    <div class="avatar ${avatarClass}"><i class="fa-solid ${avatarIcon}"></i></div>
+                    <div class="content">${message}</div>
+                </div>
+            `;
+                messagesArea.insertAdjacentHTML('beforeend', messageHTML);
+                messagesArea.scrollTop = messagesArea.scrollHeight;
+            }
+
+            function showTypingIndicator() {
+                const typingHTML = `
+                <div class="message received" id="typing-indicator">
+                    <div class="avatar ai"><i class="fa-solid fa-robot"></i></div>
+                    <div class="content typing-indicator">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            `;
+                messagesArea.insertAdjacentHTML('beforeend', typingHTML);
+                messagesArea.scrollTop = messagesArea.scrollHeight;
+            }
+
+            function removeTypingIndicator() {
+                const indicator = document.getElementById('typing-indicator');
+                if (indicator) {
+                    indicator.remove();
+                }
+            }
+
+            // --- API & DATA FETCHING ---
+            async function fetchAndDisplayTeachers() {
+                try {
+                    const response = await fetch('/api/UserManagement/role/Teacher', {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    if (!response.ok) throw new Error('Failed to fetch teachers');
+
+                    const teachers = await response.json();
+                    teachers.forEach(teacher => {
+                        if (teacher.id === currentUserId) return;
+                        const item = document.createElement('li');
+                        item.className = 'conversation-item';
+                        item.dataset.id = teacher.id;
+                        item.dataset.name = teacher.userName;
+                        item.innerHTML = `
+                        <div class="avatar teacher"><i class="fa-solid fa-user-tie"></i></div>
+                        <div class="details">
+                            <div class="name">${teacher.userName}</div>
+                            <div class="preview">Giáo viên</div>
+                        </div>
+                    `;
+                        conversationList.appendChild(item);
+                    });
+                } catch (error) {
+                    console.error('Error fetching teachers:', error);
+                }
+            }
+
+            // --- CHAT LOGIC ---
+            function selectConversation(target) {
+                document.querySelectorAll('.conversation-item.active').forEach(i => i.classList.remove('active'));
+                target.classList.add('active');
+
+                messagesArea.innerHTML = '';
+                messageInput.value = '';
+
+                const id = target.dataset.id;
+                const name = target.dataset.name;
+
+                chatWithName.textContent = name;
+
+                if (id === 'ai') {
+                    currentRecipient = { id: 'ai', type: 'ai' };
+                    chatStatus.textContent = "Chat AI sẵn sàng";
+                    renderMessage("Xin chào! Tôi có thể giúp gì cho bạn?", false);
+                } else {
+                    currentRecipient = { id: parseInt(id), type: 'human' };
+                    chatStatus.textContent = "Online"; // You can enhance this with real status
+                    loadHumanChatHistory(currentRecipient.id);
+                }
+            }
+
+            async function handleSendMessage() {
+                const message = messageInput.value.trim();
+                if (!message || !currentRecipient.id) return;
+
+                renderMessage(message, true);
+                messageInput.value = '';
+                messageInput.style.height = 'auto';
+
+
+                if (currentRecipient.type === 'ai') {
+                    await sendToAI(message);
+                } else if (currentRecipient.type === 'human') {
+                    await sendToHuman(currentRecipient.id, message);
+                }
+            }
+
+            async function sendToAI(message) {
+                showTypingIndicator();
+                try {
+                    const response = await fetch('/api/ChatAI', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ prompt: message })
+                    });
+                    removeTypingIndicator();
+                    if (!response.ok) throw new Error('AI response error');
+                    const data = await response.json();
+                    renderMessage(data.response, false);
+
+                } catch (error) {
+                    removeTypingIndicator();
+                    renderMessage("Xin lỗi, đã có lỗi xảy ra với AI.", false);
+                    console.error('AI Chat Error:', error);
+                }
+            }
+
+            async function sendToHuman(recipientId, content) {
+                if (signalRConnection && signalRConnection.state === "Connected") {
+                    try {
+                        await signalRConnection.invoke("SendMessage", recipientId, content);
+                    } catch (err) {
+                        console.error("SignalR send message error:", err);
                     }
+                }
+            }
+
+            async function loadHumanChatHistory(recipientId) {
+                try {
+                    const response = await fetch(`/api/PrivateChat/${recipientId}`, {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    if (!response.ok && response.status !== 404) {
+                        throw new Error('Failed to fetch chat history');
+                    }
+                    if (response.status === 404) {
+                        messagesArea.innerHTML = '<p style="text-align:center; color:#999;">Chưa có tin nhắn nào. Bắt đầu cuộc trò chuyện!</p>';
+                        return;
+                    }
+                    const messages = await response.json();
+                    messages.forEach(msg => {
+                        renderMessage(msg.content, msg.senderId === currentUserId);
+                    });
+                } catch (error) {
+                    console.error('Error loading chat history:', error);
+                }
+            }
+
+            // --- SIGNALR SETUP ---
+            function setupSignalR() {
+                signalRConnection = new signalR.HubConnectionBuilder()
+                    .withUrl("/privateChatHub", { accessTokenFactory: () => token })
+                    .build();
+
+                signalRConnection.on("ReceiveMessage", (senderId, message) => {
+                    if (currentRecipient.type === 'human' && senderId === currentRecipient.id) {
+                        renderMessage(message, false);
+                    }
+                    // You can add a notification for messages from other users here
                 });
-        }
 
-        function retryConnection() {
-            connectionAttempts = 0;
-            connectToChat();
-        }
+                signalRConnection.start().catch(err => console.error('SignalR Connection Error: ', err.toString()));
+            }
 
-        // Bắt đầu kết nối khi tải trang
-        window.onload = function () {
-            connectToChat();
-        };
+            // --- EVENT LISTENERS ---
+            logoutBtn.addEventListener('click', () => {
+                localStorage.removeItem('jwtToken');
+                window.location.href = '/index.html';
+            });
+
+            conversationList.addEventListener('click', (e) => {
+                const target = e.target.closest('.conversation-item');
+                if (target) {
+                    selectConversation(target);
+                }
+            });
+
+            sendBtn.addEventListener('click', handleSendMessage);
+            messageInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSendMessage();
+                }
+            });
+
+            messageInput.addEventListener('input', () => {
+                messageInput.style.height = 'auto';
+                messageInput.style.height = (messageInput.scrollHeight) + 'px';
+            });
+
+            // --- RUN APP ---
+            initializeApp();
+        });
     </script>
 </body>
 </html>
