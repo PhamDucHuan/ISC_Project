@@ -1,4 +1,5 @@
 ﻿using ISC_Project.Data;
+using ISC_Project.Hubs;
 using ISC_Project.Infrastructure.Services;
 using ISC_Project.Interface;
 using ISC_Project.Interface.AuthService;
@@ -26,7 +27,9 @@ namespace ISC_Project
             var builder = WebApplication.CreateBuilder(args);
             var configuration = builder.Configuration;
 
-#region Register services into the IoC container
+            builder.Services.AddSignalR();
+
+            #region Register services into the IoC container
             // Register services into the IoC container
             builder.Services.AddScoped<ISC_ProjectDbContext, ISC_ProjectDbContext>();
             builder.Services.AddScoped<IAuthService, AuthService>();
@@ -108,7 +111,7 @@ namespace ISC_Project
             builder.Services.AddScoped<IUserManagementService, UserManagementService>();
             builder.Services.AddScoped<IWorkHistoryService, WorkHistoryService>();
 
-#endregion
+            #endregion
 
             // Thêm HttpClient cho ChatAI service
             builder.Services.AddHttpClient();
@@ -116,14 +119,30 @@ namespace ISC_Project
             // Cấu hình CORS cho phép frontend kết nối
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowAll", policy =>
-                {
-                    policy.AllowAnyOrigin()
-                          .AllowAnyMethod()
-                          .AllowAnyHeader();
-                });
+                options.AddPolicy("AllowProjectOrigin",
+                    policy =>
+                    {
+                        // Lấy URL từ file cấu hình appsettings.json
+                        var allowedOrigin = builder.Configuration["AllowedHosts"];
+                        if (allowedOrigin != null && allowedOrigin != "*")
+                        {
+                            // Cho phép các nguồn gốc cụ thể từ file cấu hình
+                            // Điều này tốt hơn cho môi trường production
+                            policy.WithOrigins(allowedOrigin.Split(';'))
+                      .AllowAnyHeader()
+                      .AllowAnyMethod()
+                      .AllowCredentials(); // Rất quan trọng cho SignalR
+                        }
+                        else
+                        {
+                            // Cho phép bất kỳ nguồn gốc nào nếu không có cấu hình (dành cho development)
+                            // Cảnh báo: Không khuyến khích cho production
+                            policy.AllowAnyOrigin()
+                                  .AllowAnyHeader()
+                                  .AllowAnyMethod();
+                        }
+                    });
             });
-
 
             // 1. Setup DbContext to use PostgresSQL
             var connectionJwtString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -151,17 +170,17 @@ namespace ISC_Project
                         OnChallenge = context =>
                         {
                             context.HandleResponse();
-                            
+
                             context.Response.StatusCode = 401;
                             context.Response.ContentType = "application/json";
 
-                            
+
                             var result = JsonSerializer.Serialize(new { message = "Vui lòng đăng nhập để thực hiện chức năng này." });
                             return context.Response.WriteAsync(result);
                         }
                     };
                 });
-            
+
             //Thêm hỗ trợ cho Newtonsoft.Json để xử lý Enum dưới dạng string và các vòng lặp tham chiếu
             builder.Services.AddControllers().AddNewtonsoftJson(options =>
             {
@@ -218,13 +237,13 @@ namespace ISC_Project
             }
 
             app.UseHttpsRedirection();
-            
+
             // Sử dụng CORS
-            app.UseCors("AllowAll");
-            
+            app.UseCors("AllowProjectOrigin");
+
             // Serve static files
             app.UseStaticFiles();
-            
+
             app.UseStatusCodePages(async context =>
             {
                 // Nếu mã lỗi là 403 Forbidden
@@ -236,14 +255,19 @@ namespace ISC_Project
             });
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
+            app.MapControllerRoute(
+            name: "default",
+            pattern: "{controller=Home}/{action=Chat}/{id?}"); // Đặt Chat làm trang mặc định
+
+
             // Add routing for the root path to redirect to home.html
             app.MapGet("/", context =>
             {
                 context.Response.Redirect("/home.html");
                 return Task.CompletedTask;
             });
-            
+
             // simple reverse proxy for chat
             app.MapGet("/chat", async context =>
             {
@@ -251,7 +275,7 @@ namespace ISC_Project
                 {
                     var httpClient = context.RequestServices.GetRequiredService<IHttpClientFactory>().CreateClient();
                     var response = await httpClient.GetAsync("http://localhost:3000");
-                    
+
                     if (response.IsSuccessStatusCode)
                     {
                         var content = await response.Content.ReadAsStringAsync();
@@ -280,7 +304,9 @@ namespace ISC_Project
                         </html>");
                 }
             });
-            
+
+            app.MapHub<PrivateChatHub>("/privatechathub");
+
             app.MapControllers();
             app.Run();
         }

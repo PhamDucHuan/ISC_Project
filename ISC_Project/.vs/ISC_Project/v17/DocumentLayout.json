@@ -11,6 +11,10 @@
       "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:wwwroot\\chat.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\controllers\\scorecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:controllers\\scorecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -29,10 +33,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\services\\authservice\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:services\\authservice\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F42472B9-EEB8-4A93-806A-D55F4B8155B4}|ISC_Project.csproj|d:\\summer 2025\\isc\\git\\isc_project\\isc_project\\dtos\\acceptingschooltransfer\\acceptingschooltransferdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -474,7 +474,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -486,19 +486,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "CreateScoreDto.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\Score\\CreateScoreDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\Score\\CreateScoreDto.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\Score\\CreateScoreDto.cs",
-              "RelativeToolTip": "DTOs\\Score\\CreateScoreDto.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAxwAsAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-01T15:27:03.637Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "ScoreService.cs",
               "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\ScoreService.cs",
               "RelativeDocumentMoniker": "Services\\ScoreService.cs",
@@ -552,7 +540,7 @@
               "RelativeDocumentMoniker": "wwwroot\\chat.html",
               "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\wwwroot\\chat.html",
               "RelativeToolTip": "wwwroot\\chat.html",
-              "ViewState": "AgIAANcAAAAAAAAAAAAAANMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAOkBAAAAAAAAAAAUwAMCAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
               "WhenOpened": "2025-07-25T13:12:33.842Z",
               "EditorCaption": ""
@@ -563,16 +551,41 @@
               "Title": "private-chat.html",
               "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\wwwroot\\private-chat.html",
               "RelativeDocumentMoniker": "wwwroot\\private-chat.html",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\wwwroot\\private-chat.html",
-              "RelativeToolTip": "wwwroot\\private-chat.html",
-              "ViewState": "AgIAABECAAAAAAAAAAAIwC0CAAAHAAAAAAAAAA==",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\wwwroot\\private-chat.html*",
+              "RelativeToolTip": "wwwroot\\private-chat.html*",
+              "ViewState": "AgIAAAkCAAAAAAAAAAAIwAoCAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
               "WhenOpened": "2025-07-25T13:16:40.883Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAMBAAAAAAAAAAApwBABAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T14:23:03.604Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CreateScoreDto.cs",
+              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\Score\\CreateScoreDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\Score\\CreateScoreDto.cs",
+              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\DTOs\\Score\\CreateScoreDto.cs",
+              "RelativeToolTip": "DTOs\\Score\\CreateScoreDto.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAxwAsAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-01T15:27:03.637Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "IScoreService.cs",
               "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Interface\\IScoreService.cs",
               "RelativeDocumentMoniker": "Interface\\IScoreService.cs",
@@ -584,7 +597,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "ScoreController.cs",
               "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Controllers\\ScoreController.cs",
               "RelativeDocumentMoniker": "Controllers\\ScoreController.cs",
@@ -608,7 +621,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "AuthService.cs",
               "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Services\\AuthService\\AuthService.cs",
               "RelativeDocumentMoniker": "Services\\AuthService\\AuthService.cs",
@@ -629,18 +642,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-29T13:07:28.127Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "D:\\SUMMER 2025\\ISC\\Git\\ISC_Project\\ISC_Project\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAADoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-28T14:23:03.604Z"
             },
             {
               "$type": "Document",
