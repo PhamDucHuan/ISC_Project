@@ -21,7 +21,7 @@ namespace ISC_Project.Services
             _httpClient = httpClient;
             _logger = logger;
             _context = context;
-            _aiServiceUrl = configuration["ChatAI:ServiceUrl"] ?? "http://localhost:3000";
+            _aiServiceUrl = configuration["ChatAI:ServiceUrl"] ?? "https://dev-chatbot-hono.vercel.app/";
         }
 
         public async Task<ChatResponseDto> GetAIResponseAsync(ChatRequestDto request)

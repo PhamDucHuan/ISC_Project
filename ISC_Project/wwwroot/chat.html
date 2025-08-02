@@ -307,34 +307,6 @@
                 border-bottom-left-radius: 4px;
             }
 
-            .message .typing-indicator span {
-                display: inline-block;
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                background-color: #999;
-                margin: 0 2px;
-                animation: typing 1s infinite;
-            }
-
-                .message .typing-indicator span:nth-child(2) {
-                    animation-delay: 0.2s;
-                }
-
-                .message .typing-indicator span:nth-child(3) {
-                    animation-delay: 0.4s;
-                }
-
-        @keyframes typing {
-            0%, 100% {
-                opacity: 0.3;
-            }
-
-            50% {
-                opacity: 1;
-            }
-        }
-
         .chat-input-area {
             padding: 20px 30px;
             border-top: 1px solid var(--border-color);
@@ -361,12 +333,23 @@
                 cursor: pointer;
                 margin-left: 15px;
             }
+
+        /* --- CSS cho Iframe --- */
+        #ai-chat-container {
+            flex-grow: 1; /* Cho phép co giãn để lấp đầy không gian */
+            display: none; /* Ẩn theo mặc định */
+        }
+
+        #ai-chat-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
     </style>
 </head>
 <body>
 
     <div class="app-container">
-        <!-- CỘT 1: SIDEBAR ICON -->
         <aside class="icon-sidebar">
             <div class="logo"></div>
             <nav>
@@ -380,7 +363,6 @@
             </nav>
         </aside>
 
-        <!-- CỘT 2: DANH SÁCH CUỘC TRÒ CHUYỆN -->
         <aside class="conversation-panel">
             <header class="conversation-header">
                 <h2>Hỏi đáp Q & A</h2>
@@ -394,19 +376,16 @@
                 <input type="text" placeholder="Tìm kiếm câu hỏi hoặc học viên">
             </div>
             <ul class="conversation-list" id="conversation-list">
-                <!-- AI Item -->
                 <li class="conversation-item" data-id="ai" data-name="AI Chat Assistant">
                     <div class="avatar ai"><i class="fa-solid fa-robot"></i></div>
                     <div class="details">
                         <div class="name">AI Chat Assistant</div>
-                        <div class="preview">Đang hoạt động...</div>
+                        <div class="preview">Trợ lý ảo thông minh</div>
                     </div>
                 </li>
-                <!-- Teacher items will be populated here -->
             </ul>
         </aside>
 
-        <!-- CỘT 3: KHUNG CHAT CHÍNH -->
         <main class="chat-panel">
             <header class="chat-header">
                 <div class="chat-info">
@@ -418,13 +397,17 @@
                     <a class="logout-link" id="logout-btn">Đăng xuất</a>
                 </div>
             </header>
-            <div class="messages-area" id="messages-area">
-                <!-- Messages will appear here -->
-            </div>
-            <div class="chat-input-area">
-                <textarea id="message-input" placeholder="Type your message here..." rows="1"></textarea>
+
+            <div class="messages-area" id="messages-area"></div>
+            <div class="chat-input-area" id="chat-input-area">
+                <textarea id="message-input" placeholder="Nhập tin nhắn..." rows="1"></textarea>
                 <button id="send-btn" title="Gửi"><i class="fa-solid fa-paper-plane"></i></button>
             </div>
+
+            <div id="ai-chat-container">
+                <iframe id="ai-chat-iframe" src="https://dev-chatbot-hono.vercel.app/"></iframe>
+            </div>
+
         </main>
     </div>
 
@@ -440,12 +423,14 @@
             // --- GLOBAL VARIABLES & DOM ELEMENTS ---
             const conversationList = document.getElementById('conversation-list');
             const messagesArea = document.getElementById('messages-area');
+            const chatInputArea = document.getElementById('chat-input-area');
             const messageInput = document.getElementById('message-input');
             const sendBtn = document.getElementById('send-btn');
             const chatWithName = document.getElementById('chat-with-name');
             const chatStatus = document.getElementById('chat-status');
             const userNameDisplay = document.getElementById('user-name-display');
             const logoutBtn = document.getElementById('logout-btn');
+            const aiChatContainer = document.getElementById('ai-chat-container');
 
             let currentUserId = null;
             let currentRecipient = { id: null, type: null }; // type can be 'ai' or 'human'
@@ -473,10 +458,11 @@
                 currentUserId = parseInt(decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
                 userNameDisplay.textContent = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
 
-                setupSignalR();
-                fetchAndDisplayTeachers();
+                // Bỏ qua việc thiết lập SignalR nếu không cần chat với người
+                // setupSignalR();
+                // fetchAndDisplayTeachers();
 
-                // Default to AI chat
+                // Mặc định chọn chat AI
                 const aiItem = conversationList.querySelector('.conversation-item[data-id="ai"]');
                 if (aiItem) {
                     aiItem.click();
@@ -486,40 +472,22 @@
             // --- UI RENDERING ---
             function renderMessage(message, isSent) {
                 const messageClass = isSent ? 'sent' : 'received';
-                const avatarClass = currentRecipient.type === 'ai' ? 'ai' : 'teacher';
-                const avatarIcon = isSent ? 'fa-user' : (currentRecipient.type === 'ai' ? 'fa-robot' : 'fa-user-tie');
+                const avatarClass = 'teacher'; // Chỉ dùng cho chat người
+                const avatarIcon = isSent ? 'fa-user' : 'fa-user-tie';
 
                 const messageHTML = `
-                <div class="message ${messageClass}">
-                    <div class="avatar ${avatarClass}"><i class="fa-solid ${avatarIcon}"></i></div>
-                    <div class="content">${message}</div>
-                </div>
-            `;
+                    <div class="message ${messageClass}">
+                        <div class="avatar ${avatarClass}"><i class="fa-solid ${avatarIcon}"></i></div>
+                        <div class="content">${message}</div>
+                    </div>
+                `;
                 messagesArea.insertAdjacentHTML('beforeend', messageHTML);
                 messagesArea.scrollTop = messagesArea.scrollHeight;
             }
 
-            function showTypingIndicator() {
-                const typingHTML = `
-                <div class="message received" id="typing-indicator">
-                    <div class="avatar ai"><i class="fa-solid fa-robot"></i></div>
-                    <div class="content typing-indicator">
-                        <span></span><span></span><span></span>
-                    </div>
-                </div>
-            `;
-                messagesArea.insertAdjacentHTML('beforeend', typingHTML);
-                messagesArea.scrollTop = messagesArea.scrollHeight;
-            }
-
-            function removeTypingIndicator() {
-                const indicator = document.getElementById('typing-indicator');
-                if (indicator) {
-                    indicator.remove();
-                }
-            }
-
             // --- API & DATA FETCHING ---
+            // Phần này có thể bật lại nếu bạn cần chat với giáo viên
+            /*
             async function fetchAndDisplayTeachers() {
                 try {
                     const response = await fetch('/api/UserManagement/role/Teacher', {
@@ -547,27 +515,33 @@
                     console.error('Error fetching teachers:', error);
                 }
             }
+            */
 
             // --- CHAT LOGIC ---
             function selectConversation(target) {
                 document.querySelectorAll('.conversation-item.active').forEach(i => i.classList.remove('active'));
                 target.classList.add('active');
 
-                messagesArea.innerHTML = '';
-                messageInput.value = '';
-
                 const id = target.dataset.id;
                 const name = target.dataset.name;
-
                 chatWithName.textContent = name;
 
                 if (id === 'ai') {
                     currentRecipient = { id: 'ai', type: 'ai' };
-                    chatStatus.textContent = "Chat AI sẵn sàng";
-                    renderMessage("Xin chào! Tôi có thể giúp gì cho bạn?", false);
+                    chatStatus.textContent = "Đang hoạt động";
+                    // Ẩn khung chat người, hiện khung chat AI
+                    messagesArea.style.display = 'none';
+                    chatInputArea.style.display = 'none';
+                    aiChatContainer.style.display = 'flex';
                 } else {
                     currentRecipient = { id: parseInt(id), type: 'human' };
-                    chatStatus.textContent = "Online"; // You can enhance this with real status
+                    chatStatus.textContent = "Online";
+                    // Ẩn khung chat AI, hiện khung chat người
+                    aiChatContainer.style.display = 'none';
+                    messagesArea.style.display = 'flex';
+                    chatInputArea.style.display = 'flex';
+                    // Xóa tin nhắn cũ và tải lịch sử chat
+                    messagesArea.innerHTML = '';
                     loadHumanChatHistory(currentRecipient.id);
                 }
             }
@@ -576,41 +550,18 @@
                 const message = messageInput.value.trim();
                 if (!message || !currentRecipient.id) return;
 
-                renderMessage(message, true);
-                messageInput.value = '';
-                messageInput.style.height = 'auto';
-
-
-                if (currentRecipient.type === 'ai') {
-                    await sendToAI(message);
-                } else if (currentRecipient.type === 'human') {
+                // Chỉ xử lý gửi tin cho người, AI được xử lý trong iframe
+                if (currentRecipient.type === 'human') {
+                    renderMessage(message, true);
                     await sendToHuman(currentRecipient.id, message);
                 }
+
+                messageInput.value = '';
+                messageInput.style.height = 'auto';
             }
 
-            async function sendToAI(message) {
-                showTypingIndicator();
-                try {
-                    const response = await fetch('/api/ChatAI', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: JSON.stringify({ prompt: message })
-                    });
-                    removeTypingIndicator();
-                    if (!response.ok) throw new Error('AI response error');
-                    const data = await response.json();
-                    renderMessage(data.response, false);
-
-                } catch (error) {
-                    removeTypingIndicator();
-                    renderMessage("Xin lỗi, đã có lỗi xảy ra với AI.", false);
-                    console.error('AI Chat Error:', error);
-                }
-            }
-
+            // --- Chức năng chat với người (Giữ lại nếu cần) ---
+            /*
             async function sendToHuman(recipientId, content) {
                 if (signalRConnection && signalRConnection.state === "Connected") {
                     try {
@@ -642,7 +593,6 @@
                 }
             }
 
-            // --- SIGNALR SETUP ---
             function setupSignalR() {
                 signalRConnection = new signalR.HubConnectionBuilder()
                     .withUrl("/privateChatHub", { accessTokenFactory: () => token })
@@ -652,11 +602,11 @@
                     if (currentRecipient.type === 'human' && senderId === currentRecipient.id) {
                         renderMessage(message, false);
                     }
-                    // You can add a notification for messages from other users here
                 });
 
                 signalRConnection.start().catch(err => console.error('SignalR Connection Error: ', err.toString()));
             }
+            */
 
             // --- EVENT LISTENERS ---
             logoutBtn.addEventListener('click', () => {
