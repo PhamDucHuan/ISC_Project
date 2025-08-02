@@ -10,5 +10,8 @@ namespace ISC_Project.Interface
         Task<UserDto?> UpdateUserAsync(int userId, UpdateUserDto updateUserDto);
         Task<bool> DeleteUserSoftAsync(int userId);
         Task<IEnumerable<RoleDto>> GetAllRolesAsync();
+        Task<IEnumerable<UserDto>> GetUsersByRoleAsync(string roleName);
+
+        Task<IEnumerable<UserDto>> SearchUsersByFullNameAsync(string fullName);
     }
 }

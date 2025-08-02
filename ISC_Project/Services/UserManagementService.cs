@@ -106,5 +106,44 @@ namespace ISC_Project.Services
                     IsAdmin = r.IsAdmin ?? false
                 }).ToListAsync();
         }
+
+        public async Task<IEnumerable<UserDto>> GetUsersByRoleAsync(string roleName)
+        {
+            var users = await _context.Users
+                .Where(u => u.Role.RoleName == roleName)
+                .Select(u => new UserDto
+                {
+                    UserId = u.UserId,
+                    UserName = u.UserName,
+                    Email = u.Email,
+                    RoleName = u.Role.RoleName
+                    // Thêm các thuộc tính khác nếu cần
+                })
+                .ToListAsync();
+
+            return users;
+        }
+
+        public async Task<IEnumerable<UserDto>> SearchUsersByFullNameAsync(string fullName)
+        {
+            if (string.IsNullOrWhiteSpace(fullName))
+            {
+                return new List<UserDto>();
+            }
+
+            var users = await _context.Users
+                .Where(u => u.FullName.Contains(fullName))
+                .Select(u => new UserDto
+                {
+                    UserId = u.UserId,
+                    UserName = u.UserName,
+                    Email = u.Email,
+                    FullName = u.FullName, // Đảm bảo DTO của bạn có FullName
+                    RoleName = u.Role.RoleName
+                })
+                .ToListAsync();
+
+            return users;
+        }
     }
 }

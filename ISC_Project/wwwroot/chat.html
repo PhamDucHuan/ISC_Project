@@ -34,7 +34,6 @@
             background-color: var(--sidebar-bg);
         }
 
-        /* --- Cột 1: Sidebar Icon --- */
         .icon-sidebar {
             width: 70px;
             background-color: var(--sidebar-bg);
@@ -46,50 +45,49 @@
             flex-shrink: 0;
         }
 
-            .icon-sidebar .logo {
-                width: 40px;
-                height: 40px;
-                background-color: var(--primary-orange);
-                border-radius: 12px;
-                margin-bottom: 30px;
-            }
+        .icon-sidebar .logo {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-orange);
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
 
-            .icon-sidebar nav ul {
-                list-style: none;
-                padding: 0;
-                width: 100%;
-            }
+        .icon-sidebar nav ul {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+        }
 
-            .icon-sidebar nav li {
-                display: flex;
-                justify-content: center;
-                margin-bottom: 10px;
-            }
+        .icon-sidebar nav li {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
 
-            .icon-sidebar nav a {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 45px;
-                height: 45px;
-                color: #a0a9b9;
-                text-decoration: none;
-                border-radius: 12px;
-                font-size: 22px;
-                transition: all 0.3s ease;
-            }
+        .icon-sidebar nav a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            color: #a0a9b9;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 22px;
+            transition: all 0.3s ease;
+        }
 
-                .icon-sidebar nav a:hover {
-                    background-color: #f7f8fa;
-                    color: var(--primary-orange);
-                }
+        .icon-sidebar nav a:hover {
+            background-color: #f7f8fa;
+            color: var(--primary-orange);
+        }
 
-                .icon-sidebar nav a.active {
-                    background-color: var(--primary-orange);
-                    color: #ffffff;
-                }
+        .icon-sidebar nav a.active {
+            background-color: var(--primary-orange);
+            color: #ffffff;
+        }
 
-        /* --- Cột 2: Danh sách cuộc trò chuyện --- */
         .conversation-panel {
             width: 350px;
             background-color: var(--conversation-list-bg);
@@ -105,48 +103,48 @@
             border-bottom: 1px solid var(--border-color);
         }
 
-            .conversation-header h2 {
-                font-size: 24px;
-                font-weight: 600;
-                margin: 0 0 15px 0;
-            }
+        .conversation-header h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+        }
 
         .tabs {
             display: flex;
             gap: 20px;
         }
 
-            .tabs button {
-                background: none;
-                border: none;
-                font-family: inherit;
-                font-size: 14px;
-                padding: 8px 0;
-                cursor: pointer;
-                color: var(--text-secondary);
-                font-weight: 600;
-                border-bottom: 2px solid transparent;
-            }
+        .tabs button {
+            background: none;
+            border: none;
+            font-family: inherit;
+            font-size: 14px;
+            padding: 8px 0;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-weight: 600;
+            border-bottom: 2px solid transparent;
+        }
 
-                .tabs button.active, .tabs button:hover {
-                    color: #000;
-                    border-bottom-color: var(--primary-orange);
-                }
+        .tabs button.active, .tabs button:hover {
+            color: #000;
+            border-bottom-color: var(--primary-orange);
+        }
 
         .search-bar {
             padding: 20px;
             background-color: var(--sidebar-bg);
         }
 
-            .search-bar input {
-                width: 100%;
-                padding: 12px 15px;
-                border-radius: 8px;
-                border: 1px solid var(--border-color);
-                background-color: #f7f8fa;
-                font-size: 14px;
-                box-sizing: border-box;
-            }
+        .search-bar input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: #f7f8fa;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
 
         .conversation-list {
             list-style: none;
@@ -166,57 +164,56 @@
             margin-bottom: 5px;
         }
 
-            .conversation-item:hover {
-                background-color: #e9e9eb;
-            }
+        .conversation-item:hover {
+            background-color: #e9e9eb;
+        }
 
-            .conversation-item.active {
-                background-color: var(--sidebar-bg);
-            }
+        .conversation-item.active {
+            background-color: var(--sidebar-bg);
+        }
 
-            .conversation-item .avatar {
-                width: 45px;
-                height: 45px;
-                border-radius: 50%;
-                margin-right: 12px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background-color: #ddd;
-                color: #555;
-                font-size: 20px;
-                flex-shrink: 0;
-            }
+        .conversation-item .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            margin-right: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ddd;
+            color: #555;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
 
-                .conversation-item .avatar.ai {
-                    background-color: #333;
-                    color: white;
-                }
+        .conversation-item .avatar.ai {
+            background-color: #333;
+            color: white;
+        }
 
-                .conversation-item .avatar.teacher {
-                    background-color: var(--primary-orange);
-                    color: white;
-                }
+        .conversation-item .avatar.teacher {
+            background-color: var(--primary-orange);
+            color: white;
+        }
 
-            .conversation-item .details {
-                overflow: hidden;
-            }
+        .conversation-item .details {
+            overflow: hidden;
+        }
 
-            .conversation-item .name {
-                font-weight: 600;
-                font-size: 15px;
-                white-space: nowrap;
-            }
+        .conversation-item .name {
+            font-weight: 600;
+            font-size: 15px;
+            white-space: nowrap;
+        }
 
-            .conversation-item .preview {
-                font-size: 14px;
-                color: #666;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
+        .conversation-item .preview {
+            font-size: 14px;
+            color: #666;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
-        /* --- Cột 3: Khung Chat Chính --- */
         .chat-panel {
             flex-grow: 1;
             display: flex;
@@ -243,18 +240,18 @@
             align-items: center;
         }
 
-            .user-profile .user-name {
-                font-weight: 600;
-                margin-right: 15px;
-            }
+        .user-profile .user-name {
+            font-weight: 600;
+            margin-right: 15px;
+        }
 
-            .user-profile .logout-link {
-                font-size: 14px;
-                color: var(--primary-orange);
-                text-decoration: none;
-                font-weight: 600;
-                cursor: pointer;
-            }
+        .user-profile .logout-link {
+            font-size: 14px;
+            color: var(--primary-orange);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
 
         .messages-area {
             flex-grow: 1;
@@ -271,41 +268,41 @@
             margin-bottom: 20px;
         }
 
-            .message .avatar {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                margin-right: 15px;
-                flex-shrink: 0;
-            }
+        .message .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
 
-            .message .content {
-                padding: 12px 18px;
-                border-radius: 18px;
-                line-height: 1.5;
-            }
+        .message .content {
+            padding: 12px 18px;
+            border-radius: 18px;
+            line-height: 1.5;
+        }
 
-            .message.sent {
-                align-self: flex-end;
-                flex-direction: row-reverse;
-            }
+        .message.sent {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
 
-                .message.sent .avatar {
-                    margin-left: 15px;
-                    margin-right: 0;
-                }
+        .message.sent .avatar {
+            margin-left: 15px;
+            margin-right: 0;
+        }
 
-                .message.sent .content {
-                    background-color: var(--primary-orange);
-                    color: white;
-                    border-bottom-right-radius: 4px;
-                }
+        .message.sent .content {
+            background-color: var(--primary-orange);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
 
-            .message.received .content {
-                background-color: #f1f1f1;
-                color: var(--text-primary);
-                border-bottom-left-radius: 4px;
-            }
+        .message.received .content {
+            background-color: #f1f1f1;
+            color: var(--text-primary);
+            border-bottom-left-radius: 4px;
+        }
 
         .chat-input-area {
             padding: 20px 30px;
@@ -314,30 +311,29 @@
             align-items: center;
         }
 
-            .chat-input-area textarea {
-                flex-grow: 1;
-                border: none;
-                outline: none;
-                resize: none;
-                font-family: inherit;
-                font-size: 15px;
-                padding: 10px;
-                max-height: 100px;
-            }
+        .chat-input-area textarea {
+            flex-grow: 1;
+            border: none;
+            outline: none;
+            resize: none;
+            font-family: inherit;
+            font-size: 15px;
+            padding: 10px;
+            max-height: 100px;
+        }
 
-            .chat-input-area button {
-                background: none;
-                border: none;
-                font-size: 22px;
-                color: var(--primary-orange);
-                cursor: pointer;
-                margin-left: 15px;
-            }
-
-        /* --- CSS cho Iframe --- */
+        .chat-input-area button {
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: var(--primary-orange);
+            cursor: pointer;
+            margin-left: 15px;
+        }
+        
         #ai-chat-container {
-            flex-grow: 1; /* Cho phép co giãn để lấp đầy không gian */
-            display: none; /* Ẩn theo mặc định */
+            flex-grow: 1;
+            display: none;
         }
 
         #ai-chat-iframe {
@@ -345,6 +341,7 @@
             height: 100%;
             border: none;
         }
+
     </style>
 </head>
 <body>
@@ -367,13 +364,12 @@
             <header class="conversation-header">
                 <h2>Hỏi đáp Q & A</h2>
                 <div class="tabs">
-                    <button class="active">Tất cả câu hỏi</button>
-                    <button>Đã trả lời</button>
-                    <button>Gần đây nhất</button>
+                    <button class="active">Tất cả</button>
+                    <button>Chưa đọc</button>
                 </div>
             </header>
             <div class="search-bar">
-                <input type="text" placeholder="Tìm kiếm câu hỏi hoặc học viên">
+                <input type="text" placeholder="Tìm kiếm...">
             </div>
             <ul class="conversation-list" id="conversation-list">
                 <li class="conversation-item" data-id="ai" data-name="AI Chat Assistant">
@@ -383,7 +379,7 @@
                         <div class="preview">Trợ lý ảo thông minh</div>
                     </div>
                 </li>
-            </ul>
+                </ul>
         </aside>
 
         <main class="chat-panel">
@@ -397,13 +393,13 @@
                     <a class="logout-link" id="logout-btn">Đăng xuất</a>
                 </div>
             </header>
-
+            
             <div class="messages-area" id="messages-area"></div>
             <div class="chat-input-area" id="chat-input-area">
                 <textarea id="message-input" placeholder="Nhập tin nhắn..." rows="1"></textarea>
                 <button id="send-btn" title="Gửi"><i class="fa-solid fa-paper-plane"></i></button>
             </div>
-
+            
             <div id="ai-chat-container">
                 <iframe id="ai-chat-iframe" src="https://dev-chatbot-hono.vercel.app/"></iframe>
             </div>
@@ -413,14 +409,12 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- AUTHENTICATION CHECK ---
             const token = localStorage.getItem('jwtToken');
             if (!token) {
-                window.location.href = '/index.html'; // Redirect to login page
+                window.location.href = '/index.html';
                 return;
             }
 
-            // --- GLOBAL VARIABLES & DOM ELEMENTS ---
             const conversationList = document.getElementById('conversation-list');
             const messagesArea = document.getElementById('messages-area');
             const chatInputArea = document.getElementById('chat-input-area');
@@ -433,51 +427,43 @@
             const aiChatContainer = document.getElementById('ai-chat-container');
 
             let currentUserId = null;
-            let currentRecipient = { id: null, type: null }; // type can be 'ai' or 'human'
+            let currentRecipient = { id: null, type: null };
             let signalRConnection = null;
 
-            // --- HELPER FUNCTIONS ---
             function decodeJwt(token) {
                 try {
-                    const payload = JSON.parse(atob(token.split('.')[1]));
-                    return payload;
+                    return JSON.parse(atob(token.split('.')[1]));
                 } catch (e) {
                     console.error('Failed to decode JWT:', e);
                     return null;
                 }
             }
 
-            // --- INITIALIZATION ---
             function initializeApp() {
                 const decodedToken = decodeJwt(token);
                 if (!decodedToken) {
                     logout();
                     return;
                 }
-
                 currentUserId = parseInt(decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
                 userNameDisplay.textContent = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
 
-                // Bỏ qua việc thiết lập SignalR nếu không cần chat với người
-                // setupSignalR();
-                // fetchAndDisplayTeachers();
+                setupSignalR();
+                populateUserList();
 
-                // Mặc định chọn chat AI
                 const aiItem = conversationList.querySelector('.conversation-item[data-id="ai"]');
                 if (aiItem) {
                     aiItem.click();
                 }
             }
 
-            // --- UI RENDERING ---
             function renderMessage(message, isSent) {
                 const messageClass = isSent ? 'sent' : 'received';
-                const avatarClass = 'teacher'; // Chỉ dùng cho chat người
                 const avatarIcon = isSent ? 'fa-user' : 'fa-user-tie';
 
                 const messageHTML = `
                     <div class="message ${messageClass}">
-                        <div class="avatar ${avatarClass}"><i class="fa-solid ${avatarIcon}"></i></div>
+                        <div class="avatar teacher"><i class="fa-solid ${avatarIcon}"></i></div>
                         <div class="content">${message}</div>
                     </div>
                 `;
@@ -485,39 +471,61 @@
                 messagesArea.scrollTop = messagesArea.scrollHeight;
             }
 
-            // --- API & DATA FETCHING ---
-            // Phần này có thể bật lại nếu bạn cần chat với giáo viên
-            /*
-            async function fetchAndDisplayTeachers() {
+            function addUserToConversationList(user, preview = 'Giáo viên') {
+                if (document.querySelector(`.conversation-item[data-id='${user.id || user.userId}']`)) {
+                    return;
+                }
+                const item = document.createElement('li');
+                item.className = 'conversation-item';
+                item.dataset.id = user.id || user.userId;
+                item.dataset.name = user.userName || user.username;
+                item.innerHTML = `
+                    <div class="avatar teacher"><i class="fa-solid fa-user-tie"></i></div>
+                    <div class="details">
+                        <div class="name">${user.userName || user.username}</div>
+                        <div class="preview">${preview}</div>
+                    </div>
+                `;
+                conversationList.appendChild(item);
+            }
+            
+            async function populateUserList() {
                 try {
-                    const response = await fetch('/api/UserManagement/role/Teacher', {
+                    // ĐỔI ĐƯỜNG DẪN API CHO ĐÚNG CONTROLLER
+                    const teacherResponse = await fetch('/api/users/role/Teacher', {
                         headers: { 'Authorization': `Bearer ${token}` }
                     });
-                    if (!response.ok) throw new Error('Failed to fetch teachers');
+                    if (teacherResponse.ok) {
+                        const teachers = await teacherResponse.json();
+                        teachers.forEach(teacher => {
+                            if (teacher.userId !== currentUserId) {
+                                addUserToConversationList(teacher);
+                            }
+                        });
+                    } else {
+                        console.error('Failed to fetch teachers:', teacherResponse.statusText);
+                    }
 
-                    const teachers = await response.json();
-                    teachers.forEach(teacher => {
-                        if (teacher.id === currentUserId) return;
-                        const item = document.createElement('li');
-                        item.className = 'conversation-item';
-                        item.dataset.id = teacher.id;
-                        item.dataset.name = teacher.userName;
-                        item.innerHTML = `
-                        <div class="avatar teacher"><i class="fa-solid fa-user-tie"></i></div>
-                        <div class="details">
-                            <div class="name">${teacher.userName}</div>
-                            <div class="preview">Giáo viên</div>
-                        </div>
-                    `;
-                        conversationList.appendChild(item);
+                    const convResponse = await fetch('/api/PrivateChat/conversations', {
+                        headers: { 'Authorization': `Bearer ${token}` }
                     });
+                    if (convResponse.ok) {
+                        const result = await convResponse.json();
+                        if(result.success && result.data) {
+                            result.data.forEach(conv => {
+                                const otherUser = conv.user1.id === currentUserId ? conv.user2 : conv.user1;
+                                addUserToConversationList(otherUser, conv.lastMessage);
+                            });
+                        }
+                    } else {
+                         console.error('Failed to fetch conversations:', convResponse.statusText);
+                    }
+
                 } catch (error) {
-                    console.error('Error fetching teachers:', error);
+                    console.error('Error populating user list:', error);
                 }
             }
-            */
 
-            // --- CHAT LOGIC ---
             function selectConversation(target) {
                 document.querySelectorAll('.conversation-item.active').forEach(i => i.classList.remove('active'));
                 target.classList.add('active');
@@ -529,18 +537,15 @@
                 if (id === 'ai') {
                     currentRecipient = { id: 'ai', type: 'ai' };
                     chatStatus.textContent = "Đang hoạt động";
-                    // Ẩn khung chat người, hiện khung chat AI
                     messagesArea.style.display = 'none';
                     chatInputArea.style.display = 'none';
                     aiChatContainer.style.display = 'flex';
                 } else {
                     currentRecipient = { id: parseInt(id), type: 'human' };
                     chatStatus.textContent = "Online";
-                    // Ẩn khung chat AI, hiện khung chat người
                     aiChatContainer.style.display = 'none';
                     messagesArea.style.display = 'flex';
                     chatInputArea.style.display = 'flex';
-                    // Xóa tin nhắn cũ và tải lịch sử chat
                     messagesArea.innerHTML = '';
                     loadHumanChatHistory(currentRecipient.id);
                 }
@@ -548,20 +553,15 @@
 
             async function handleSendMessage() {
                 const message = messageInput.value.trim();
-                if (!message || !currentRecipient.id) return;
+                if (!message || !currentRecipient.id || currentRecipient.type !== 'human') return;
 
-                // Chỉ xử lý gửi tin cho người, AI được xử lý trong iframe
-                if (currentRecipient.type === 'human') {
-                    renderMessage(message, true);
-                    await sendToHuman(currentRecipient.id, message);
-                }
+                renderMessage(message, true);
+                await sendToHuman(currentRecipient.id, message);
 
                 messageInput.value = '';
                 messageInput.style.height = 'auto';
             }
-
-            // --- Chức năng chat với người (Giữ lại nếu cần) ---
-            /*
+            
             async function sendToHuman(recipientId, content) {
                 if (signalRConnection && signalRConnection.state === "Connected") {
                     try {
@@ -574,22 +574,25 @@
 
             async function loadHumanChatHistory(recipientId) {
                 try {
-                    const response = await fetch(`/api/PrivateChat/${recipientId}`, {
+                    // ĐỔI ĐƯỜNG DẪN API VÀ XỬ LÝ JSON RESPONSE
+                    const response = await fetch(`/api/PrivateChat/conversation/${recipientId}`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     });
-                    if (!response.ok && response.status !== 404) {
-                        throw new Error('Failed to fetch chat history');
-                    }
                     if (response.status === 404) {
-                        messagesArea.innerHTML = '<p style="text-align:center; color:#999;">Chưa có tin nhắn nào. Bắt đầu cuộc trò chuyện!</p>';
+                        messagesArea.innerHTML = '<p style="text-align:center; color:#999;">Bắt đầu cuộc trò chuyện!</p>';
                         return;
                     }
-                    const messages = await response.json();
-                    messages.forEach(msg => {
-                        renderMessage(msg.content, msg.senderId === currentUserId);
-                    });
+                    if (!response.ok) throw new Error('Failed to fetch chat history');
+                    
+                    const result = await response.json();
+                    if(result.success && result.data) {
+                        result.data.forEach(msg => {
+                            renderMessage(msg.content, msg.senderId === currentUserId);
+                        });
+                    }
                 } catch (error) {
                     console.error('Error loading chat history:', error);
+                    messagesArea.innerHTML = '<p style="text-align:center; color:red;">Không thể tải lịch sử.</p>';
                 }
             }
 
@@ -606,19 +609,16 @@
 
                 signalRConnection.start().catch(err => console.error('SignalR Connection Error: ', err.toString()));
             }
-            */
 
-            // --- EVENT LISTENERS ---
-            logoutBtn.addEventListener('click', () => {
+            function logout() {
                 localStorage.removeItem('jwtToken');
                 window.location.href = '/index.html';
-            });
+            }
+            logoutBtn.addEventListener('click', logout);
 
             conversationList.addEventListener('click', (e) => {
                 const target = e.target.closest('.conversation-item');
-                if (target) {
-                    selectConversation(target);
-                }
+                if (target) selectConversation(target);
             });
 
             sendBtn.addEventListener('click', handleSendMessage);
@@ -634,7 +634,6 @@
                 messageInput.style.height = (messageInput.scrollHeight) + 'px';
             });
 
-            // --- RUN APP ---
             initializeApp();
         });
     </script>
