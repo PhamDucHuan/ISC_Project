@@ -264,7 +264,7 @@ namespace ISC_Project
             // Add routing for the root path to redirect to home.html
             app.MapGet("/", context =>
             {
-                context.Response.Redirect("/home.html");
+                context.Response.Redirect("/Menu.html");
                 return Task.CompletedTask;
             });
 
