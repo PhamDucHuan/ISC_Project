@@ -111,7 +111,8 @@ namespace ISC_Project
             builder.Services.AddScoped<IUserManagementService, UserManagementService>();
             builder.Services.AddScoped<IWorkHistoryService, WorkHistoryService>();
 
-            #endregion
+            builder.Services.AddScoped<IChatService, ChatService>();
+        #endregion
 
             // Thêm HttpClient cho ChatAI service
             builder.Services.AddHttpClient();
