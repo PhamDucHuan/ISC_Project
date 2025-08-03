@@ -14,13 +14,16 @@
             --primary-orange: #ff6f00;
             --text-primary: #333;
             --text-secondary: #858d9a;
+            --sent-message-bg: #ff6f00;
+            --received-message-bg: #f1f0f0;
+            --body-bg: #f0f2f5;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             height: 100vh;
-            background-color: #f0f2f5;
+            background-color: var(--body-bg);
             display: flex;
             overflow: hidden;
         }
@@ -51,19 +54,54 @@
                 margin-bottom: 30px;
             }
 
-            .icon-sidebar nav ul {
-                list-style: none;
-                padding: 0;
-                width: 100%;
+            .icon-sidebar nav {
+                flex-grow: 1;
             }
 
-            .icon-sidebar nav li {
-                display: flex;
-                justify-content: center;
-                margin-bottom: 10px;
-            }
+                .icon-sidebar nav ul {
+                    list-style: none;
+                    padding: 0;
+                    width: 100%;
+                }
 
-            .icon-sidebar nav a {
+                .icon-sidebar nav li {
+                    display: flex;
+                    justify-content: center;
+                    margin-bottom: 10px;
+                }
+
+                .icon-sidebar nav a {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 45px;
+                    height: 45px;
+                    color: #a0a9b9;
+                    text-decoration: none;
+                    border-radius: 12px;
+                    font-size: 22px;
+                    transition: all 0.3s ease;
+                }
+
+                    .icon-sidebar nav a:hover {
+                        background-color: #f7f8fa;
+                        color: var(--primary-orange);
+                    }
+
+                    .icon-sidebar nav a.active {
+                        background-color: var(--primary-orange);
+                        color: #ffffff;
+                    }
+
+        .sidebar-footer {
+            margin-top: auto;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding-bottom: 20px;
+        }
+
+            .sidebar-footer a {
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -76,14 +114,9 @@
                 transition: all 0.3s ease;
             }
 
-                .icon-sidebar nav a:hover {
-                    background-color: #f7f8fa;
-                    color: var(--primary-orange);
-                }
-
-                .icon-sidebar nav a.active {
-                    background-color: var(--primary-orange);
-                    color: #ffffff;
+                .sidebar-footer a:hover {
+                    background-color: #fddfdf;
+                    color: #d93025;
                 }
 
         .conversation-panel {
@@ -104,8 +137,62 @@
             .conversation-header h2 {
                 font-size: 24px;
                 font-weight: 600;
-                margin: 0;
+                margin: 0 0 15px 0;
             }
+
+        .tabs-nav {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+            .tabs-nav .tab-item {
+                padding: 10px 15px;
+                cursor: pointer;
+                color: var(--text-secondary);
+                font-weight: 500;
+                position: relative;
+                border-bottom: 2px solid transparent;
+                transition: color 0.3s ease;
+            }
+
+                .tabs-nav .tab-item:hover {
+                    color: var(--text-primary);
+                }
+
+                .tabs-nav .tab-item.active {
+                    color: var(--primary-orange);
+                    border-bottom: 2px solid var(--primary-orange);
+                }
+
+        .search-bar {
+            position: relative;
+        }
+
+            .search-bar input {
+                width: 100%;
+                box-sizing: border-box;
+                padding: 10px 15px 10px 40px;
+                border-radius: 8px;
+                border: 1px solid var(--border-color);
+                background-color: var(--conversation-list-bg);
+                font-size: 14px;
+            }
+
+            .search-bar .fa-search {
+                position: absolute;
+                left: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: var(--text-secondary);
+            }
+
+        /* === CSS MỚI CHO MỤC GHIM VÀ DANH SÁCH CUỘC TRÒ CHUYỆN === */
+        #pinned-item-container {
+            padding: 10px 10px 5px 10px;
+            background-color: var(--conversation-list-bg);
+            border-bottom: 1px solid var(--border-color);
+        }
 
         .conversation-list {
             list-style: none;
@@ -114,6 +201,7 @@
             padding: 10px;
             margin: 0;
         }
+        /* === KẾT THÚC CSS MỚI === */
 
         .conversation-item {
             display: flex;
@@ -137,15 +225,17 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                background-color: #ddd;
-                color: #555;
                 font-size: 20px;
                 flex-shrink: 0;
+                color: white;
             }
 
                 .conversation-item .avatar.ai {
                     background-color: #333;
-                    color: white;
+                }
+
+                .conversation-item .avatar.user {
+                    background-color: #007bff;
                 }
 
             .conversation-item .details {
@@ -187,9 +277,15 @@
             color: #4CAF50;
         }
 
-        #ai-chat-container {
+            .chat-info .status.offline {
+                color: #999;
+            }
+
+        .chat-area-container {
             flex-grow: 1;
             display: flex;
+            position: relative;
+            overflow: hidden;
         }
 
         #ai-chat-iframe {
@@ -197,6 +293,82 @@
             height: 100%;
             border: none;
         }
+
+        #user-chat-container {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+
+        .messages-list {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .message-item {
+            display: flex;
+            margin-bottom: 15px;
+            max-width: 70%;
+        }
+
+            .message-item .message-content {
+                padding: 10px 15px;
+                border-radius: 18px;
+                line-height: 1.5;
+            }
+
+            .message-item.sent {
+                margin-left: auto;
+                flex-direction: row-reverse;
+            }
+
+                .message-item.sent .message-content {
+                    background-color: var(--sent-message-bg);
+                    color: white;
+                }
+
+            .message-item.received {
+                margin-right: auto;
+            }
+
+                .message-item.received .message-content {
+                    background-color: var(--received-message-bg);
+                    color: var(--text-primary);
+                }
+
+        .chat-input-area {
+            display: flex;
+            padding: 15px 20px;
+            border-top: 1px solid var(--border-color);
+            background-color: var(--sidebar-bg);
+        }
+
+            .chat-input-area #message-input {
+                flex-grow: 1;
+                border: 1px solid var(--border-color);
+                border-radius: 20px;
+                padding: 10px 20px;
+                font-size: 15px;
+                margin-right: 10px;
+            }
+
+            .chat-input-area #send-button {
+                border: none;
+                background-color: var(--primary-orange);
+                color: white;
+                font-size: 18px;
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+                cursor: pointer;
+                transition: opacity 0.2s;
+            }
+
+                .chat-input-area #send-button:hover {
+                    opacity: 0.8;
+                }
     </style>
 </head>
 <body>
@@ -205,36 +377,284 @@
             <div class="logo"></div>
             <nav>
                 <ul>
+                    <li><a href="/Menu.html" title="Trang chính"><i class="fa-solid fa-house"></i></a></li>
                     <li><a href="#" class="active" title="Hỏi đáp"><i class="fa-regular fa-comments"></i></a></li>
                     <li><a href="#" title="Cài đặt"><i class="fa-solid fa-gear"></i></a></li>
                 </ul>
             </nav>
+            <div class="sidebar-footer">
+                <a href="#" id="logout-button" title="Đăng xuất"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
         </aside>
+
         <aside class="conversation-panel">
             <header class="conversation-header">
                 <h2>Hỏi đáp Q & A</h2>
+                <div class="tabs-nav">
+                    <div class="tab-item active">Tất cả câu hỏi</div>
+                    <div class="tab-item">Đã trả lời</div>
+                    <div class="tab-item">Gần đây nhất</div>
+                </div>
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Tìm kiếm câu hỏi hoặc học viên...">
+                </div>
             </header>
-            <ul class="conversation-list" id="conversation-list">
-                <li class="conversation-item active" data-id="ai" data-name="AI Chat Assistant">
-                    <div class="avatar ai"><i class="fa-solid fa-robot"></i></div>
-                    <div class="details">
-                        <div class="name">AI Chat Assistant</div>
-                        <div class="preview">Trợ lý ảo thông minh</div>
-                    </div>
-                </li>
-            </ul>
+            <!-- === VỊ TRÍ MỚI CHO MỤC GHIM === -->
+            <div id="pinned-item-container"></div>
+            <ul class="conversation-list" id="conversation-list"></ul>
         </aside>
+
         <main class="chat-panel">
             <header class="chat-header">
                 <div class="chat-info">
-                    <h3 id="chat-with-name">AI Chat Assistant</h3>
-                    <div class="status" id="chat-status">Đang hoạt động</div>
+                    <h3 id="chat-with-name"></h3>
+                    <div class="status" id="chat-status"></div>
                 </div>
             </header>
-            <div id="ai-chat-container">
+            <div class="chat-area-container">
+                <div id="user-chat-container">
+                    <div class="messages-list" id="messages-list"></div>
+                    <div class="chat-input-area">
+                        <input type="text" id="message-input" placeholder="Nhập tin nhắn...">
+                        <button id="send-button"><i class="fa-solid fa-paper-plane"></i></button>
+                    </div>
+                </div>
                 <iframe id="ai-chat-iframe" src="https://dev-chatbot-hono.vercel.app/"></iframe>
             </div>
         </main>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.0/signalr.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function initializeChat() {
+                const token = localStorage.getItem("accessToken");
+                if (!token) {
+                    alert("Vui lòng đăng nhập để sử dụng chức năng này.");
+                    window.location.href = '/login.html';
+                    return;
+                }
+
+                // Lấy các element trên trang, bao gồm cả container mới
+                const pinnedItemContainer = document.getElementById('pinned-item-container');
+                const conversationListEl = document.getElementById('conversation-list');
+                const searchInput = document.getElementById('search-input');
+                const chatWithNameEl = document.getElementById('chat-with-name');
+                const chatStatusEl = document.getElementById('chat-status');
+                const aiChatIframe = document.getElementById('ai-chat-iframe');
+                const userChatContainer = document.getElementById('user-chat-container');
+                const messagesListEl = document.getElementById('messages-list');
+                const messageInput = document.getElementById('message-input');
+                const sendButton = document.getElementById('send-button');
+                const logoutButton = document.getElementById('logout-button');
+
+                let currentChatUser = null;
+                let allUsers = {};
+                let currentUserId = -1;
+
+                const connection = new signalR.HubConnectionBuilder()
+                    .withUrl("/privatechathub", { accessTokenFactory: () => token })
+                    .withAutomaticReconnect()
+                    .build();
+
+                // === LOGIC JAVASCRIPT ĐƯỢC CẬP NHẬT ===
+
+                // Hàm này chỉ chạy một lần để tạo và ghim mục AI
+                function setupPinnedItem() {
+                    const aiUser = { id: 'ai', username: 'AI Chat Assistant', preview: 'Trợ lý ảo thông minh' };
+                    const aiItem = createConversationItem(aiUser);
+                    pinnedItemContainer.appendChild(aiItem);
+                    aiItem.addEventListener('click', () => switchChat('ai'));
+                }
+
+                // Hàm này giờ chỉ render danh sách người dùng có thể lọc
+                function renderUserList(searchTerm = '') {
+                    conversationListEl.innerHTML = ''; // Chỉ xóa danh sách người dùng
+
+                    Object.values(allUsers)
+                        .filter(user => user.username.toLowerCase().includes(searchTerm.toLowerCase()))
+                        .forEach(user => {
+                            const userItem = createConversationItem(user);
+                            userItem.addEventListener('click', () => switchChat(user.id));
+                            conversationListEl.appendChild(userItem);
+                        });
+
+                    // Đánh dấu lại mục đang active
+                    if (currentChatUser) {
+                        const activeItem = document.querySelector(`.conversation-item[data-id="${currentChatUser.id}"]`);
+                        if (activeItem) activeItem.classList.add('active');
+                    }
+                }
+
+                function createConversationItem(user) {
+                    const item = document.createElement('li');
+                    item.className = 'conversation-item';
+                    item.dataset.id = user.id;
+                    let avatarHtml, statusClass = '', statusText = '';
+                    if (user.id === 'ai') {
+                        avatarHtml = `<div class="avatar ai"><i class="fa-solid fa-robot"></i></div>`;
+                        statusText = 'Đang hoạt động...';
+                    } else {
+                        avatarHtml = `<div class="avatar user">${user.username.charAt(0).toUpperCase()}</div>`;
+                        statusClass = user.isOnline ? '' : 'offline';
+                        statusText = user.isOnline ? 'Online' : 'Offline';
+                    }
+                    item.innerHTML = `
+                            ${avatarHtml}
+                            <div class="details">
+                                <div class="name">${user.username}</div>
+                                <div class="preview" data-preview-id="${user.id}">${user.preview || statusText}</div>
+                            </div>`;
+                    return item;
+                }
+
+                async function switchChat(userId) {
+                    const selectedUser = (userId === 'ai') ? { id: 'ai', username: 'AI Chat Assistant' } : allUsers[userId];
+                    if (!selectedUser || (currentChatUser && currentChatUser.id == userId)) return;
+
+                    currentChatUser = selectedUser;
+
+                    chatWithNameEl.textContent = selectedUser.username;
+                    chatStatusEl.textContent = selectedUser.isOnline ? 'Online' : 'Offline';
+                    chatStatusEl.className = selectedUser.isOnline ? 'status' : 'status offline';
+
+                    if (userId === 'ai') {
+                        chatStatusEl.textContent = 'Đang hoạt động';
+                        chatStatusEl.className = 'status';
+                        userChatContainer.style.display = 'none';
+                        aiChatIframe.style.display = 'block';
+                    } else {
+                        aiChatIframe.style.display = 'none';
+                        userChatContainer.style.display = 'flex';
+                        messagesListEl.innerHTML = '';
+                        await loadConversationHistory(userId);
+                        connection.invoke("MarkConversationAsRead", parseInt(userId)).catch(err => console.error(err));
+                    }
+
+                    document.querySelectorAll('.conversation-item').forEach(item => {
+                        item.classList.toggle('active', item.dataset.id == userId);
+                    });
+                }
+
+                async function loadConversationHistory(otherUserId) {
+                    try {
+                        const response = await fetch(`/api/PrivateChat/conversation/${otherUserId}`, {
+                            headers: { 'Authorization': `Bearer ${token}` }
+                        });
+                        if (!response.ok) throw new Error('Failed to load chat history.');
+                        const messages = await response.json();
+                        messagesListEl.innerHTML = '';
+                        messages.forEach(msg => appendMessage(msg, currentUserId));
+                    } catch (error) {
+                        console.error(error);
+                        messagesListEl.innerHTML = `<p style="text-align:center; color: #888;">Không thể tải lịch sử tin nhắn.</p>`;
+                    }
+                }
+
+                function sendMessage() {
+                    const content = messageInput.value.trim();
+                    if (content === '' || !currentChatUser || currentChatUser.id === 'ai') return;
+
+                    const messageDto = {
+                        receiverId: parseInt(currentChatUser.id),
+                        content: content
+                    };
+                    connection.invoke("SendMessage", messageDto).catch(err => console.error("Send message failed:", err));
+                    messageInput.value = '';
+                }
+
+                function appendMessage(msg, currentUserId) {
+                    const type = msg.senderId === currentUserId ? 'sent' : 'received';
+                    const messageEl = createMessageElement(msg.content, type);
+                    messagesListEl.appendChild(messageEl);
+                    scrollToBottom();
+                    updatePreview(type === 'sent' ? msg.receiverId : msg.senderId, msg.content);
+                }
+
+                function createMessageElement(text, type) {
+                    const item = document.createElement('div');
+                    item.className = `message-item ${type}`;
+                    item.innerHTML = `<div class="message-content">${text}</div>`;
+                    return item;
+                }
+
+                function updatePreview(userId, text) {
+                    const previewItem = document.querySelector(`.preview[data-preview-id="${userId}"]`);
+                    if (previewItem) { previewItem.textContent = text; }
+                }
+
+                function scrollToBottom() { messagesListEl.scrollTop = messagesListEl.scrollHeight; }
+
+                function getUserIdFromToken(token) {
+                    try {
+                        const payload = JSON.parse(atob(token.split('.')[1]));
+                        return parseInt(payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']);
+                    } catch (e) {
+                        console.error("Invalid token:", e);
+                        return null;
+                    }
+                }
+
+                async function start() {
+                    try {
+                        await connection.start();
+                        console.log("SignalR Connected.");
+                        currentUserId = getUserIdFromToken(token);
+                        const users = await connection.invoke("GetAllUsers");
+                        users.forEach(u => allUsers[u.id] = { ...u, isOnline: false });
+                        connection.invoke("GetOnlineUsers");
+                    } catch (err) {
+                        console.error(err);
+                        setTimeout(start, 5000);
+                    }
+                }
+
+                connection.on("OnlineUsers", (onlineUsers) => {
+                    onlineUsers.forEach(u => {
+                        if (allUsers[u.userId]) allUsers[u.userId].isOnline = true;
+                    });
+                    renderUserList(); // Render danh sách người dùng sau khi có trạng thái online
+                });
+
+                connection.on("UserStatusChanged", (status) => {
+                    if (allUsers[status.userId]) {
+                        allUsers[status.userId].isOnline = status.isOnline;
+                        renderUserList(searchInput.value);
+                        if (currentChatUser && currentChatUser.id == status.userId) {
+                            chatStatusEl.textContent = status.isOnline ? 'Online' : 'Offline';
+                            chatStatusEl.className = status.isOnline ? 'status' : 'status offline';
+                        }
+                    }
+                });
+
+                connection.on("ReceiveMessage", (message) => {
+                    if (currentChatUser && (message.senderId == currentChatUser.id || message.receiverId == currentChatUser.id)) {
+                        appendMessage(message, currentUserId);
+                    } else {
+                        updatePreview(message.senderId, message.content);
+                    }
+                });
+
+                sendButton.addEventListener('click', sendMessage);
+                messageInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+                searchInput.addEventListener('input', () => renderUserList(searchInput.value));
+                logoutButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    connection.stop();
+                    localStorage.removeItem('accessToken');
+                    window.location.href = '/login.html';
+                });
+
+                // Khởi tạo mục AI được ghim
+                setupPinnedItem();
+                // Bắt đầu kết nối và tải danh sách người dùng
+                start();
+            }
+
+            initializeChat();
+        });
+    </script>
 </body>
 </html>

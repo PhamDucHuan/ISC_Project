@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using ISC_Project.Interface;
 using ISC_Project.DTOs.PrivateChat;
 using System.Security.Claims;
+// Thêm các using sau
+using ISC_Project.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ISC_Project.Hubs
 {
@@ -11,10 +14,28 @@ namespace ISC_Project.Hubs
     {
         private readonly IPrivateChatService _privateChatService;
         private static readonly Dictionary<int, HashSet<string>> _userConnections = new();
+        private readonly ISC_ProjectDbContext _context; // <-- THÊM DÒNG NÀY
 
-        public PrivateChatHub(IPrivateChatService privateChatService)
+        // SỬA CONSTRUCTOR
+        public PrivateChatHub(IPrivateChatService privateChatService, ISC_ProjectDbContext context)
         {
             _privateChatService = privateChatService;
+            _context = context; // <-- THÊM DÒNG NÀY
+        }
+
+        // --- Giữ nguyên tất cả các phương thức hiện có của bạn ---
+        // (OnConnectedAsync, OnDisconnectedAsync, SendMessage, ...)
+
+        // THÊM PHƯƠNG THỨC MỚI NÀY VÀO CUỐI CLASS
+        public async Task<IEnumerable<object>> GetAllUsers()
+        {
+            var currentUserId = GetCurrentUserId();
+            var users = await _context.Users
+                .AsNoTracking()
+                .Where(u => u.UserId != currentUserId) // Loại bỏ người dùng hiện tại
+                .Select(u => new { u.UserId, u.UserName }) // Chỉ lấy thông tin cần thiết
+                .ToListAsync();
+            return users;
         }
 
         public override async Task OnConnectedAsync()
@@ -27,16 +48,16 @@ namespace ISC_Project.Hubs
                 {
                     if (!_userConnections.ContainsKey(userId))
                         _userConnections[userId] = new HashSet<string>();
-                    
+
                     _userConnections[userId].Add(Context.ConnectionId);
                 }
 
                 // Cập nhật trạng thái online
                 await _privateChatService.UpdateUserOnlineStatusAsync(userId, Context.ConnectionId, true);
-                
+
                 // Thông báo cho tất cả clients về user online
                 await Clients.All.SendAsync("UserStatusChanged", new { UserId = userId, IsOnline = true });
-                
+
                 // Gửi danh sách tin nhắn chưa đọc cho user vừa kết nối
                 var unreadMessages = await _privateChatService.GetUnreadMessagesAsync(userId);
                 if (unreadMessages.Any())
@@ -128,7 +149,7 @@ namespace ISC_Project.Hubs
                 if (success)
                 {
                     await Clients.Caller.SendAsync("MessageMarkedAsRead", messageId);
-                    
+
                     // Cập nhật số lượng tin nhắn chưa đọc
                     var unreadCount = await _privateChatService.GetUnreadMessageCountAsync(userId);
                     await Clients.Caller.SendAsync("UnreadCountUpdated", unreadCount);
@@ -151,7 +172,7 @@ namespace ISC_Project.Hubs
                 if (success)
                 {
                     await Clients.Caller.SendAsync("ConversationMarkedAsRead", otherUserId);
-                    
+
                     // Cập nhật số lượng tin nhắn chưa đọc
                     var unreadCount = await _privateChatService.GetUnreadMessageCountAsync(userId);
                     await Clients.Caller.SendAsync("UnreadCountUpdated", unreadCount);
@@ -224,8 +245,8 @@ namespace ISC_Project.Hubs
         {
             lock (_userConnections)
             {
-                return _userConnections.ContainsKey(userId) 
-                    ? _userConnections[userId].ToList() 
+                return _userConnections.ContainsKey(userId)
+                    ? _userConnections[userId].ToList()
                     : new List<string>();
             }
         }
