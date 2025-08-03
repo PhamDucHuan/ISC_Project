@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hỏi đáp Q&A</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.min.js"></script>
     <style>
         :root {
             --sidebar-bg: #ffffff;
@@ -14,6 +15,7 @@
             --primary-orange: #ff6f00;
             --text-primary: #333;
             --text-secondary: #858d9a;
+            --active-bg: #e6f2ff;
         }
 
         body {
@@ -32,7 +34,6 @@
             background-color: var(--sidebar-bg);
         }
 
-        /* --- Cột 1: Sidebar Icon --- */
         .icon-sidebar {
             width: 70px;
             background-color: var(--sidebar-bg);
@@ -87,7 +88,6 @@
                     color: #ffffff;
                 }
 
-        /* --- Cột 2: Danh sách cuộc trò chuyện (đơn giản hóa) --- */
         .conversation-panel {
             width: 350px;
             background-color: var(--conversation-list-bg);
@@ -106,7 +106,44 @@
             .conversation-header h2 {
                 font-size: 24px;
                 font-weight: 600;
-                margin: 0;
+                margin: 0 0 15px 0;
+            }
+
+        .tabs {
+            display: flex;
+            gap: 20px;
+        }
+
+            .tabs button {
+                background: none;
+                border: none;
+                font-family: inherit;
+                font-size: 14px;
+                padding: 8px 0;
+                cursor: pointer;
+                color: var(--text-secondary);
+                font-weight: 600;
+                border-bottom: 2px solid transparent;
+            }
+
+                .tabs button.active, .tabs button:hover {
+                    color: #000;
+                    border-bottom-color: var(--primary-orange);
+                }
+
+        .search-bar {
+            padding: 20px;
+            background-color: var(--sidebar-bg);
+        }
+
+            .search-bar input {
+                width: 100%;
+                padding: 12px 15px;
+                border-radius: 8px;
+                border: 1px solid var(--border-color);
+                background-color: #f7f8fa;
+                font-size: 14px;
+                box-sizing: border-box;
             }
 
         .conversation-list {
@@ -122,7 +159,14 @@
             align-items: center;
             padding: 15px;
             border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-bottom: 5px;
         }
+
+            .conversation-item:hover {
+                background-color: #e9e9eb;
+            }
 
             .conversation-item.active {
                 background-color: var(--sidebar-bg);
@@ -136,23 +180,40 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                background-color: #333;
-                color: white;
+                background-color: #ddd;
+                color: #555;
                 font-size: 20px;
                 flex-shrink: 0;
             }
 
-            .conversation-item .details .name {
+                .conversation-item .avatar.ai {
+                    background-color: #333;
+                    color: white;
+                }
+
+                .conversation-item .avatar.teacher {
+                    background-color: var(--primary-orange);
+                    color: white;
+                }
+
+            .conversation-item .details {
+                overflow: hidden;
+            }
+
+            .conversation-item .name {
                 font-weight: 600;
                 font-size: 15px;
+                white-space: nowrap;
             }
 
-            .conversation-item .details .preview {
+            .conversation-item .preview {
                 font-size: 14px;
                 color: #666;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
-        /* --- Cột 3: Khung Chat Chính --- */
         .chat-panel {
             flex-grow: 1;
             display: flex;
@@ -171,61 +232,120 @@
 
         .chat-info .status {
             font-size: 12px;
-            color: #999;
+            color: #4CAF50;
         }
 
-            .chat-info .status.online {
-                color: #4CAF50;
+        .user-profile {
+            display: flex;
+            align-items: center;
+        }
+
+            .user-profile .user-name {
+                font-weight: 600;
+                margin-right: 15px;
             }
 
-        /* --- Iframe Container --- */
-        .iframe-container {
+            .user-profile .logout-link {
+                font-size: 14px;
+                color: var(--primary-orange);
+                text-decoration: none;
+                font-weight: 600;
+                cursor: pointer;
+            }
+
+        .messages-area {
             flex-grow: 1;
-            position: relative;
+            padding: 30px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
 
-        .chat-iframe {
+        .message {
+            display: flex;
+            align-items: flex-start;
+            max-width: 75%;
+            margin-bottom: 20px;
+        }
+
+            .message .avatar {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                margin-right: 15px;
+                flex-shrink: 0;
+            }
+
+            .message .content {
+                padding: 12px 18px;
+                border-radius: 18px;
+                line-height: 1.5;
+            }
+
+            .message.sent {
+                align-self: flex-end;
+                flex-direction: row-reverse;
+            }
+
+                .message.sent .avatar {
+                    margin-left: 15px;
+                    margin-right: 0;
+                }
+
+                .message.sent .content {
+                    background-color: var(--primary-orange);
+                    color: white;
+                    border-bottom-right-radius: 4px;
+                }
+
+            .message.received .content {
+                background-color: #f1f1f1;
+                color: var(--text-primary);
+                border-bottom-left-radius: 4px;
+            }
+
+        .chat-input-area {
+            padding: 20px 30px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+
+            .chat-input-area textarea {
+                flex-grow: 1;
+                border: none;
+                outline: none;
+                resize: none;
+                font-family: inherit;
+                font-size: 15px;
+                padding: 10px;
+                max-height: 100px;
+            }
+
+            .chat-input-area button {
+                background: none;
+                border: none;
+                font-size: 22px;
+                color: var(--primary-orange);
+                cursor: pointer;
+                margin-left: 15px;
+            }
+
+        #ai-chat-container {
+            flex-grow: 1;
+            display: none;
+        }
+
+        #ai-chat-iframe {
             width: 100%;
             height: 100%;
             border: none;
         }
-
-        .error-message {
-            text-align: center;
-            padding: 50px 20px;
-            color: #666;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-            .error-message h2 {
-                color: #f44336;
-                margin-bottom: 20px;
-            }
-
-        .retry-button {
-            background: #2196F3;
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 20px;
-        }
-
-            .retry-button:hover {
-                background: #1976D2;
-            }
     </style>
 </head>
 <body>
 
     <div class="app-container">
-        <!-- CỘT 1: SIDEBAR ICON -->
         <aside class="icon-sidebar">
             <div class="logo"></div>
             <nav>
@@ -239,14 +359,20 @@
             </nav>
         </aside>
 
-        <!-- CỘT 2: DANH SÁCH CUỘC TRÒ CHUYỆN -->
         <aside class="conversation-panel">
             <header class="conversation-header">
                 <h2>Hỏi đáp Q & A</h2>
+                <div class="tabs">
+                    <button class="active">Tất cả</button>
+                    <button>Chưa đọc</button>
+                </div>
             </header>
+            <div class="search-bar">
+                <input type="text" placeholder="Tìm kiếm...">
+            </div>
             <ul class="conversation-list" id="conversation-list">
-                <li class="conversation-item active">
-                    <div class="avatar"><i class="fa-solid fa-robot"></i></div>
+                <li class="conversation-item" data-id="ai" data-name="AI Chat Assistant">
+                    <div class="avatar ai"><i class="fa-solid fa-robot"></i></div>
                     <div class="details">
                         <div class="name">AI Chat Assistant</div>
                         <div class="preview">Trợ lý ảo thông minh</div>
@@ -255,103 +381,259 @@
             </ul>
         </aside>
 
-        <!-- CỘT 3: KHUNG CHAT CHÍNH -->
         <main class="chat-panel">
             <header class="chat-header">
                 <div class="chat-info">
-                    <h3 id="chat-with-name">AI Chat Assistant</h3>
-                    <div class="status" id="chat-status">Connecting...</div>
+                    <h3 id="chat-with-name">Chọn một cuộc trò chuyện</h3>
+                    <div class="status" id="chat-status"></div>
+                </div>
+                <div class="user-profile">
+                    <span class="user-name" id="user-name-display"></span>
+                    <a class="logout-link" id="logout-btn">Đăng xuất</a>
                 </div>
             </header>
-            <div class="iframe-container">
-                <iframe id="chat-iframe" class="chat-iframe" src="about:blank"></iframe>
-                <div id="error-content" class="error-message" style="display: none;">
-                    <h2>🚫 Không thể kết nối đến dịch vụ Chat</h2>
-                    <p>Vui lòng kiểm tra lại kết nối hoặc thử lại sau.</p>
-                    <button class="retry-button" id="retry-btn">Thử lại</button>
-                </div>
+
+            <div class="messages-area" id="messages-area"></div>
+            <div class="chat-input-area" id="chat-input-area">
+                <textarea id="message-input" placeholder="Nhập tin nhắn..." rows="1"></textarea>
+                <button id="send-btn" title="Gửi"><i class="fa-solid fa-paper-plane"></i></button>
             </div>
+
+            <div id="ai-chat-container">
+                <iframe id="ai-chat-iframe" src="https://dev-chatbot-hono.vercel.app/"></iframe>
+            </div>
+
         </main>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- DOM ELEMENTS ---
-            const chatIframe = document.getElementById('chat-iframe');
-            const errorContent = document.getElementById('error-content');
-            const retryBtn = document.getElementById('retry-btn');
+            const token = localStorage.getItem('jwtToken');
+            if (!token) {
+                window.location.href = '/index.html';
+                return;
+            }
+
+            const conversationList = document.getElementById('conversation-list');
+            const messagesArea = document.getElementById('messages-area');
+            const chatInputArea = document.getElementById('chat-input-area');
+            const messageInput = document.getElementById('message-input');
+            const sendBtn = document.getElementById('send-btn');
+            const chatWithName = document.getElementById('chat-with-name');
             const chatStatus = document.getElementById('chat-status');
+            const userNameDisplay = document.getElementById('user-name-display');
+            const logoutBtn = document.getElementById('logout-btn');
+            const aiChatContainer = document.getElementById('ai-chat-container');
 
-            // --- IFRAME CHAT LOGIC (TỪ CODE CŨ) ---
-            const chatUrl = 'https://dev-chatbot-hono.vercel.app/';
-            let connectionAttempts = 0;
-            const maxAttempts = 3;
+            let currentUserId = null;
+            let currentRecipient = { id: null, type: null };
+            let signalRConnection = null;
 
-            function updateStatus(isOnline, message) {
-                if (isOnline) {
-                    chatStatus.textContent = message || 'Chat AI sẵn sàng';
-                    chatStatus.classList.add('online');
-                } else {
-                    chatStatus.textContent = message || 'Mất kết nối';
-                    chatStatus.classList.remove('online');
+            function decodeJwt(token) {
+                try {
+                    return JSON.parse(atob(token.split('.')[1]));
+                } catch (e) {
+                    console.error('Failed to decode JWT:', e);
+                    return null;
                 }
             }
 
-            function showError() {
-                chatIframe.style.display = 'none';
-                errorContent.style.display = 'flex';
-                updateStatus(false, 'Không thể kết nối');
+            function initializeApp() {
+                const decodedToken = decodeJwt(token);
+                if (!decodedToken) {
+                    logout();
+                    return;
+                }
+                currentUserId = parseInt(decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
+                userNameDisplay.textContent = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+
+                setupSignalR();
+                populateUserList();
+
+                const aiItem = conversationList.querySelector('.conversation-item[data-id="ai"]');
+                if (aiItem) {
+                    aiItem.click();
+                }
             }
 
-            function hideError() {
-                chatIframe.style.display = 'block';
-                errorContent.style.display = 'none';
+            function renderMessage(message, isSent) {
+                const messageClass = isSent ? 'sent' : 'received';
+                const avatarIcon = isSent ? 'fa-user' : 'fa-user-tie';
+
+                const messageHTML = `
+                        <div class="message ${messageClass}">
+                            <div class="avatar teacher"><i class="fa-solid ${avatarIcon}"></i></div>
+                            <div class="content">${message}</div>
+                        </div>
+                    `;
+                messagesArea.insertAdjacentHTML('beforeend', messageHTML);
+                messagesArea.scrollTop = messagesArea.scrollHeight;
             }
 
-            function connectToChat() {
-                connectionAttempts++;
-                updateStatus(false, 'Đang kết nối...');
-                hideError();
+            function addUserToConversationList(user, preview = 'Giáo viên') {
+                if (document.querySelector(`.conversation-item[data-id='${user.id || user.userId}']`)) {
+                    return;
+                }
+                const item = document.createElement('li');
+                item.className = 'conversation-item';
+                item.dataset.id = user.id || user.userId;
+                item.dataset.name = user.userName || user.username;
+                item.innerHTML = `
+                        <div class="avatar teacher"><i class="fa-solid fa-user-tie"></i></div>
+                        <div class="details">
+                            <div class="name">${user.userName || user.username}</div>
+                            <div class="preview">${preview}</div>
+                        </div>
+                    `;
+                conversationList.appendChild(item);
+            }
 
-                // Dùng fetch để kiểm tra dịch vụ trước khi tải iframe
-                fetch(chatUrl, { mode: 'no-cors' })
-                    .then(() => {
-                        console.log('Dịch vụ AI có phản hồi. Đang tải iframe...');
-                        chatIframe.src = chatUrl;
-                    })
-                    .catch(err => {
-                        console.error('Không thể ping dịch vụ AI:', err);
-                        if (connectionAttempts >= maxAttempts) {
-                            showError();
-                        } else {
-                            setTimeout(connectToChat, 3000); // Thử lại sau 3 giây
-                        }
+            async function populateUserList() {
+                try {
+                    // ĐỔI ĐƯỜNG DẪN API CHO ĐÚNG CONTROLLER
+                    const teacherResponse = await fetch('/api/users/role/Teacher', {
+                        headers: { 'Authorization': `Bearer ${token}` }
                     });
+                    if (teacherResponse.ok) {
+                        const teachers = await teacherResponse.json();
+                        teachers.forEach(teacher => {
+                            if (teacher.userId !== currentUserId) {
+                                addUserToConversationList(teacher);
+                            }
+                        });
+                    } else {
+                        console.error('Failed to fetch teachers:', teacherResponse.statusText);
+                    }
+
+                    const convResponse = await fetch('/api/PrivateChat/conversations', {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    if (convResponse.ok) {
+                        const result = await convResponse.json();
+                        if (result.success && result.data) {
+                            result.data.forEach(conv => {
+                                const otherUser = conv.user1.id === currentUserId ? conv.user2 : conv.user1;
+                                addUserToConversationList(otherUser, conv.lastMessage);
+                            });
+                        }
+                    } else {
+                        console.error('Failed to fetch conversations:', convResponse.statusText);
+                    }
+
+                } catch (error) {
+                    console.error('Error populating user list:', error);
+                }
             }
 
-            chatIframe.onload = () => {
-                console.log("Iframe đã tải thành công.");
-                updateStatus(true, 'Đã kết nối');
-                hideError();
-                connectionAttempts = 0; // Reset khi thành công
-            };
+            function selectConversation(target) {
+                document.querySelectorAll('.conversation-item.active').forEach(i => i.classList.remove('active'));
+                target.classList.add('active');
 
-            chatIframe.onerror = () => {
-                console.error("Iframe gặp lỗi khi tải.");
-                if (connectionAttempts >= maxAttempts) {
-                    showError();
+                const id = target.dataset.id;
+                const name = target.dataset.name;
+                chatWithName.textContent = name;
+
+                if (id === 'ai') {
+                    currentRecipient = { id: 'ai', type: 'ai' };
+                    chatStatus.textContent = "Đang hoạt động";
+                    messagesArea.style.display = 'none';
+                    chatInputArea.style.display = 'none';
+                    aiChatContainer.style.display = 'flex';
                 } else {
-                    setTimeout(connectToChat, 3000);
+                    currentRecipient = { id: parseInt(id), type: 'human' };
+                    chatStatus.textContent = "Online";
+                    aiChatContainer.style.display = 'none';
+                    messagesArea.style.display = 'flex';
+                    chatInputArea.style.display = 'flex';
+                    messagesArea.innerHTML = '';
+                    loadHumanChatHistory(currentRecipient.id);
                 }
-            };
+            }
 
-            retryBtn.addEventListener('click', () => {
-                connectionAttempts = 0;
-                connectToChat();
+            async function handleSendMessage() {
+                const message = messageInput.value.trim();
+                if (!message || !currentRecipient.id || currentRecipient.type !== 'human') return;
+
+                renderMessage(message, true);
+                await sendToHuman(currentRecipient.id, message);
+
+                messageInput.value = '';
+                messageInput.style.height = 'auto';
+            }
+
+            async function sendToHuman(recipientId, content) {
+                if (signalRConnection && signalRConnection.state === "Connected") {
+                    try {
+                        await signalRConnection.invoke("SendMessage", recipientId, content);
+                    } catch (err) {
+                        console.error("SignalR send message error:", err);
+                    }
+                }
+            }
+
+            async function loadHumanChatHistory(recipientId) {
+                try {
+                    // ĐỔI ĐƯỜNG DẪN API VÀ XỬ LÝ JSON RESPONSE
+                    const response = await fetch(`/api/PrivateChat/conversation/${recipientId}`, {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    if (response.status === 404) {
+                        messagesArea.innerHTML = '<p style="text-align:center; color:#999;">Bắt đầu cuộc trò chuyện!</p>';
+                        return;
+                    }
+                    if (!response.ok) throw new Error('Failed to fetch chat history');
+
+                    const result = await response.json();
+                    if (result.success && result.data) {
+                        result.data.forEach(msg => {
+                            renderMessage(msg.content, msg.senderId === currentUserId);
+                        });
+                    }
+                } catch (error) {
+                    console.error('Error loading chat history:', error);
+                    messagesArea.innerHTML = '<p style="text-align:center; color:red;">Không thể tải lịch sử.</p>';
+                }
+            }
+
+            function setupSignalR() {
+                signalRConnection = new signalR.HubConnectionBuilder()
+                    .withUrl("/privateChatHub", { accessTokenFactory: () => token })
+                    .build();
+
+                signalRConnection.on("ReceiveMessage", (senderId, message) => {
+                    if (currentRecipient.type === 'human' && senderId === currentRecipient.id) {
+                        renderMessage(message, false);
+                    }
+                });
+
+                signalRConnection.start().catch(err => console.error('SignalR Connection Error: ', err.toString()));
+            }
+
+            function logout() {
+                localStorage.removeItem('jwtToken');
+                window.location.href = '/index.html';
+            }
+            logoutBtn.addEventListener('click', logout);
+
+            conversationList.addEventListener('click', (e) => {
+                const target = e.target.closest('.conversation-item');
+                if (target) selectConversation(target);
             });
 
-            // --- RUN APP ---
-            connectToChat();
+            sendBtn.addEventListener('click', handleSendMessage);
+            messageInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSendMessage();
+                }
+            });
+
+            messageInput.addEventListener('input', () => {
+                messageInput.style.height = 'auto';
+                messageInput.style.height = (messageInput.scrollHeight) + 'px';
+            });
+
+            initializeApp();
         });
     </script>
 </body>
