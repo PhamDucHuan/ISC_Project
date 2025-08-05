@@ -1,12 +1,12 @@
-﻿using ISC_Project.Data;
-using ISC_Project.Hubs;
-using ISC_Project.Infrastructure.Services;
-using ISC_Project.Interface;
-using ISC_Project.Interface.AuthService;
-using ISC_Project.Interface.Exam;
-using ISC_Project.Services;
-using ISC_Project.Services.AuthService;
-using ISC_Project.Services.Exam;
+﻿//using ISC_Project.Data;
+//using ISC_Project.Hubs;
+//using ISC_Project.Infrastructure.Services;
+//using ISC_Project.Interface;
+//using ISC_Project.Interface.AuthService;
+//using ISC_Project.Interface.Exam;
+//using ISC_Project.Services;
+//using ISC_Project.Services.AuthService;
+//using ISC_Project.Services.Exam;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -31,87 +31,87 @@ namespace ISC_Project
 
             #region Register services into the IoC container
             // Register services into the IoC container
-            builder.Services.AddScoped<ISC_ProjectDbContext, ISC_ProjectDbContext>();
-            builder.Services.AddScoped<IAuthService, AuthService>();
-            builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddScoped<IJwtService, JwtService>();
+            //builder.Services.AddScoped<ISC_ProjectDbContext, ISC_ProjectDbContext>();
+            //builder.Services.AddScoped<IAuthService, AuthService>();
+            //builder.Services.AddScoped<IUserService, UserService>();
+            //builder.Services.AddScoped<IJwtService, JwtService>();
 
-            // Registering various services
-            builder.Services.AddScoped<IExamService, ExamService>();
+            //// Registering various services
+            //builder.Services.AddScoped<IExamService, ExamService>();
 
-            builder.Services.AddScoped<IAcceptingSchoolTransferService, AcceptingSchoolTransferService>();
-            builder.Services.AddScoped<IAssessmentPartService, AssessmentPartService>();
-            builder.Services.AddScoped<IAssessmentQuestionService, AssessmentQuestionService>();
-            builder.Services.AddScoped<IAssignmentGroupService, AssignmentGroupService>();
-            builder.Services.AddScoped<IAssignmentService, AssignmentService>();
-            builder.Services.AddScoped<ICampusService, CampusService>();
-            builder.Services.AddScoped<IChatAIService, ChatAIService>();
+            //builder.Services.AddScoped<IAcceptingSchoolTransferService, AcceptingSchoolTransferService>();
+            //builder.Services.AddScoped<IAssessmentPartService, AssessmentPartService>();
+            //builder.Services.AddScoped<IAssessmentQuestionService, AssessmentQuestionService>();
+            //builder.Services.AddScoped<IAssignmentGroupService, AssignmentGroupService>();
+            //builder.Services.AddScoped<IAssignmentService, AssignmentService>();
+            //builder.Services.AddScoped<ICampusService, CampusService>();
+            //builder.Services.AddScoped<IChatAIService, ChatAIService>();
 
-            builder.Services.AddScoped<IClassDetailService, ClassDetailService>();
-            builder.Services.AddScoped<IClassHistoryService, ClassHistoryService>();
-            builder.Services.AddScoped<IClassroomSettingService, ClassroomSettingService>();
-            builder.Services.AddScoped<IClassService, ClassService>();
-            builder.Services.AddScoped<IClassSubjectService, ClassSubjectService>();
-            builder.Services.AddScoped<IClassTypeService, ClassTypeService>();
+            //builder.Services.AddScoped<IClassDetailService, ClassDetailService>();
+            //builder.Services.AddScoped<IClassHistoryService, ClassHistoryService>();
+            //builder.Services.AddScoped<IClassroomSettingService, ClassroomSettingService>();
+            //builder.Services.AddScoped<IClassService, ClassService>();
+            //builder.Services.AddScoped<IClassSubjectService, ClassSubjectService>();
+            //builder.Services.AddScoped<IClassTypeService, ClassTypeService>();
 
-            builder.Services.AddScoped<ICourseCategoryService, CourseCategoryService>();
-            builder.Services.AddScoped<ICourseLessonService, CourseLessonService>();
-            builder.Services.AddScoped<ICourseOfferingService, CourseOfferingService>();
-            builder.Services.AddScoped<ICourseService, CourseService>();
-            builder.Services.AddScoped<ICoursesLearnedService, CoursesLearnedService>();
+            //builder.Services.AddScoped<ICourseCategoryService, CourseCategoryService>();
+            //builder.Services.AddScoped<ICourseLessonService, CourseLessonService>();
+            //builder.Services.AddScoped<ICourseOfferingService, CourseOfferingService>();
+            //builder.Services.AddScoped<ICourseService, CourseService>();
+            //builder.Services.AddScoped<ICoursesLearnedService, CoursesLearnedService>();
 
-            builder.Services.AddScoped<IDiscussionThreadService, DiscussionThreadService>();
-            builder.Services.AddScoped<IEmploymentHistoryService, EmploymentHistoryService>();
-            builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
-            builder.Services.AddScoped<IExemptionService, ExemptionService>();
-            builder.Services.AddScoped<IExportStudentService, ExportStudentService>();
-            builder.Services.AddScoped<IFacultyStudyBlockService, FacultyStudyBlockService>();
+            //builder.Services.AddScoped<IDiscussionThreadService, DiscussionThreadService>();
+            //builder.Services.AddScoped<IEmploymentHistoryService, EmploymentHistoryService>();
+            //builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
+            //builder.Services.AddScoped<IExemptionService, ExemptionService>();
+            //builder.Services.AddScoped<IExportStudentService, ExportStudentService>();
+            //builder.Services.AddScoped<IFacultyStudyBlockService, FacultyStudyBlockService>();
 
-            builder.Services.AddScoped<IFamilyInformationService, FamilyInformationService>();
-            builder.Services.AddScoped<IGradeService, GradeService>();
-            builder.Services.AddScoped<ILearningOutcomeService, LearningOutcomeService>();
-            builder.Services.AddScoped<ILabGraderService, LabGraderService>();
-            builder.Services.AddScoped<ILiveChatMessageService, LiveChatMessageService>();
-            builder.Services.AddScoped<ILiveSessionService, LiveSessionService>();
-            builder.Services.AddScoped<INotificationService, NotificationService>();
+            //builder.Services.AddScoped<IFamilyInformationService, FamilyInformationService>();
+            //builder.Services.AddScoped<IGradeService, GradeService>();
+            //builder.Services.AddScoped<ILearningOutcomeService, LearningOutcomeService>();
+            //builder.Services.AddScoped<ILabGraderService, LabGraderService>();
+            //builder.Services.AddScoped<ILiveChatMessageService, LiveChatMessageService>();
+            //builder.Services.AddScoped<ILiveSessionService, LiveSessionService>();
+            //builder.Services.AddScoped<INotificationService, NotificationService>();
 
-            builder.Services.AddScoped<IPastClassesService, PastClassesService>();
-            builder.Services.AddScoped<IPermissionService, PermissionService>();
-            builder.Services.AddScoped<IPrivateChatService, PrivateChatService>();
-            builder.Services.AddScoped<IQualificationsService, QualificationService>();
-            builder.Services.AddScoped<IQuestionBankService, QuestionBankService>();
+            //builder.Services.AddScoped<IPastClassesService, PastClassesService>();
+            //builder.Services.AddScoped<IPermissionService, PermissionService>();
+            //builder.Services.AddScoped<IPrivateChatService, PrivateChatService>();
+            //builder.Services.AddScoped<IQualificationsService, QualificationService>();
+            //builder.Services.AddScoped<IQuestionBankService, QuestionBankService>();
 
-            builder.Services.AddScoped<IRegistrationService, RegistrationService>();
-            builder.Services.AddScoped<IRelativesInformationService, RelativesInformationService>();
-            builder.Services.AddScoped<IReservedService, ReservedService>();
-            builder.Services.AddScoped<IRewardDisciplineService, RewardDisciplineService>();
-            builder.Services.AddScoped<IRolePermissionService, RolePermissionService>();
+            //builder.Services.AddScoped<IRegistrationService, RegistrationService>();
+            //builder.Services.AddScoped<IRelativesInformationService, RelativesInformationService>();
+            //builder.Services.AddScoped<IReservedService, ReservedService>();
+            //builder.Services.AddScoped<IRewardDisciplineService, RewardDisciplineService>();
+            //builder.Services.AddScoped<IRolePermissionService, RolePermissionService>();
 
-            builder.Services.AddScoped<IRoleService, RoleService>();
-            builder.Services.AddScoped<ISchoolProfileService, SchoolProfileService>();
-            builder.Services.AddScoped<ISchoolYearService, SchoolYearService>();
-            builder.Services.AddScoped<IScoreService, ScoreService>();
-            builder.Services.AddScoped<ISemesterService, SemesterService>();
-            builder.Services.AddScoped<IStudentProfileService, StudentProfileService>();
+            //builder.Services.AddScoped<IRoleService, RoleService>();
+            //builder.Services.AddScoped<ISchoolProfileService, SchoolProfileService>();
+            //builder.Services.AddScoped<ISchoolYearService, SchoolYearService>();
+            //builder.Services.AddScoped<IScoreService, ScoreService>();
+            //builder.Services.AddScoped<ISemesterService, SemesterService>();
+            //builder.Services.AddScoped<IStudentProfileService, StudentProfileService>();
 
-            builder.Services.AddScoped<IStudentsChangeClassService, StudentsChangeClassService>();
-            builder.Services.AddScoped<IStudentsChangeSchoolService, StudentsChangeSchoolService>();
-            builder.Services.AddScoped<ISubjectService, SubjectService>();
-            builder.Services.AddScoped<ISubjectTypeService, SubjectTypeService>();
-            builder.Services.AddScoped<ISyllabusTopicService, SyllabusTopicService>();
+            //builder.Services.AddScoped<IStudentsChangeClassService, StudentsChangeClassService>();
+            //builder.Services.AddScoped<IStudentsChangeSchoolService, StudentsChangeSchoolService>();
+            //builder.Services.AddScoped<ISubjectService, SubjectService>();
+            //builder.Services.AddScoped<ISubjectTypeService, SubjectTypeService>();
+            //builder.Services.AddScoped<ISyllabusTopicService, SyllabusTopicService>();
 
-            builder.Services.AddScoped<ISystemSettingService, SystemSettingService>();
-            builder.Services.AddScoped<ITeacherProfileService, TeacherProfileService>();
-            builder.Services.AddScoped<ITeamDepartmentService, TeamDepartmentService>();
-            builder.Services.AddScoped<IThreadPostService, ThreadPostService>();
-            builder.Services.AddScoped<ITotalCoursesTakenService, TotalCoursesTakenService>();
+            //builder.Services.AddScoped<ISystemSettingService, SystemSettingService>();
+            //builder.Services.AddScoped<ITeacherProfileService, TeacherProfileService>();
+            //builder.Services.AddScoped<ITeamDepartmentService, TeamDepartmentService>();
+            //builder.Services.AddScoped<IThreadPostService, ThreadPostService>();
+            //builder.Services.AddScoped<ITotalCoursesTakenService, TotalCoursesTakenService>();
 
-            builder.Services.AddScoped<ITrainingLevelService, TrainingLevelService>();
-            builder.Services.AddScoped<IUpcomingClassService, UpcomingClassService>();
-            builder.Services.AddScoped<IUserManagementService, UserManagementService>();
-            builder.Services.AddScoped<IWorkHistoryService, WorkHistoryService>();
+            //builder.Services.AddScoped<ITrainingLevelService, TrainingLevelService>();
+            //builder.Services.AddScoped<IUpcomingClassService, UpcomingClassService>();
+            //builder.Services.AddScoped<IUserManagementService, UserManagementService>();
+            //builder.Services.AddScoped<IWorkHistoryService, WorkHistoryService>();
 
-            builder.Services.AddScoped<IChatService, ChatService>();
+            //builder.Services.AddScoped<IChatService, ChatService>();
         #endregion
 
             // Thêm HttpClient cho ChatAI service
@@ -148,8 +148,8 @@ namespace ISC_Project
             // 1. Setup DbContext to use PostgresSQL
             var connectionJwtString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-            builder.Services.AddDbContext<ISC_ProjectDbContext>(options =>
-                options.UseNpgsql(connectionJwtString));
+            //builder.Services.AddDbContext<ISC_ProjectDbContext>(options =>
+            //    options.UseNpgsql(connectionJwtString));
 
             //2. Setup JWT Authentication
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -306,7 +306,7 @@ namespace ISC_Project
                 }
             });
 
-            app.MapHub<PrivateChatHub>("/privatechathub");
+            //app.MapHub<PrivateChatHub>("/privatechathub");
 
             app.MapControllers();
             app.Run();

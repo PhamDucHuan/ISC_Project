@@ -88,8 +88,6 @@ namespace ISC_Project.Data
         public virtual DbSet<UpcomingClass> UpcomingClasses { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<WorkHistory> WorkHistories { get; set; } = null!;
-        public virtual DbSet<PrivateChat> PrivateChats { get; set; } = null!;
-        public virtual DbSet<UserOnlineStatus> UserOnlineStatuses { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -102,6 +100,8 @@ namespace ISC_Project.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasPostgresExtension("ISC_Project", "uuid-ossp");
+
             modelBuilder.Entity<AcceptingSchoolTransfer>(entity =>
             {
                 entity.HasKey(e => e.AcceptingSchoolTransfersId)
@@ -281,9 +281,9 @@ namespace ISC_Project.Data
             {
                 entity.ToTable("ChatConversations", "ISC_Project");
 
-                entity.HasIndex(e => e.UserId, "IX_ChatConversations_UserID");
+                entity.HasIndex(e => e.Participant1Id, "IX_ChatConversations_Participant1");
 
-                entity.Property(e => e.ChatConversationId).HasColumnName("ChatConversation_ID");
+                entity.HasIndex(e => e.Participant2Id, "IX_ChatConversations_Participant2");
 
                 entity.Property(e => e.ConversationId).HasMaxLength(255);
 
@@ -293,12 +293,15 @@ namespace ISC_Project.Data
 
                 entity.Property(e => e.LastMessageTime).HasColumnType("timestamp without time zone");
 
-                entity.Property(e => e.UserId).HasColumnName("User_ID");
+                entity.HasOne(d => d.Participant1)
+                    .WithMany(p => p.ChatConversationParticipant1s)
+                    .HasForeignKey(d => d.Participant1Id)
+                    .HasConstraintName("FK_ChatConversations.Participant1Id");
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.ChatConversations)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK_ChatConversations.User_ID");
+                entity.HasOne(d => d.Participant2)
+                    .WithMany(p => p.ChatConversationParticipant2s)
+                    .HasForeignKey(d => d.Participant2Id)
+                    .HasConstraintName("FK_ChatConversations.Participant2Id");
             });
 
             modelBuilder.Entity<ChatMessage>(entity =>
@@ -307,22 +310,21 @@ namespace ISC_Project.Data
 
                 entity.HasIndex(e => e.ChatConversationId, "IX_ChatMessages_ConversationID");
 
-                entity.Property(e => e.ChatMessageId).HasColumnName("ChatMessage_ID");
-
-                entity.Property(e => e.ChatConversationId).HasColumnName("ChatConversation_ID");
-
                 entity.Property(e => e.Timestamp).HasColumnType("timestamp without time zone");
 
                 entity.HasOne(d => d.ChatConversation)
                     .WithMany(p => p.ChatMessages)
                     .HasForeignKey(d => d.ChatConversationId)
-                    .HasConstraintName("FK_ChatMessages.ChatConversation_ID");
+                    .HasConstraintName("FK_ChatMessage.ChatConversationId");
+
+                entity.HasOne(d => d.Sender)
+                    .WithMany(p => p.ChatMessages)
+                    .HasForeignKey(d => d.SenderId)
+                    .HasConstraintName("FK_ChatMessage.SenderId");
             });
 
             modelBuilder.Entity<Class>(entity =>
             {
-                entity.HasKey(e => e.ClassId);
-
                 entity.ToTable("Class", "ISC_Project");
 
                 entity.Property(e => e.ClassId).HasColumnName("Class_ID");
@@ -1017,7 +1019,9 @@ namespace ISC_Project.Data
 
                 entity.ToTable("LearningOutcomes", "ISC_Project");
 
-                entity.Property(e => e.AverageScore).HasColumnName("Average score");
+                entity.Property(e => e.AverageScore)
+                    .HasPrecision(4, 1)
+                    .HasColumnName("Average score");
 
                 entity.Property(e => e.Conduct).HasMaxLength(50);
 
@@ -1495,11 +1499,15 @@ namespace ISC_Project.Data
 
                 entity.Property(e => e.ScoreId).HasColumnName("Score_ID");
 
+                entity.Property(e => e.AverageScore).HasPrecision(4, 1);
+
                 entity.Property(e => e.ClassId).HasColumnName("Class_ID");
 
                 entity.Property(e => e.Coefficient).HasMaxLength(100);
 
                 entity.Property(e => e.SchoolYearId).HasColumnName("SchoolYear_ID");
+
+                entity.Property(e => e.ScoreNumber).HasPrecision(4, 1);
 
                 entity.Property(e => e.Semester).HasMaxLength(20);
 
