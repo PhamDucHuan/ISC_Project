@@ -11,15 +11,13 @@ namespace ISC_Project.Models
         }
 
         public int ChatConversationId { get; set; }
-        public string? ConversationId { get; set; }
-        public string? ConversationTitle { get; set; }
+        public string ConversationId { get; set; } = null!;
+        public string ConversationTitle { get; set; } = null!;
         public DateTime? CreatedAt { get; set; }
         public DateTime? LastMessageTime { get; set; }
-        public int? Participant1Id { get; set; }
-        public int? Participant2Id { get; set; }
+        public int UserId { get; set; }
 
-        public virtual User? Participant1 { get; set; }
-        public virtual User? Participant2 { get; set; }
+        public virtual User User { get; set; } = null!;
         public virtual ICollection<ChatMessage> ChatMessages { get; set; }
     }
 }
