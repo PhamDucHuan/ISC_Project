@@ -414,6 +414,7 @@
                 return;
             }
 
+            // DOM elements
             const conversationList = document.getElementById('conversation-list');
             const messagesArea = document.getElementById('messages-area');
             const chatInputArea = document.getElementById('chat-input-area');
@@ -425,19 +426,15 @@
             const logoutBtn = document.getElementById('logout-btn');
             const aiChatContainer = document.getElementById('ai-chat-container');
 
+            // State variables
             let currentUserId = null;
             let currentRecipient = { id: null, type: null };
             let signalRConnection = null;
+            let typingTimeout = null;
+            let isTyping = false;
+            let unreadCount = 0;
 
-            function decodeJwt(token) {
-                try {
-                    return JSON.parse(atob(token.split('.')[1]));
-                } catch (e) {
-                    console.error('Failed to decode JWT:', e);
-                    return null;
-                }
-            }
-
+            // Initialize app
             function initializeApp() {
                 const decodedToken = decodeJwt(token);
                 if (!decodedToken) {
@@ -450,50 +447,259 @@
                 setupSignalR();
                 populateUserList();
 
+                // Select AI chat by default
                 const aiItem = conversationList.querySelector('.conversation-item[data-id="ai"]');
                 if (aiItem) {
                     aiItem.click();
                 }
             }
 
-            function renderMessage(message, isSent) {
+            // JWT decode function
+            function decodeJwt(token) {
+                try {
+                    return JSON.parse(atob(token.split('.')[1]));
+                } catch (e) {
+                    console.error('Failed to decode JWT:', e);
+                    return null;
+                }
+            }
+
+            // Setup SignalR connection with enhanced features
+            function setupSignalR() {
+                signalRConnection = new signalR.HubConnectionBuilder()
+                    .withUrl("/privateChatHub", { 
+                        accessTokenFactory: () => token,
+                        transport: signalR.HttpTransportType.WebSockets
+                    })
+                    .withAutomaticReconnect([0, 2000, 10000, 30000])
+                    .configureLogging(signalR.LogLevel.Information)
+                    .build();
+
+                // Connection event handlers
+                signalRConnection.on("Connected", (data) => {
+                    console.log('Connected to hub:', data);
+                    updateConnectionStatus('connected');
+                });
+
+                signalRConnection.on("ReceiveMessage", (messageData) => {
+                    if (currentRecipient.type === 'human' && messageData.SenderId === currentRecipient.id) {
+                        renderMessage(messageData.Content, false, messageData.SenderName, messageData.SentAt);
+                        playNotificationSound();
+                    }
+                    updateConversationPreview(messageData.SenderId, messageData.Content);
+                });
+
+                signalRConnection.on("MessageSent", (data) => {
+                    console.log('Message sent successfully:', data);
+                    // Optionally show delivery confirmation
+                });
+
+                signalRConnection.on("UnreadCountUpdated", (count) => {
+                    unreadCount = count;
+                    updateUnreadBadge();
+                });
+
+                signalRConnection.on("UserStatusChanged", (data) => {
+                    updateUserOnlineStatus(data.UserId, data.IsOnline, data.LastSeen);
+                    if (data.UserId === currentRecipient.id && currentRecipient.type === 'human') {
+                        chatStatus.textContent = data.IsOnline ? "Đang hoạt động" : `Hoạt động lần cuối: ${formatLastSeen(data.LastSeen)}`;
+                    }
+                });
+
+                signalRConnection.on("OnlineUsers", (users) => {
+                    updateOnlineUsersList(users);
+                });
+
+                signalRConnection.on("UserStartedTyping", (data) => {
+                    if (data.UserId === currentRecipient.id && currentRecipient.type === 'human') {
+                        showTypingIndicator(data.UserName);
+                    }
+                });
+
+                signalRConnection.on("UserStoppedTyping", (data) => {
+                    if (data.UserId === currentRecipient.id && currentRecipient.type === 'human') {
+                        hideTypingIndicator();
+                    }
+                });
+
+                signalRConnection.on("MessagesMarkedAsRead", (data) => {
+                    if (data.ConversationWith === currentRecipient.id) {
+                        markVisibleMessagesAsRead();
+                    }
+                });
+
+                signalRConnection.on("Error", (errorMessage) => {
+                    showErrorMessage(errorMessage);
+                });
+
+                // Connection state change handlers
+                signalRConnection.onreconnecting(() => {
+                    updateConnectionStatus('reconnecting');
+                });
+
+                signalRConnection.onreconnected(() => {
+                    updateConnectionStatus('connected');
+                    console.log('Reconnected to hub');
+                });
+
+                signalRConnection.onclose(() => {
+                    updateConnectionStatus('disconnected');
+                    console.log('Disconnected from hub');
+                });
+
+                // Start connection
+                signalRConnection.start()
+                    .then(() => {
+                        console.log('SignalR Connected');
+                        updateConnectionStatus('connected');
+                    })
+                    .catch(err => {
+                        console.error('SignalR Connection Error: ', err.toString());
+                        updateConnectionStatus('error');
+                    });
+            }
+
+            // Enhanced message rendering
+            function renderMessage(message, isSent, senderName = '', sentAt = null) {
                 const messageClass = isSent ? 'sent' : 'received';
                 const avatarIcon = isSent ? 'fa-user' : 'fa-user-tie';
-
+                const timeStr = sentAt ? new Date(sentAt).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }) : '';
+                
                 const messageHTML = `
-                        <div class="message ${messageClass}">
-                            <div class="avatar teacher"><i class="fa-solid ${avatarIcon}"></i></div>
-                            <div class="content">${message}</div>
+                    <div class="message ${messageClass}" data-message-id="${Date.now()}">
+                        <div class="avatar teacher"><i class="fa-solid ${avatarIcon}"></i></div>
+                        <div class="content">
+                            ${message}
+                            ${timeStr ? `<div class="message-time" style="font-size: 11px; opacity: 0.7; margin-top: 4px;">${timeStr}</div>` : ''}
                         </div>
-                    `;
+                    </div>
+                `;
                 messagesArea.insertAdjacentHTML('beforeend', messageHTML);
                 messagesArea.scrollTop = messagesArea.scrollHeight;
             }
 
-            function addUserToConversationList(user, preview = 'Giáo viên') {
-                if (document.querySelector(`.conversation-item[data-id='${user.id || user.userId}']`)) {
+            // Enhanced send message with modern features
+            async function handleSendMessage() {
+                const message = messageInput.value.trim();
+                if (!message || !currentRecipient.id || currentRecipient.type !== 'human') return;
+
+                if (message.length > 1000) {
+                    showErrorMessage('Tin nhắn quá dài (tối đa 1000 ký tự)');
                     return;
                 }
-                const item = document.createElement('li');
-                item.className = 'conversation-item';
-                item.dataset.id = user.id || user.userId;
-                item.dataset.name = user.userName || user.username;
-                item.innerHTML = `
-                        <div class="avatar teacher"><i class="fa-solid fa-user-tie"></i></div>
-                        <div class="details">
-                            <div class="name">${user.userName || user.username}</div>
-                            <div class="preview">${preview}</div>
-                        </div>
-                    `;
-                conversationList.appendChild(item);
+
+                // Disable send button temporarily
+                sendBtn.disabled = true;
+                sendBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+
+                try {
+                    // Show message immediately (optimistic UI)
+                    renderMessage(message, true, '', new Date());
+                    
+                    // Send via SignalR
+                    if (signalRConnection && signalRConnection.state === "Connected") {
+                        await signalRConnection.invoke("SendMessage", currentRecipient.id, message);
+                        
+                        // Stop typing indicator
+                        if (isTyping) {
+                            await signalRConnection.invoke("StopTyping", currentRecipient.id);
+                            isTyping = false;
+                        }
+                    }
+
+                    messageInput.value = '';
+                    messageInput.style.height = 'auto';
+                    updateConversationPreview(currentUserId, message);
+                    
+                } catch (error) {
+                    console.error("Send message error:", error);
+                    showErrorMessage('Không thể gửi tin nhắn. Vui lòng thử lại.');
+                } finally {
+                    sendBtn.disabled = false;
+                    sendBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i>';
+                }
             }
 
+            // Typing indicator functionality
+            function handleTyping() {
+                if (currentRecipient.type !== 'human' || !signalRConnection) return;
+
+                if (!isTyping) {
+                    isTyping = true;
+                    signalRConnection.invoke("StartTyping", currentRecipient.id);
+                }
+
+                clearTimeout(typingTimeout);
+                typingTimeout = setTimeout(() => {
+                    if (isTyping) {
+                        isTyping = false;
+                        signalRConnection.invoke("StopTyping", currentRecipient.id);
+                    }
+                }, 2000);
+            }
+
+            // Show/hide typing indicator
+            function showTypingIndicator(userName) {
+                let typingDiv = document.querySelector('.typing-indicator');
+                if (!typingDiv) {
+                    typingDiv = document.createElement('div');
+                    typingDiv.className = 'typing-indicator';
+                    typingDiv.style.cssText = 'padding: 10px; font-style: italic; color: #666; font-size: 14px;';
+                    messagesArea.appendChild(typingDiv);
+                }
+                typingDiv.innerHTML = `${userName} đang soạn tin nhắn... <span class="typing-dots">...</span>`;
+                messagesArea.scrollTop = messagesArea.scrollHeight;
+            }
+
+            function hideTypingIndicator() {
+                const typingDiv = document.querySelector('.typing-indicator');
+                if (typingDiv) {
+                    typingDiv.remove();
+                }
+            }
+
+            // Enhanced conversation selection
+            function selectConversation(target) {
+                document.querySelectorAll('.conversation-item.active').forEach(i => i.classList.remove('active'));
+                target.classList.add('active');
+
+                const id = target.dataset.id;
+                const name = target.dataset.name;
+                chatWithName.textContent = name;
+                hideTypingIndicator();
+
+                if (id === 'ai') {
+                    currentRecipient = { id: 'ai', type: 'ai' };
+                    chatStatus.textContent = "Trợ lý AI thông minh";
+                    messagesArea.style.display = 'none';
+                    chatInputArea.style.display = 'none';
+                    aiChatContainer.style.display = 'flex';
+                } else {
+                    currentRecipient = { id: parseInt(id), type: 'human' };
+                    aiChatContainer.style.display = 'none';
+                    messagesArea.style.display = 'flex';
+                    chatInputArea.style.display = 'flex';
+                    messagesArea.innerHTML = '';
+                    
+                    // Join conversation and load history
+                    if (signalRConnection && signalRConnection.state === "Connected") {
+                        signalRConnection.invoke("JoinConversation", currentRecipient.id);
+                        signalRConnection.invoke("MarkMessagesAsRead", currentRecipient.id);
+                    }
+                    
+                    loadHumanChatHistory(currentRecipient.id);
+                    updateUserStatus(currentRecipient.id);
+                }
+            }
+
+            // Enhanced user list population
             async function populateUserList() {
                 try {
-                    // ĐỔI ĐƯỜNG DẪN API CHO ĐÚNG CONTROLLER
+                    // Fetch teachers
                     const teacherResponse = await fetch('/api/users/role/Teacher', {
                         headers: { 'Authorization': `Bearer ${token}` }
                     });
+                    
                     if (teacherResponse.ok) {
                         const teachers = await teacherResponse.json();
                         teachers.forEach(teacher => {
@@ -501,13 +707,13 @@
                                 addUserToConversationList(teacher);
                             }
                         });
-                    } else {
-                        console.error('Failed to fetch teachers:', teacherResponse.statusText);
                     }
 
+                    // Fetch existing conversations
                     const convResponse = await fetch('/api/PrivateChat/conversations', {
                         headers: { 'Authorization': `Bearer ${token}` }
                     });
+                    
                     if (convResponse.ok) {
                         const result = await convResponse.json();
                         if (result.success && result.data) {
@@ -516,103 +722,158 @@
                                 addUserToConversationList(otherUser, conv.lastMessage);
                             });
                         }
-                    } else {
-                        console.error('Failed to fetch conversations:', convResponse.statusText);
                     }
 
                 } catch (error) {
                     console.error('Error populating user list:', error);
+                    showErrorMessage('Không thể tải danh sách người dùng');
                 }
             }
 
-            function selectConversation(target) {
-                document.querySelectorAll('.conversation-item.active').forEach(i => i.classList.remove('active'));
-                target.classList.add('active');
-
-                const id = target.dataset.id;
-                const name = target.dataset.name;
-                chatWithName.textContent = name;
-
-                if (id === 'ai') {
-                    currentRecipient = { id: 'ai', type: 'ai' };
-                    chatStatus.textContent = "Đang hoạt động";
-                    messagesArea.style.display = 'none';
-                    chatInputArea.style.display = 'none';
-                    aiChatContainer.style.display = 'flex';
-                } else {
-                    currentRecipient = { id: parseInt(id), type: 'human' };
-                    chatStatus.textContent = "Online";
-                    aiChatContainer.style.display = 'none';
-                    messagesArea.style.display = 'flex';
-                    chatInputArea.style.display = 'flex';
-                    messagesArea.innerHTML = '';
-                    loadHumanChatHistory(currentRecipient.id);
+            // Enhanced user list item
+            function addUserToConversationList(user, preview = 'Giáo viên') {
+                const userId = user.id || user.userId;
+                if (document.querySelector(`.conversation-item[data-id='${userId}']`)) {
+                    return;
                 }
+                
+                const item = document.createElement('li');
+                item.className = 'conversation-item';
+                item.dataset.id = userId;
+                item.dataset.name = user.userName || user.username;
+                item.innerHTML = `
+                    <div class="avatar teacher">
+                        <i class="fa-solid fa-user-tie"></i>
+                        <div class="online-indicator" style="display: none;"></div>
+                    </div>
+                    <div class="details">
+                        <div class="name">${user.userName || user.username}</div>
+                        <div class="preview">${preview}</div>
+                        <div class="unread-badge" style="display: none;">0</div>
+                    </div>
+                `;
+                conversationList.appendChild(item);
             }
 
-            async function handleSendMessage() {
-                const message = messageInput.value.trim();
-                if (!message || !currentRecipient.id || currentRecipient.type !== 'human') return;
-
-                renderMessage(message, true);
-                await sendToHuman(currentRecipient.id, message);
-
-                messageInput.value = '';
-                messageInput.style.height = 'auto';
-            }
-
-            async function sendToHuman(recipientId, content) {
-                if (signalRConnection && signalRConnection.state === "Connected") {
-                    try {
-                        await signalRConnection.invoke("SendMessage", recipientId, content);
-                    } catch (err) {
-                        console.error("SignalR send message error:", err);
-                    }
-                }
-            }
-
+            // Load chat history with improved error handling
             async function loadHumanChatHistory(recipientId) {
                 try {
-                    // ĐỔI ĐƯỜNG DẪN API VÀ XỬ LÝ JSON RESPONSE
                     const response = await fetch(`/api/PrivateChat/conversation/${recipientId}`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     });
+                    
                     if (response.status === 404) {
-                        messagesArea.innerHTML = '<p style="text-align:center; color:#999;">Bắt đầu cuộc trò chuyện!</p>';
+                        messagesArea.innerHTML = '<div style="text-align:center; color:#999; padding: 20px;">Bắt đầu cuộc trò chuyện mới!</div>';
                         return;
                     }
+                    
                     if (!response.ok) throw new Error('Failed to fetch chat history');
 
                     const result = await response.json();
                     if (result.success && result.data) {
                         result.data.forEach(msg => {
-                            renderMessage(msg.content, msg.senderId === currentUserId);
+                            renderMessage(msg.content, msg.senderId === currentUserId, msg.senderName, msg.sentAt);
                         });
                     }
                 } catch (error) {
                     console.error('Error loading chat history:', error);
-                    messagesArea.innerHTML = '<p style="text-align:center; color:red;">Không thể tải lịch sử.</p>';
+                    messagesArea.innerHTML = '<div style="text-align:center; color:red; padding: 20px;">Không thể tải lịch sử chat.</div>';
                 }
             }
 
-            function setupSignalR() {
-                signalRConnection = new signalR.HubConnectionBuilder()
-                    .withUrl("/privateChatHub", { accessTokenFactory: () => token })
-                    .build();
+            // Utility functions
+            function updateConnectionStatus(status) {
+                const statusElement = document.getElementById('connection-status');
+                if (statusElement) {
+                    statusElement.textContent = status;
+                    statusElement.className = `status-${status}`;
+                }
+            }
 
-                signalRConnection.on("ReceiveMessage", (senderId, message) => {
-                    if (currentRecipient.type === 'human' && senderId === currentRecipient.id) {
-                        renderMessage(message, false);
+            function updateUserOnlineStatus(userId, isOnline, lastSeen) {
+                const userElement = conversationList.querySelector(`[data-id='${userId}']`);
+                if (userElement) {
+                    const indicator = userElement.querySelector('.online-indicator');
+                    if (indicator) {
+                        indicator.style.display = isOnline ? 'block' : 'none';
                     }
-                });
+                }
+            }
 
-                signalRConnection.start().catch(err => console.error('SignalR Connection Error: ', err.toString()));
+            function updateUserStatus(userId) {
+                // Update status for current conversation
+                chatStatus.textContent = "Đang kiểm tra trạng thái...";
+                
+                if (signalRConnection && signalRConnection.state === "Connected") {
+                    // Will be updated via UserStatusChanged event
+                }
+            }
+
+            function showErrorMessage(message) {
+                // Create or update error toast
+                let errorToast = document.getElementById('error-toast');
+                if (!errorToast) {
+                    errorToast = document.createElement('div');
+                    errorToast.id = 'error-toast';
+                    errorToast.style.cssText = `
+                        position: fixed; top: 20px; right: 20px; 
+                        background: #ff4444; color: white; padding: 12px 20px; 
+                        border-radius: 8px; z-index: 1000; max-width: 300px;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    `;
+                    document.body.appendChild(errorToast);
+                }
+                
+                errorToast.textContent = message;
+                errorToast.style.display = 'block';
+                
+                setTimeout(() => {
+                    errorToast.style.display = 'none';
+                }, 5000);
+            }
+
+            function updateConversationPreview(userId, message) {
+                const userElement = conversationList.querySelector(`[data-id='${userId}']`);
+                if (userElement) {
+                    const preview = userElement.querySelector('.preview');
+                    if (preview) {
+                        preview.textContent = message.substring(0, 30) + (message.length > 30 ? '...' : '');
+                    }
+                }
+            }
+
+            function formatLastSeen(lastSeen) {
+                const date = new Date(lastSeen);
+                const now = new Date();
+                const diffMs = now - date;
+                const diffMins = Math.floor(diffMs / 60000);
+                
+                if (diffMins < 1) return 'vừa xong';
+                if (diffMins < 60) return `${diffMins} phút trước`;
+                if (diffMins < 1440) return `${Math.floor(diffMins / 60)} giờ trước`;
+                return date.toLocaleDateString('vi-VN');
+            }
+
+            function playNotificationSound() {
+                // Optional: play notification sound
+                try {
+                    const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEaBDWZ3/S9diYFIHjL8N2QQQoVXrXo66hVFApGod/yvmEaBDSa3/W9diYFInjL8N2QQQoUX7Pp66hWFAlGoN/yv2EaBjWa3vS9dzAQOyEOLwEVLY==');
+                    audio.volume = 0.3;
+                    audio.play();
+                } catch (e) {
+                    // Ignore audio errors
+                }
             }
 
             function logout() {
+                if (signalRConnection) {
+                    signalRConnection.stop();
+                }
                 localStorage.removeItem('jwtToken');
                 window.location.href = '/index.html';
             }
+
+            // Event listeners
             logoutBtn.addEventListener('click', logout);
 
             conversationList.addEventListener('click', (e) => {
@@ -621,20 +882,28 @@
             });
 
             sendBtn.addEventListener('click', handleSendMessage);
+
             messageInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
                     handleSendMessage();
+                } else {
+                    handleTyping();
                 }
             });
 
-            messageInput.addEventListener('input', () => {
-                messageInput.style.height = 'auto';
-                messageInput.style.height = (messageInput.scrollHeight) + 'px';
+            messageInput.addEventListener('input', (e) => {
+                // Auto-resize textarea
+                e.target.style.height = 'auto';
+                e.target.style.height = (e.target.scrollHeight) + 'px';
+                
+                handleTyping();
             });
 
+            // Initialize the application
             initializeApp();
         });
     </script>
 </body>
 </html>
+

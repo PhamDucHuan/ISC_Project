@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using ISC_Project.Interface;
 using ISC_Project.DTOs.PrivateChat;
 using System.Security.Claims;
-// Thêm các using sau
 using ISC_Project.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Concurrent;
 
 namespace ISC_Project.Hubs
 {
@@ -13,241 +13,477 @@ namespace ISC_Project.Hubs
     public class PrivateChatHub : Hub
     {
         private readonly IPrivateChatService _privateChatService;
-        private static readonly Dictionary<int, HashSet<string>> _userConnections = new();
-        private readonly ISC_ProjectDbContext _context; // <-- THÊM DÒNG NÀY
+        private readonly ISC_ProjectDbContext _context;
+        private readonly ILogger<PrivateChatHub> _logger;
+        
+        // Sử dụng ConcurrentDictionary để thread-safe
+        private static readonly ConcurrentDictionary<int, ConcurrentBag<string>> UserConnections = new();
+        private static readonly ConcurrentDictionary<string, int> ConnectionToUser = new();
+        private static readonly ConcurrentDictionary<int, DateTime> LastActivity = new();
+        
+        // Rate limiting
+        private static readonly ConcurrentDictionary<int, Queue<DateTime>> MessageRateLimit = new();
+        private const int MaxMessagesPerMinute = 30;
 
-        // SỬA CONSTRUCTOR
-        public PrivateChatHub(IPrivateChatService privateChatService, ISC_ProjectDbContext context)
+        public PrivateChatHub(
+            IPrivateChatService privateChatService, 
+            ISC_ProjectDbContext context,
+            ILogger<PrivateChatHub> logger)
         {
             _privateChatService = privateChatService;
-            _context = context; // <-- THÊM DÒNG NÀY
-        }
-
-        // --- Giữ nguyên tất cả các phương thức hiện có của bạn ---
-        // (OnConnectedAsync, OnDisconnectedAsync, SendMessage, ...)
-
-        // THÊM PHƯƠNG THỨC MỚI NÀY VÀO CUỐI CLASS
-        public async Task<IEnumerable<object>> GetAllUsers()
-        {
-            var currentUserId = GetCurrentUserId();
-            var users = await _context.Users
-                .AsNoTracking()
-                .Where(u => u.UserId != currentUserId) // Loại bỏ người dùng hiện tại
-                .Select(u => new { u.UserId, u.UserName }) // Chỉ lấy thông tin cần thiết
-                .ToListAsync();
-            return users;
+            _context = context;
+            _logger = logger;
         }
 
         public override async Task OnConnectedAsync()
         {
-            var userId = GetCurrentUserId();
-            if (userId > 0)
+            try
             {
-                // Thêm connection vào dictionary
-                lock (_userConnections)
+                var userId = GetCurrentUserId();
+                var userName = GetCurrentUserName();
+                
+                if (userId <= 0)
                 {
-                    if (!_userConnections.ContainsKey(userId))
-                        _userConnections[userId] = new HashSet<string>();
-
-                    _userConnections[userId].Add(Context.ConnectionId);
+                    _logger.LogWarning("User connection failed - invalid userId");
+                    Context.Abort();
+                    return;
                 }
 
-                // Cập nhật trạng thái online
+                // Thêm connection mapping
+                ConnectionToUser[Context.ConnectionId] = userId;
+                UserConnections.AddOrUpdate(userId, 
+                    new ConcurrentBag<string> { Context.ConnectionId },
+                    (_, existing) => 
+                    {
+                        existing.Add(Context.ConnectionId);
+                        return existing;
+                    });
+
+                // Cập nhật last activity
+                LastActivity[userId] = DateTime.UtcNow;
+
+                // Cập nhật trạng thái online trong database
                 await _privateChatService.UpdateUserOnlineStatusAsync(userId, Context.ConnectionId, true);
 
-                // Thông báo cho tất cả clients về user online
-                await Clients.All.SendAsync("UserStatusChanged", new { UserId = userId, IsOnline = true });
+                // Join personal group
+                await Groups.AddToGroupAsync(Context.ConnectionId, $"user_{userId}");
 
-                // Gửi danh sách tin nhắn chưa đọc cho user vừa kết nối
+                // Thông báo user online (chỉ gửi cho users khác)
+                await Clients.AllExcept(Context.ConnectionId)
+                    .SendAsync("UserStatusChanged", new { 
+                        UserId = userId, 
+                        UserName = userName,
+                        IsOnline = true,
+                        LastSeen = DateTime.UtcNow
+                    });
+
+                // Gửi thông tin kết nối thành công
+                await Clients.Caller.SendAsync("Connected", new {
+                    UserId = userId,
+                    Context.ConnectionId,
+                    ConnectedAt = DateTime.UtcNow
+                });
+
+                // Gửi tin nhắn chưa đọc
                 var unreadMessages = await _privateChatService.GetUnreadMessagesAsync(userId);
-                if (unreadMessages.Any())
+                if (unreadMessages != null && unreadMessages.Any())
                 {
                     await Clients.Caller.SendAsync("UnreadMessages", unreadMessages);
                 }
-            }
 
-            await base.OnConnectedAsync();
+                // Gửi danh sách users online
+                var onlineUsers = await GetOnlineUsersInternal();
+                await Clients.Caller.SendAsync("OnlineUsers", onlineUsers);
+
+                _logger.LogInformation("User {UserId} connected with ConnectionId {ConnectionId}", userId, Context.ConnectionId);
+                await base.OnConnectedAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in OnConnectedAsync for ConnectionId {ConnectionId}", Context.ConnectionId);
+                throw;
+            }
         }
 
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
-            var userId = GetCurrentUserId();
-            if (userId > 0)
+            try
             {
-                // Xóa connection khỏi dictionary
-                lock (_userConnections)
+                if (ConnectionToUser.TryRemove(Context.ConnectionId, out var userId))
                 {
-                    if (_userConnections.ContainsKey(userId))
+                    var userName = GetCurrentUserName();
+                    
+                    // Xóa connection
+                    if (UserConnections.TryGetValue(userId, out var connections))
                     {
-                        _userConnections[userId].Remove(Context.ConnectionId);
-                        if (!_userConnections[userId].Any())
+                        // Tạo bag mới không chứa connection này
+                        var newConnections = new ConcurrentBag<string>(
+                            connections.Where(c => c != Context.ConnectionId)
+                        );
+                        
+                        if (newConnections.IsEmpty)
                         {
-                            _userConnections.Remove(userId);
+                            UserConnections.TryRemove(userId, out _);
+                            LastActivity[userId] = DateTime.UtcNow;
+                            
+                            // User offline
+                            await _privateChatService.UpdateUserOnlineStatusAsync(userId, Context.ConnectionId, false);
+                            await Clients.All.SendAsync("UserStatusChanged", new { 
+                                UserId = userId,
+                                UserName = userName,
+                                IsOnline = false,
+                                LastSeen = DateTime.UtcNow
+                            });
+                        }
+                        else
+                        {
+                            UserConnections[userId] = newConnections;
                         }
                     }
+
+                    _logger.LogInformation("User {UserId} disconnected. ConnectionId: {ConnectionId}, Exception: {Exception}", 
+                        userId, Context.ConnectionId, exception?.Message);
                 }
 
-                // Kiểm tra xem user còn connection nào khác không
-                bool isStillOnline;
-                lock (_userConnections)
-                {
-                    isStillOnline = _userConnections.ContainsKey(userId) && _userConnections[userId].Any();
-                }
-
-                // Cập nhật trạng thái offline nếu không còn connection nào
-                if (!isStillOnline)
-                {
-                    await _privateChatService.UpdateUserOnlineStatusAsync(userId, Context.ConnectionId, false);
-                    await Clients.All.SendAsync("UserStatusChanged", new { UserId = userId, IsOnline = false });
-                }
+                await base.OnDisconnectedAsync(exception);
             }
-
-            await base.OnDisconnectedAsync(exception);
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in OnDisconnectedAsync for ConnectionId {ConnectionId}", Context.ConnectionId);
+            }
         }
 
-        public async Task SendMessage(SendMessageDto messageDto)
+        public async Task SendMessage(int receiverId, string message)
         {
-            var senderId = GetCurrentUserId();
-            if (senderId <= 0) return;
-
             try
             {
-                // Lưu tin nhắn vào database
+                var senderId = GetCurrentUserId();
+                if (senderId <= 0)
+                {
+                    await Clients.Caller.SendAsync("Error", "Unauthorized");
+                    return;
+                }
+
+                // Validate input
+                if (string.IsNullOrWhiteSpace(message) || message.Length > 1000)
+                {
+                    await Clients.Caller.SendAsync("Error", "Tin nhắn không hợp lệ hoặc quá dài");
+                    return;
+                }
+
+                // Rate limiting check
+                if (!CheckRateLimit(senderId))
+                {
+                    await Clients.Caller.SendAsync("Error", "Bạn đang gửi tin nhắn quá nhanh. Vui lòng chờ một chút.");
+                    return;
+                }
+
+                // Validate receiver exists
+                var receiverExists = await _context.Users.AnyAsync(u => u.UserId == receiverId);
+                if (!receiverExists)
+                {
+                    await Clients.Caller.SendAsync("Error", "Người nhận không tồn tại");
+                    return;
+                }
+
+                var messageDto = new SendMessageDto 
+                { 
+                    ReceiverId = receiverId, 
+                    Message = message.Trim()
+                };
+
+                // Lưu tin nhắn
                 var savedMessage = await _privateChatService.SendMessageAsync(senderId, messageDto);
 
-                // Gửi tin nhắn đến người nhận (nếu đang online)
-                var receiverConnectionIds = GetUserConnections(messageDto.ReceiverId);
+                // Gửi đến người nhận
+                var receiverConnectionIds = GetUserConnections(receiverId);
                 if (receiverConnectionIds.Any())
                 {
-                    await Clients.Clients(receiverConnectionIds).SendAsync("ReceiveMessage", savedMessage);
-                }
+                    await Clients.Clients(receiverConnectionIds).SendAsync("ReceiveMessage", new {
+                        savedMessage.Id,
+                        SenderId = senderId,
+                        savedMessage.SenderName,
+                        Content = savedMessage.Message,
+                        savedMessage.SentAt,
+                        IsRead = false
+                    });
 
-                // Gửi xác nhận về cho người gửi
-                await Clients.Caller.SendAsync("MessageSent", savedMessage);
-
-                // Thông báo về tin nhắn mới cho người nhận (để cập nhật badge số lượng)
-                if (receiverConnectionIds.Any())
-                {
-                    var unreadCount = await _privateChatService.GetUnreadMessageCountAsync(messageDto.ReceiverId);
+                    // Cập nhật unread count cho receiver
+                    var unreadCount = await _privateChatService.GetUnreadMessageCountAsync(receiverId);
                     await Clients.Clients(receiverConnectionIds).SendAsync("UnreadCountUpdated", unreadCount);
                 }
+
+                // Xác nhận gửi thành công cho sender
+                await Clients.Caller.SendAsync("MessageSent", new {
+                    savedMessage.Id,
+                    ReceiverId = receiverId,
+                    Content = savedMessage.Message,
+                    savedMessage.SentAt,
+                    Status = "sent"
+                });
+
+                _logger.LogInformation("Message sent from {SenderId} to {ReceiverId}", senderId, receiverId);
             }
             catch (Exception ex)
             {
-                await Clients.Caller.SendAsync("Error", $"Không thể gửi tin nhắn: {ex.Message}");
+                _logger.LogError(ex, "Error sending message from user {SenderId} to {ReceiverId}", GetCurrentUserId(), receiverId);
+                await Clients.Caller.SendAsync("Error", "Không thể gửi tin nhắn. Vui lòng thử lại.");
             }
         }
 
-        public async Task MarkMessageAsRead(int messageId)
+        public async Task MarkMessagesAsRead(int senderId)
         {
-            var userId = GetCurrentUserId();
-            if (userId <= 0) return;
-
             try
             {
-                var success = await _privateChatService.MarkMessageAsReadAsync(messageId, userId);
-                if (success)
-                {
-                    await Clients.Caller.SendAsync("MessageMarkedAsRead", messageId);
+                var userId = GetCurrentUserId();
+                if (userId <= 0) return;
 
-                    // Cập nhật số lượng tin nhắn chưa đọc
-                    var unreadCount = await _privateChatService.GetUnreadMessageCountAsync(userId);
-                    await Clients.Caller.SendAsync("UnreadCountUpdated", unreadCount);
+                await _privateChatService.MarkConversationAsReadAsync(userId, senderId);
+                
+                // Thông báo messages đã được đọc
+                var senderConnectionIds = GetUserConnections(senderId);
+                if (senderConnectionIds.Any())
+                {
+                    await Clients.Clients(senderConnectionIds).SendAsync("MessagesMarkedAsRead", new {
+                        ReaderId = userId,
+                        ConversationWith = senderId
+                    });
+                }
+
+                // Cập nhật unread count
+                var unreadCount = await _privateChatService.GetUnreadMessageCountAsync(userId);
+                await Clients.Caller.SendAsync("UnreadCountUpdated", unreadCount);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error marking messages as read for user {UserId}", GetCurrentUserId());
+                await Clients.Caller.SendAsync("Error", "Không thể đánh dấu tin nhắn đã đọc");
+            }
+        }
+
+        public async Task JoinConversation(int otherUserId)
+        {
+            try
+            {
+                var userId = GetCurrentUserId();
+                if (userId <= 0) return;
+
+                var conversationId = GenerateConversationId(userId, otherUserId);
+                await Groups.AddToGroupAsync(Context.ConnectionId, conversationId);
+                
+                // Tự động mark messages as read khi join conversation
+                await MarkMessagesAsRead(otherUserId);
+                
+                await Clients.Caller.SendAsync("JoinedConversation", new { 
+                    ConversationId = conversationId,
+                    OtherUserId = otherUserId
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error joining conversation for user {UserId}", GetCurrentUserId());
+            }
+        }
+
+        public async Task LeaveConversation(int otherUserId)
+        {
+            try
+            {
+                var userId = GetCurrentUserId();
+                if (userId <= 0) return;
+
+                var conversationId = GenerateConversationId(userId, otherUserId);
+                await Groups.RemoveFromGroupAsync(Context.ConnectionId, conversationId);
+                
+                await Clients.Caller.SendAsync("LeftConversation", new { 
+                    ConversationId = conversationId,
+                    OtherUserId = otherUserId
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error leaving conversation for user {UserId}", GetCurrentUserId());
+            }
+        }
+
+        public async Task StartTyping(int receiverId)
+        {
+            try
+            {
+                var senderId = GetCurrentUserId();
+                if (senderId <= 0) return;
+
+                var receiverConnectionIds = GetUserConnections(receiverId);
+                if (receiverConnectionIds.Any())
+                {
+                    await Clients.Clients(receiverConnectionIds).SendAsync("UserStartedTyping", new {
+                        UserId = senderId,
+                        UserName = GetCurrentUserName()
+                    });
                 }
             }
             catch (Exception ex)
             {
-                await Clients.Caller.SendAsync("Error", $"Không thể đánh dấu tin nhắn đã đọc: {ex.Message}");
+                _logger.LogError(ex, "Error in StartTyping for user {UserId}", GetCurrentUserId());
             }
         }
 
-        public async Task MarkConversationAsRead(int otherUserId)
+        public async Task StopTyping(int receiverId)
         {
-            var userId = GetCurrentUserId();
-            if (userId <= 0) return;
-
             try
             {
-                var success = await _privateChatService.MarkConversationAsReadAsync(userId, otherUserId);
-                if (success)
-                {
-                    await Clients.Caller.SendAsync("ConversationMarkedAsRead", otherUserId);
+                var senderId = GetCurrentUserId();
+                if (senderId <= 0) return;
 
-                    // Cập nhật số lượng tin nhắn chưa đọc
-                    var unreadCount = await _privateChatService.GetUnreadMessageCountAsync(userId);
-                    await Clients.Caller.SendAsync("UnreadCountUpdated", unreadCount);
+                var receiverConnectionIds = GetUserConnections(receiverId);
+                if (receiverConnectionIds.Any())
+                {
+                    await Clients.Clients(receiverConnectionIds).SendAsync("UserStoppedTyping", new {
+                        UserId = senderId,
+                        UserName = GetCurrentUserName()
+                    });
                 }
             }
             catch (Exception ex)
             {
-                await Clients.Caller.SendAsync("Error", $"Không thể đánh dấu cuộc trò chuyện đã đọc: {ex.Message}");
+                _logger.LogError(ex, "Error in StopTyping for user {UserId}", GetCurrentUserId());
             }
-        }
-
-        public async Task JoinConversation(string conversationId)
-        {
-            await Groups.AddToGroupAsync(Context.ConnectionId, $"Conversation_{conversationId}");
-        }
-
-        public async Task LeaveConversation(string conversationId)
-        {
-            await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"Conversation_{conversationId}");
         }
 
         public async Task GetOnlineUsers()
         {
             try
             {
-                var onlineUsers = await _privateChatService.GetOnlineUsersAsync();
+                var onlineUsers = await GetOnlineUsersInternal();
                 await Clients.Caller.SendAsync("OnlineUsers", onlineUsers);
             }
             catch (Exception ex)
             {
-                await Clients.Caller.SendAsync("Error", $"Không thể lấy danh sách người dùng online: {ex.Message}");
+                _logger.LogError(ex, "Error getting online users");
+                await Clients.Caller.SendAsync("Error", "Không thể lấy danh sách người dùng online");
             }
         }
 
-        public async Task StartTyping(int receiverId)
+        public async Task<IEnumerable<object>> GetAllUsers()
         {
-            var senderId = GetCurrentUserId();
-            if (senderId <= 0) return;
-
-            var receiverConnectionIds = GetUserConnections(receiverId);
-            if (receiverConnectionIds.Any())
+            try
             {
-                await Clients.Clients(receiverConnectionIds).SendAsync("UserStartedTyping", senderId);
+                var currentUserId = GetCurrentUserId();
+                var users = await _context.Users
+                    .AsNoTracking()
+                    .Where(u => u.UserId != currentUserId)
+                    .Select(u => new { 
+                        u.UserId, 
+                        u.UserName,
+                        IsOnline = UserConnections.ContainsKey(u.UserId),
+                        LastActivity = LastActivity.GetValueOrDefault(u.UserId, DateTime.MinValue)
+                    })
+                    .ToListAsync();
+                
+                return users;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting all users");
+                return Enumerable.Empty<object>();
             }
         }
 
-        public async Task StopTyping(int receiverId)
-        {
-            var senderId = GetCurrentUserId();
-            if (senderId <= 0) return;
-
-            var receiverConnectionIds = GetUserConnections(receiverId);
-            if (receiverConnectionIds.Any())
-            {
-                await Clients.Clients(receiverConnectionIds).SendAsync("UserStoppedTyping", senderId);
-            }
-        }
-
+        // Private helper methods
         private int GetCurrentUserId()
         {
             var userIdClaim = Context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (int.TryParse(userIdClaim, out int userId))
-            {
-                return userId;
-            }
-            return 0;
+            return int.TryParse(userIdClaim, out int userId) ? userId : 0;
+        }
+
+        private string GetCurrentUserName()
+        {
+            return Context.User?.FindFirst(ClaimTypes.Name)?.Value ?? "Unknown";
         }
 
         private List<string> GetUserConnections(int userId)
         {
-            lock (_userConnections)
+            return UserConnections.TryGetValue(userId, out var connections) 
+                ? connections.ToList() 
+                : new List<string>();
+        }
+
+        private string GenerateConversationId(int userId1, int userId2)
+        {
+            var min = Math.Min(userId1, userId2);
+            var max = Math.Max(userId1, userId2);
+            return $"conversation_{min}_{max}";
+        }
+
+        private bool CheckRateLimit(int userId)
+        {
+            var now = DateTime.UtcNow;
+            var queue = MessageRateLimit.GetOrAdd(userId, _ => new Queue<DateTime>());
+
+            lock (queue)
             {
-                return _userConnections.ContainsKey(userId)
-                    ? _userConnections[userId].ToList()
-                    : new List<string>();
+                // Xóa messages cũ hơn 1 phút
+                while (queue.Count > 0 && (now - queue.Peek()).TotalMinutes > 1)
+                {
+                    queue.Dequeue();
+                }
+
+                // Kiểm tra rate limit
+                if (queue.Count >= MaxMessagesPerMinute)
+                {
+                    return false;
+                }
+
+                queue.Enqueue(now);
+                return true;
+            }
+        }
+
+        private async Task<IEnumerable<object>> GetOnlineUsersInternal()
+        {
+            try
+            {
+                var currentUserId = GetCurrentUserId();
+                var onlineUserIds = UserConnections.Keys.Where(id => id != currentUserId).ToList();
+                
+                if (!onlineUserIds.Any())
+                    return Enumerable.Empty<object>();
+
+                var users = await _context.Users
+                    .AsNoTracking()
+                    .Where(u => onlineUserIds.Contains(u.UserId))
+                    .Select(u => new {
+                        u.UserId,
+                        u.UserName,
+                        IsOnline = true,
+                        LastActivity = LastActivity.GetValueOrDefault(u.UserId, DateTime.UtcNow),
+                        ConnectionCount = UserConnections[u.UserId].Count
+                    })
+                    .ToListAsync();
+
+                return users;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in GetOnlineUsersInternal");
+                return Enumerable.Empty<object>();
+            }
+        }
+
+        // Cleanup method - có thể gọi từ background service
+        public static void CleanupInactiveConnections()
+        {
+            var cutoff = DateTime.UtcNow.AddMinutes(-30);
+            var inactiveUsers = LastActivity
+                .Where(kvp => kvp.Value < cutoff)
+                .Select(kvp => kvp.Key)
+                .ToList();
+
+            foreach (var userId in inactiveUsers)
+            {
+                UserConnections.TryRemove(userId, out _);
+                LastActivity.TryRemove(userId, out _);
+                MessageRateLimit.TryRemove(userId, out _);
             }
         }
     }
