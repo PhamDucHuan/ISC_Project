@@ -5,7 +5,8 @@ namespace ISC_Project.Interface
 {
     public interface IFacultyStudyBlockService
     {
-        Task<IEnumerable<IFacultyStudyBlockService>> GetAllFacultyStudyBlocksAsync();
+        Task<IEnumerable<FacultyStudyBlock>> GetAllFacultyStudyBlocksAsync();
+
         Task<FacultyStudyBlock?> GetFacultyStudyBlockByIdAsync(int id);
         Task<FacultyStudyBlock> CreateFacultyStudyBlockAsync(CreateFacultyDto dto);
     }

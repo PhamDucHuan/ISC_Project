@@ -15,9 +15,11 @@ namespace ISC_Project.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<IFacultyStudyBlockService>> GetAllFacultyStudyBlocksAsync()
+        // Sửa kiểu trả về ở đây
+        public async Task<IEnumerable<FacultyStudyBlock>> GetAllFacultyStudyBlocksAsync()
         {
-            return (IEnumerable<IFacultyStudyBlockService>)await _context.FacultyStudyBlocks.ToListAsync();
+            // Bỏ việc ép kiểu và trả về trực tiếp
+            return await _context.FacultyStudyBlocks.ToListAsync();
         }
 
         public async Task<FacultyStudyBlock?> GetFacultyStudyBlockByIdAsync(int id)
