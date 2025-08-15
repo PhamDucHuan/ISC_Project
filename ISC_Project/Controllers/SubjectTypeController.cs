@@ -7,7 +7,7 @@ namespace ISC_Project.Controllers
 {
     [ApiController]
     [Route("api/subject-types")]
-    [Authorize(Roles = "Teacher")]
+    [Authorize(Roles = "Admin, Teacher")]
     public class SubjectTypeController : ControllerBase
     {
         private readonly ISubjectTypeService _service;

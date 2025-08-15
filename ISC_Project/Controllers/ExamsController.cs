@@ -78,7 +78,7 @@ namespace ISC_Project.Controllers
 
         // Example endpoint to get exam details (not yet implemented)
         [HttpGet("{id}")]
-        [Authorize(Roles = "Teacher")]
+        [Authorize(Roles = "Teacher, Admin")]
         public IActionResult GetExamById(int id)
         {
             // TODO: Implement logic to get exam details
